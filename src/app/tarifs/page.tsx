@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle2, Calculator } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { formations } from '@/data/formations';
 
 export const metadata: Metadata = {
   title: 'Tarifs | Prix des Formations Auto-école',
@@ -14,7 +13,21 @@ export const metadata: Metadata = {
   },
 };
 
-const pricingCategories = [
+interface PricingItem {
+  name: string;
+  price: number;
+  includes?: string[];
+  duration?: string;
+  note?: string;
+  popular?: boolean;
+}
+
+interface PricingCategory {
+  name: string;
+  items: PricingItem[];
+}
+
+const pricingCategories: PricingCategory[] = [
   {
     name: 'Code de la Route',
     items: [
