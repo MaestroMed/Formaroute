@@ -1,0 +1,367 @@
+# Formaroute - Auto-École Domont
+# Règles et Conventions du Projet
+
+## 🎯 Vision du Projet
+
+Site vitrine world-class pour l'auto-école Formaroute à Domont (95330).
+Design premium bleu/rouge, animations fluides, SEO local agressif.
+
+---
+
+## 📁 Structure du Projet
+
+```
+src/
+├── app/                    # Next.js App Router (pages et API)
+├── components/
+│   ├── ui/                 # Composants shadcn/ui
+│   ├── layout/             # Header, Footer, Navigation
+│   ├── sections/           # Sections réutilisables (Hero, Services, etc.)
+│   └── common/             # Composants génériques (Button, Card, etc.)
+├── lib/                    # Utilitaires, clients (Sanity, Resend)
+├── hooks/                  # Custom React hooks
+├── types/                  # Types TypeScript
+└── data/                   # Données statiques (villes, formations, etc.)
+```
+
+---
+
+## 🛠️ Stack Technologique
+
+- **Framework**: Next.js 14+ (App Router)
+- **Language**: TypeScript (strict mode)
+- **Styling**: Tailwind CSS 3.4+
+- **UI Components**: shadcn/ui
+- **Animations**: Framer Motion 11+
+- **Forms**: React Hook Form + Zod
+- **Icons**: Lucide React
+- **CMS**: Sanity v3
+- **Email**: Resend
+- **Booking**: Cal.com embed
+
+---
+
+## 🎨 Design System
+
+### Couleurs Principales
+
+```css
+/* Bleu Formaroute - Confiance */
+--formaroute-blue-50: #eff6ff;
+--formaroute-blue-100: #dbeafe;
+--formaroute-blue-200: #bfdbfe;
+--formaroute-blue-300: #93c5fd;
+--formaroute-blue-400: #60a5fa;
+--formaroute-blue-500: #3b82f6;
+--formaroute-blue-600: #2563eb;
+--formaroute-blue-700: #1d4ed8;
+--formaroute-blue-800: #1e40af;
+--formaroute-blue-900: #1e3a8a;
+
+/* Rouge Formaroute - Énergie */
+--formaroute-red-50: #fef2f2;
+--formaroute-red-100: #fee2e2;
+--formaroute-red-200: #fecaca;
+--formaroute-red-300: #fca5a5;
+--formaroute-red-400: #f87171;
+--formaroute-red-500: #ef4444;
+--formaroute-red-600: #dc2626;
+--formaroute-red-700: #b91c1c;
+--formaroute-red-800: #991b1b;
+--formaroute-red-900: #7f1d1d;
+```
+
+### Typographie
+
+- **Headings**: Clash Display ou Satoshi (distincts, modernes)
+- **Body**: Inter ou DM Sans (lisible, professionnel)
+- **Accents**: JetBrains Mono pour les chiffres/prix
+
+### Espacements
+
+Utiliser les classes Tailwind standards: `p-4`, `m-6`, `gap-8`, etc.
+Préférer les multiples de 4 (4, 8, 12, 16, 20, 24, 32, 48, 64, 96).
+
+---
+
+## 📝 Conventions de Code
+
+### Nommage
+
+- **Composants**: PascalCase (`HeroSection.tsx`, `PricingTable.tsx`)
+- **Fonctions/Variables**: camelCase (`handleSubmit`, `isLoading`)
+- **Fichiers pages**: kebab-case (`code-de-la-route/page.tsx`)
+- **Types/Interfaces**: PascalCase avec préfixe descriptif (`FormationData`, `ContactFormValues`)
+- **Constantes**: SCREAMING_SNAKE_CASE (`MAX_ITEMS`, `API_URL`)
+
+### Composants React
+
+```tsx
+// Structure standard d'un composant
+'use client'; // Seulement si nécessaire (interactivité)
+
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
+
+interface HeroSectionProps {
+  title: string;
+  subtitle?: string;
+  className?: string;
+}
+
+export function HeroSection({ title, subtitle, className }: HeroSectionProps) {
+  return (
+    <section className={cn('relative py-24', className)}>
+      <motion.h1
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-5xl font-bold"
+      >
+        {title}
+      </motion.h1>
+    </section>
+  );
+}
+```
+
+### Imports
+
+Ordre des imports:
+1. React/Next.js
+2. Librairies externes
+3. Composants locaux
+4. Utilitaires/hooks
+5. Types
+6. Styles
+
+```tsx
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+
+import { Button } from '@/components/ui/button';
+import { HeroSection } from '@/components/sections/Hero';
+
+import { cn } from '@/lib/utils';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+
+import type { Formation } from '@/types';
+```
+
+---
+
+## 🎬 Animations
+
+### Principes
+
+- Utiliser Framer Motion pour toutes les animations
+- Durées: 0.2s (micro), 0.4s (standard), 0.6s (emphasis)
+- Easing: `[0.25, 0.1, 0.25, 1]` (ease-out custom)
+- Préférer les animations au scroll (intersection observer)
+
+### Variants Standards
+
+```tsx
+// Fade in depuis le bas
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5 }
+};
+
+// Stagger pour les listes
+const staggerContainer = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+```
+
+---
+
+## 🔍 SEO
+
+### Metadata Obligatoires
+
+Chaque page DOIT avoir:
+- `title` (50-60 caractères, mot-clé principal en premier)
+- `description` (150-160 caractères, call-to-action)
+- `openGraph` (titre, description, image)
+- `canonical` URL
+
+### Structure des Titres
+
+```
+Page Principale: [Mot-clé] | [Bénéfice] | Formaroute
+Exemple: Auto-école Domont | Permis B, Code, AAC | Formaroute
+
+Page Formation: [Formation] à [Ville] | [Détail] | Formaroute
+Exemple: Permis B à Domont | Formation Complète dès 1290€ | Formaroute
+```
+
+### Images
+
+- Toujours utiliser `next/image`
+- Alt text descriptif et contextualisé
+- Format WebP/AVIF
+- Lazy loading par défaut
+
+---
+
+## 📱 Responsive Design
+
+### Breakpoints (Tailwind)
+
+- `sm`: 640px (mobile large)
+- `md`: 768px (tablette)
+- `lg`: 1024px (desktop)
+- `xl`: 1280px (desktop large)
+- `2xl`: 1536px (ultra-wide)
+
+### Approche
+
+Mobile-first: commencer par le mobile, ajouter les breakpoints.
+
+```tsx
+<div className="px-4 md:px-8 lg:px-16">
+  <h1 className="text-3xl md:text-4xl lg:text-6xl">
+    Titre
+  </h1>
+</div>
+```
+
+---
+
+## ♿ Accessibilité
+
+### Règles Obligatoires
+
+- Contraste AA minimum (4.5:1 texte, 3:1 UI)
+- Focus visible sur tous les éléments interactifs
+- Labels pour tous les inputs
+- Alt text pour toutes les images
+- Structure de headings logique (h1 → h2 → h3)
+- Navigation au clavier fonctionnelle
+
+```tsx
+<button
+  className="focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+  aria-label="Réserver une évaluation gratuite"
+>
+  Réserver
+</button>
+```
+
+---
+
+## 🚀 Performance
+
+### Objectifs Core Web Vitals
+
+- LCP (Largest Contentful Paint): < 2.5s
+- FID (First Input Delay): < 100ms
+- CLS (Cumulative Layout Shift): < 0.1
+
+### Bonnes Pratiques
+
+- Lazy load des images et composants lourds
+- Preload des fonts critiques
+- Éviter les layout shifts (dimensions fixes)
+- Minimiser le JavaScript côté client
+- Utiliser SSG pour les pages statiques
+
+---
+
+## 📂 Fichiers Spéciaux
+
+### Layout Root (`src/app/layout.tsx`)
+
+Contient:
+- Fonts (preload)
+- Schema.org JSON-LD (DrivingSchool)
+- Google Analytics/Tag Manager
+- Metadata globales
+
+### Sitemap (`src/app/sitemap.ts`)
+
+Généré dynamiquement avec toutes les pages.
+
+### Robots (`src/app/robots.ts`)
+
+Configuration pour les crawlers.
+
+---
+
+## 🔐 Variables d'Environnement
+
+```env
+# API Keys
+RESEND_API_KEY=
+NEXT_PUBLIC_SANITY_PROJECT_ID=
+NEXT_PUBLIC_SANITY_DATASET=
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=
+
+# Cal.com
+NEXT_PUBLIC_CAL_LINK=
+
+# Analytics
+NEXT_PUBLIC_GA_ID=
+
+# Site
+NEXT_PUBLIC_SITE_URL=https://formaroute.fr
+```
+
+---
+
+## 📋 Checklist Avant Commit
+
+- [ ] TypeScript compile sans erreurs
+- [ ] ESLint passe sans warnings
+- [ ] Responsive testé (mobile, tablette, desktop)
+- [ ] Accessibilité vérifiée (navigation clavier, contraste)
+- [ ] Images optimisées (WebP, lazy load)
+- [ ] Metadata SEO présentes
+- [ ] Animations fluides (60fps)
+
+---
+
+## 🏷️ Git Conventions
+
+### Branches
+
+- `main` - Production
+- `develop` - Développement
+- `feature/nom-feature` - Nouvelles fonctionnalités
+- `fix/nom-fix` - Corrections
+
+### Commits
+
+Format: `type(scope): description`
+
+Types:
+- `feat`: Nouvelle fonctionnalité
+- `fix`: Correction de bug
+- `style`: Changements de style (CSS, formatting)
+- `refactor`: Refactoring de code
+- `docs`: Documentation
+- `chore`: Maintenance
+
+Exemples:
+```
+feat(hero): add parallax animation
+fix(contact): resolve form validation error
+style(button): update hover state colors
+```
+
+---
+
+## 🎯 Objectifs du Projet
+
+1. **Design World-Class**: Esthétique premium, animations fluides
+2. **SEO Dominant**: Position 1-3 sur "auto école domont"
+3. **Conversion Maximale**: CTA clairs, parcours utilisateur optimisé
+4. **Performance A+**: Lighthouse 90+ sur tous les metrics
+5. **Accessibilité AA**: Site utilisable par tous
