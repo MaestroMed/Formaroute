@@ -22,7 +22,7 @@ const features = [
     icon: Clock,
     title: 'Horaires flexibles',
     description:
-      'Nous adaptons nos horaires à votre emploi du temps avec des créneaux en journée, soirée et le samedi.',
+      "Nos horaires s'adaptent à votre emploi du temps : du lundi au vendredi de 10h à 12h et de 15h à 20h, et le samedi de 10h à 13h.",
     color: 'from-green-500 to-green-600',
   },
   {

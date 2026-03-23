@@ -46,10 +46,10 @@ export function Header() {
             className="flex items-center gap-2 text-2xl font-bold"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-formaroute-blue-600">
-              <span className="font-heading text-xl text-white">F</span>
+              <span className="font-heading text-xl font-black text-white">F</span>
             </div>
             <span className={cn(
-              'font-heading transition-colors',
+              'font-heading text-2xl font-black tracking-tight transition-colors',
               isScrolled ? 'text-slate-900' : 'text-slate-900'
             )}>
               Forma<span className="text-formaroute-red-600">route</span>
@@ -128,7 +128,7 @@ export function Header() {
           {/* CTA Buttons */}
           <div className="hidden items-center gap-4 lg:flex">
             <a
-              href="tel:+33XXXXXXXXX"
+              href="tel:+33134198326"
               className={cn(
                 'flex items-center gap-2 text-sm font-medium transition-colors',
                 isScrolled
@@ -137,7 +137,7 @@ export function Header() {
               )}
             >
               <Phone className="h-4 w-4" />
-              <span>01 XX XX XX XX</span>
+              <span>01 34 19 83 26</span>
             </a>
             <Button asChild>
               <Link href="/reservation">Réserver</Link>
@@ -199,11 +199,11 @@ export function Header() {
 
               <div className="mt-4 flex flex-col gap-3 border-t border-slate-200 pt-4">
                 <a
-                  href="tel:+33XXXXXXXXX"
+                  href="tel:+33134198326"
                   className="flex items-center justify-center gap-2 rounded-lg border border-slate-200 px-4 py-3 font-medium text-slate-700"
                 >
                   <Phone className="h-5 w-5" />
-                  <span>01 XX XX XX XX</span>
+                  <span>01 34 19 83 26</span>
                 </a>
                 <Button asChild size="lg" className="w-full">
                   <Link href="/reservation">Réserver une évaluation</Link>

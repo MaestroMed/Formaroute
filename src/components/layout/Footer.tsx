@@ -28,23 +28,23 @@ export function Footer() {
             {/* Contact Info */}
             <div className="space-y-3">
               <a
-                href="https://maps.google.com/?q=Domont,France"
+                href="https://maps.google.com/?q=4+avenue+Jean+Jaur%C3%A8s+Domont+95330"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-start gap-3 transition-colors hover:text-white"
               >
                 <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-formaroute-blue-500" />
                 <span>
-                  [Adresse à compléter]<br />
+                  4 avenue Jean Jaurès<br />
                   95330 Domont
                 </span>
               </a>
               <a
-                href="tel:+33XXXXXXXXX"
+                href="tel:+33134198326"
                 className="flex items-center gap-3 transition-colors hover:text-white"
               >
                 <Phone className="h-5 w-5 text-formaroute-blue-500" />
-                <span>01 XX XX XX XX</span>
+                <span>01 34 19 83 26</span>
               </a>
               <a
                 href="mailto:contact@formaroute.fr"
@@ -56,8 +56,8 @@ export function Footer() {
               <div className="flex items-start gap-3">
                 <Clock className="mt-0.5 h-5 w-5 shrink-0 text-formaroute-blue-500" />
                 <span>
-                  Lun - Ven : 9h - 19h<br />
-                  Samedi : 9h - 17h
+                  Lun - Ven : 10h - 12h et 15h - 20h<br />
+                  Samedi : 10h - 13h
                 </span>
               </div>
             </div>

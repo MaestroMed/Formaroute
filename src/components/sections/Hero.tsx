@@ -130,9 +130,14 @@ export function Hero() {
                   ))}
                   <span className="ml-1 font-semibold text-slate-900">4.8/5</span>
                 </div>
-                <p className="text-sm text-slate-600">
-                  +100 élèves satisfaits
-                </p>
+                <a
+                  href="https://g.page/r/CVku8ribbwIZEAE/review"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-formaroute-blue-600 hover:underline"
+                >
+                  Voir nos avis Google
+                </a>
               </div>
             </motion.div>
           </motion.div>
@@ -155,10 +160,10 @@ export function Hero() {
                     <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/20">
                       <span className="text-4xl">🚗</span>
                     </div>
-                    <div>
-                      <p className="text-sm text-white/70">Permis B</p>
-                      <p className="text-2xl font-bold text-white">à partir de 1 290€</p>
-                    </div>
+                  <div>
+                    <p className="text-sm text-white/70">Permis B</p>
+                    <p className="text-2xl font-bold text-white">à partir de 1 090€</p>
+                  </div>
                   </div>
 
                   <div className="h-px bg-white/20" />

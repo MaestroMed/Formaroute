@@ -29,33 +29,36 @@ interface PricingCategory {
 
 const pricingCategories: PricingCategory[] = [
   {
-    name: 'Code de la Route',
+    name: 'Stage de Code Accéléré',
     items: [
-      { name: 'Forfait code seul', price: 350, includes: ['Accès plateforme illimité', 'Sessions en salle', 'Tests blancs'] },
+      { name: 'Forfait stage de code accéléré', price: 350, includes: ['Accès plateforme illimité', 'Sessions en salle', 'Tests blancs'] },
       { name: 'Accès code en ligne', price: 50, duration: '3 mois' },
     ],
   },
   {
     name: 'Permis B',
     items: [
-      { name: 'Forfait 20h (minimum légal)', price: 1290, includes: ['Code inclus', '20h de conduite', 'Accompagnement examen'] },
-      { name: 'Forfait 25h', price: 1490, includes: ['Code inclus', '25h de conduite', 'Accompagnement examen'], popular: true },
-      { name: 'Forfait 30h', price: 1690, includes: ['Code inclus', '30h de conduite', 'Accompagnement examen'] },
+      { name: 'Forfait 20h (minimum légal)', price: 1090, includes: ['Code inclus', '20h de conduite', 'Accompagnement examen'], popular: true },
       { name: 'Heure supplémentaire', price: 55 },
     ],
   },
   {
     name: 'Conduite Accompagnée',
     items: [
-      { name: 'Forfait AAC complet', price: 1190, includes: ['Code inclus', '20h de conduite', '2 RDV pédagogiques'] },
+      { name: 'Forfait AAC complet', price: 1350, includes: ['Code inclus', '20h de conduite', '2 RDV pédagogiques'] },
       { name: 'RDV pédagogique', price: 90, duration: 'à l\'unité' },
+    ],
+  },
+  {
+    name: 'Permis Accéléré',
+    items: [
+      { name: 'Forfait permis accéléré', price: 1390, includes: ['Code inclus', '20h de conduite intensive', 'Passage rapide des examens'] },
     ],
   },
   {
     name: 'Autres Formations',
     items: [
-      { name: 'Permis boîte automatique (13h)', price: 990 },
-      { name: 'Stage récupération points', price: 250, duration: '2 jours' },
+      { name: 'Stage récupération points', price: 250, duration: '2 jours', note: 'Disponible à partir de mai 2026' },
       { name: 'Heure perfectionnement', price: 55 },
       { name: 'Évaluation initiale', price: 0, note: 'Gratuite' },
     ],

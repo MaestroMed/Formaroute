@@ -16,14 +16,14 @@ const contactInfo = [
   {
     icon: MapPin,
     title: 'Adresse',
-    content: '[Adresse à compléter]\n95330 Domont',
-    link: 'https://maps.google.com/?q=Domont,France',
+    content: '4 avenue Jean Jaurès\n95330 Domont',
+    link: 'https://maps.google.com/?q=4+avenue+Jean+Jaur%C3%A8s+Domont+95330',
   },
   {
     icon: Phone,
     title: 'Téléphone',
-    content: '01 XX XX XX XX',
-    link: 'tel:+33XXXXXXXXX',
+    content: '01 34 19 83 26',
+    link: 'tel:+33134198326',
   },
   {
     icon: Mail,
@@ -34,7 +34,7 @@ const contactInfo = [
   {
     icon: Clock,
     title: 'Horaires',
-    content: 'Lun - Ven : 9h - 19h\nSamedi : 9h - 17h',
+    content: 'Lun - Ven : 10h - 12h et 15h - 20h\nSamedi : 10h - 13h',
   },
 ];
 

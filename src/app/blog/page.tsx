@@ -21,7 +21,7 @@ const blogPosts = [
     excerpt:
       "Découvrez nos 10 conseils pour maximiser vos chances de réussite à l'examen du code de la route dès la première tentative.",
     category: 'Conseils',
-    date: '2024-01-15',
+    date: '2025-11-10',
     readingTime: 5,
     image: '/blog/code.jpg',
   },
@@ -31,17 +31,17 @@ const blogPosts = [
     excerpt:
       "Tout ce que les parents doivent savoir sur la conduite accompagnée : conditions, démarches, assurance et conseils pratiques.",
     category: 'Guides',
-    date: '2024-01-10',
+    date: '2025-10-20',
     readingTime: 8,
     image: '/blog/aac.jpg',
   },
   {
-    slug: 'nouvelles-regles-permis-2024',
-    title: 'Nouvelles règles du permis de conduire en 2024',
+    slug: 'nouvelles-regles-permis-2025',
+    title: 'Nouvelles règles du permis de conduire en 2025',
     excerpt:
       "Les principales évolutions réglementaires du permis de conduire cette année : ce qui change pour les candidats.",
     category: 'Réglementation',
-    date: '2024-01-05',
+    date: '2025-09-05',
     readingTime: 4,
     image: '/blog/regles.jpg',
   },
@@ -51,7 +51,7 @@ const blogPosts = [
     excerpt:
       "Comment fonctionne le stage de récupération de points ? Conditions, déroulement, prix... On vous explique tout.",
     category: 'Guides',
-    date: '2023-12-20',
+    date: '2025-08-15',
     readingTime: 6,
     image: '/blog/points.jpg',
   },
@@ -61,19 +61,19 @@ const blogPosts = [
     excerpt:
       "Apprenez les techniques d'éco-conduite pour réduire votre consommation de carburant et votre impact environnemental.",
     category: 'Conseils',
-    date: '2023-12-15',
+    date: '2025-07-22',
     readingTime: 5,
     image: '/blog/eco.jpg',
   },
   {
-    slug: 'permis-boite-automatique-avantages',
-    title: 'Permis boîte automatique : les avantages',
+    slug: 'formaroute-ouvre-domont-avril-2026',
+    title: 'Formaroute ouvre ses portes à Domont le 1er avril 2026 !',
     excerpt:
-      "Pourquoi choisir le permis boîte automatique ? Moins d'heures, moins de stress, et une passerelle possible vers le manuel.",
-    category: 'Conseils',
-    date: '2023-12-10',
-    readingTime: 4,
-    image: '/blog/auto.jpg',
+      "Nous sommes ravis de vous annoncer l'ouverture officielle de l'auto-école Formaroute à Domont. Découvrez nos formations et profitez de l'offre de lancement.",
+    category: 'Actualités',
+    date: '2026-03-15',
+    readingTime: 3,
+    image: '/blog/ouverture.jpg',
   },
 ];
 
@@ -82,6 +82,7 @@ const categories = [
   { name: 'Conseils', slug: 'conseils', count: blogPosts.filter((p) => p.category === 'Conseils').length },
   { name: 'Guides', slug: 'guides', count: blogPosts.filter((p) => p.category === 'Guides').length },
   { name: 'Réglementation', slug: 'reglementation', count: blogPosts.filter((p) => p.category === 'Réglementation').length },
+  { name: 'Actualités', slug: 'actualites', count: blogPosts.filter((p) => p.category === 'Actualités').length },
 ];
 
 export default function BlogPage() {

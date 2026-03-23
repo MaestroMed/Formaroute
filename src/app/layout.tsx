@@ -105,11 +105,11 @@ const jsonLd = {
   description:
     "Auto-école à Domont (95330). Formation code de la route, permis B, conduite accompagnée, stage de récupération de points.",
   url: 'https://formaroute.fr',
-  telephone: '+33XXXXXXXXX',
+  telephone: '+33134198326',
   email: 'contact@formaroute.fr',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '[Adresse à compléter]',
+    streetAddress: '4 avenue Jean Jaurès',
     addressLocality: 'Domont',
     postalCode: '95330',
     addressCountry: 'FR',
@@ -123,14 +123,20 @@ const jsonLd = {
     {
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-      opens: '09:00',
-      closes: '19:00',
+      opens: '10:00',
+      closes: '12:00',
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '15:00',
+      closes: '20:00',
     },
     {
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: 'Saturday',
-      opens: '09:00',
-      closes: '17:00',
+      opens: '10:00',
+      closes: '13:00',
     },
   ],
   priceRange: '$$',

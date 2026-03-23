@@ -6,9 +6,9 @@ export const mainNavigation: NavItem[] = [
     href: '/formations',
     children: [
       {
-        label: 'Code de la Route',
+        label: 'Stage de Code Accéléré',
         href: '/formations/code-de-la-route',
-        description: 'Formation théorique complète',
+        description: 'Formation théorique accélérée',
         icon: 'BookOpen',
       },
       {
@@ -30,15 +30,9 @@ export const mainNavigation: NavItem[] = [
         icon: 'Users',
       },
       {
-        label: 'Boîte Automatique',
-        href: '/formations/permis-boite-auto',
-        description: 'Permis BEA en 13h',
-        icon: 'Settings',
-      },
-      {
         label: 'Stage Points',
         href: '/formations/stage-recuperation-points',
-        description: 'Récupérez 4 points',
+        description: 'Récupérez 4 points — dès mai 2026',
         icon: 'RotateCcw',
       },
     ],
@@ -76,12 +70,6 @@ export const mainNavigation: NavItem[] = [
     href: '/a-propos',
     children: [
       {
-        label: 'Notre équipe',
-        href: '/a-propos/equipe',
-        description: 'Découvrez nos moniteurs',
-        icon: 'Users',
-      },
-      {
         label: 'Nos véhicules',
         href: '/a-propos/vehicules',
         description: 'Notre flotte moderne',
@@ -113,7 +101,7 @@ export const mainNavigation: NavItem[] = [
 
 export const footerNavigation = {
   formations: [
-    { label: 'Code de la Route', href: '/formations/code-de-la-route' },
+    { label: 'Stage de Code Accéléré', href: '/formations/code-de-la-route' },
     { label: 'Permis B', href: '/formations/permis-b' },
     { label: 'Permis Accéléré', href: '/formations/permis-b-accelere' },
     { label: 'Conduite Accompagnée', href: '/formations/conduite-accompagnee' },
