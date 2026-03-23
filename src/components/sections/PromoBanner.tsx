@@ -20,7 +20,7 @@ export function PromoBanner() {
           {/* Badge ouverture */}
           <span className="flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-bold uppercase tracking-wide backdrop-blur-sm">
             <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-yellow-300" />
-            Ouverture le 1er avril 2026
+            Ouverture le 4 avril 2026
           </span>
 
           {/* Offre */}
