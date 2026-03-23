@@ -28,8 +28,8 @@ const contactInfo = [
   {
     icon: Mail,
     title: 'Email',
-    content: 'contact@formaroute.fr',
-    link: 'mailto:contact@formaroute.fr',
+    content: 'contact.formaroute@gmail.com',
+    link: 'mailto:contact.formaroute@gmail.com',
   },
   {
     icon: Clock,
@@ -96,12 +96,18 @@ export default function ContactPage() {
                 return <div key={index}>{content}</div>;
               })}
 
-              {/* Map Placeholder */}
-              <div className="aspect-video overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
-                <div className="flex h-full w-full items-center justify-center text-slate-400">
-                  <MapPin className="mr-2 h-6 w-6" />
-                  Carte Google Maps
-                </div>
+              {/* Google Maps Embed */}
+              <div className="aspect-video overflow-hidden rounded-xl border border-slate-200">
+                <iframe
+                  src="https://maps.google.com/maps?q=4+avenue+Jean+Jaur%C3%A8s+Domont+95330&output=embed&hl=fr"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Formaroute - 4 avenue Jean Jaurès, Domont"
+                />
               </div>
             </div>
 

@@ -23,8 +23,8 @@ export async function POST(request: NextRequest) {
     // In production, send email via Resend
     // const resend = new Resend(process.env.RESEND_API_KEY);
     // await resend.emails.send({
-    //   from: 'Formaroute <contact@formaroute.fr>',
-    //   to: process.env.CONTACT_EMAIL || 'contact@formaroute.fr',
+    //   from: 'Formaroute <noreply@formaroute.fr>',
+    //   to: process.env.CONTACT_EMAIL || 'contact.formaroute@gmail.com',
     //   replyTo: validatedData.email,
     //   subject: `Nouveau message - ${validatedData.subject}`,
     //   html: `

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, Star, CheckCircle2 } from 'lucide-react';
+import { Star, CheckCircle2, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const fadeInUp = {
@@ -37,7 +37,7 @@ export function Hero() {
       <div className="absolute -right-40 -top-40 h-96 w-96 rounded-full bg-formaroute-blue-500/10 blur-3xl" />
       <div className="absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-formaroute-red-500/10 blur-3xl" />
 
-      <div className="container-custom relative flex min-h-screen items-center pt-20">
+      <div className="container-custom relative flex min-h-[calc(100vh-3rem)] items-center pt-6">
         <div className="grid gap-12 py-20 lg:grid-cols-2 lg:gap-20">
           {/* Left Content */}
           <motion.div
@@ -95,13 +95,13 @@ export function Hero() {
               className="mt-10 flex flex-col gap-4 sm:flex-row"
             >
               <Button asChild size="xl">
-                <Link href="/reservation">
-                  Évaluation gratuite
-                  <ArrowRight className="h-5 w-5" />
-                </Link>
+                <a href="tel:+33134198326">
+                  <Phone className="h-5 w-5" />
+                  01 34 19 83 26
+                </a>
               </Button>
               <Button asChild variant="outline" size="xl">
-                <Link href="/formations">Découvrir nos formations</Link>
+                <Link href="/contact">Nous contacter</Link>
               </Button>
             </motion.div>
 

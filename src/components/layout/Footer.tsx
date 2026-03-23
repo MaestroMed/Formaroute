@@ -47,11 +47,11 @@ export function Footer() {
                 <span>01 34 19 83 26</span>
               </a>
               <a
-                href="mailto:contact@formaroute.fr"
+                href="mailto:contact.formaroute@gmail.com"
                 className="flex items-center gap-3 transition-colors hover:text-white"
               >
                 <Mail className="h-5 w-5 text-formaroute-blue-500" />
-                <span>contact@formaroute.fr</span>
+                <span>contact.formaroute@gmail.com</span>
               </a>
               <div className="flex items-start gap-3">
                 <Clock className="mt-0.5 h-5 w-5 shrink-0 text-formaroute-blue-500" />

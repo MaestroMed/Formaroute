@@ -106,7 +106,7 @@ const jsonLd = {
     "Auto-école à Domont (95330). Formation code de la route, permis B, conduite accompagnée, stage de récupération de points.",
   url: 'https://formaroute.fr',
   telephone: '+33134198326',
-  email: 'contact@formaroute.fr',
+  email: 'contact.formaroute@gmail.com',
   address: {
     '@type': 'PostalAddress',
     streetAddress: '4 avenue Jean Jaurès',

@@ -10,7 +10,7 @@ export function PromoBanner() {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="relative overflow-hidden bg-gradient-to-r from-formaroute-red-600 via-formaroute-red-700 to-formaroute-blue-700 py-3 text-white"
+      className="relative mt-20 overflow-hidden bg-gradient-to-r from-formaroute-red-600 via-formaroute-red-700 to-formaroute-blue-700 py-3 text-white"
     >
       {/* Background shimmer */}
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />

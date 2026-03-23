@@ -2,11 +2,53 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Phone, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { mainNavigation } from '@/data/navigation';
+
+const LOGO_PATH = '/logo/logo.svg';
+
+function Logo({ scrolled }: { scrolled: boolean }) {
+  const [hasLogo, setHasLogo] = useState(false);
+
+  useEffect(() => {
+    fetch(LOGO_PATH, { method: 'HEAD' })
+      .then((res) => setHasLogo(res.ok))
+      .catch(() => setHasLogo(false));
+  }, []);
+
+  if (hasLogo) {
+    return (
+      <Image
+        src={LOGO_PATH}
+        alt="Formaroute"
+        width={160}
+        height={40}
+        className="h-10 w-auto object-contain"
+        priority
+      />
+    );
+  }
+
+  return (
+    <>
+      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-formaroute-blue-600">
+        <span className="font-heading text-xl font-black text-white">F</span>
+      </div>
+      <span
+        className={cn(
+          'font-heading text-2xl font-black tracking-tight transition-colors',
+          scrolled ? 'text-slate-900' : 'text-slate-900'
+        )}
+      >
+        Forma<span className="text-formaroute-red-600">route</span>
+      </span>
+    </>
+  );
+}
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -45,15 +87,7 @@ export function Header() {
             href="/"
             className="flex items-center gap-2 text-2xl font-bold"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-formaroute-blue-600">
-              <span className="font-heading text-xl font-black text-white">F</span>
-            </div>
-            <span className={cn(
-              'font-heading text-2xl font-black tracking-tight transition-colors',
-              isScrolled ? 'text-slate-900' : 'text-slate-900'
-            )}>
-              Forma<span className="text-formaroute-red-600">route</span>
-            </span>
+            <Logo scrolled={isScrolled} />
           </Link>
 
           {/* Desktop Navigation */}
