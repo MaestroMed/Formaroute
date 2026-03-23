@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { mainNavigation } from '@/data/navigation';
 
-const LOGO_PATH = '/logo/logo.svg';
+const LOGO_PATH = '/logo/logo.png';
 
 function Logo({ scrolled }: { scrolled: boolean }) {
   const [hasLogo, setHasLogo] = useState(false);

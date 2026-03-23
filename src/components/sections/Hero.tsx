@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Star, CheckCircle2, Phone } from 'lucide-react';
+import { Star, CheckCircle2, Phone, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const fadeInUp = {
@@ -105,40 +105,21 @@ export function Hero() {
               </Button>
             </motion.div>
 
-            {/* Trust Indicators */}
+            {/* Google Reviews Link */}
             <motion.div
               variants={fadeInUp}
-              className="mt-10 flex items-center gap-6"
+              className="mt-10"
             >
-              <div className="flex -space-x-3">
-                {[1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-formaroute-blue-100 text-sm font-bold text-formaroute-blue-600"
-                  >
-                    {String.fromCharCode(64 + i)}
-                  </div>
-                ))}
-              </div>
-              <div>
-                <div className="flex items-center gap-1">
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <Star
-                      key={i}
-                      className="h-4 w-4 fill-yellow-400 text-yellow-400"
-                    />
-                  ))}
-                  <span className="ml-1 font-semibold text-slate-900">4.8/5</span>
-                </div>
-                <a
-                  href="https://g.page/r/CVku8ribbwIZEAE/review"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-formaroute-blue-600 hover:underline"
-                >
-                  Voir nos avis Google
-                </a>
-              </div>
+              <a
+                href="https://g.page/r/CVku8ribbwIZEAE/review"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-formaroute-blue-600 hover:underline"
+              >
+                <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                Voir nos avis sur Google
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
             </motion.div>
           </motion.div>
 
@@ -192,24 +173,7 @@ export function Hero() {
                 </div>
               </div>
 
-              {/* Floating Cards */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.6, duration: 0.5 }}
-                className="absolute -left-12 top-1/4 z-20 rounded-2xl border border-slate-200 bg-white p-4 shadow-xl"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-100 text-2xl">
-                    ✅
-                  </div>
-                  <div>
-                    <p className="font-semibold text-slate-900">Examen réussi !</p>
-                    <p className="text-sm text-slate-500">Marie L. - Permis B</p>
-                  </div>
-                </div>
-              </motion.div>
-
+              {/* Floating Card */}
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}

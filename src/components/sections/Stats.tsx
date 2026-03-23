@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Award, Users, Car, Star } from 'lucide-react';
+import { Award, Users, Car, Star, ExternalLink } from 'lucide-react';
 
 const stats = [
   {
@@ -31,15 +31,6 @@ const stats = [
     icon: Car,
     color: 'text-green-600',
     bgColor: 'bg-green-100',
-  },
-  {
-    value: 4.8,
-    suffix: '/5',
-    label: 'Note Google',
-    description: 'Voir nos avis',
-    icon: Star,
-    color: 'text-yellow-600',
-    bgColor: 'bg-yellow-100',
   },
 ];
 
@@ -122,7 +113,7 @@ export function Stats() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
         >
           {stats.map((stat, index) => {
             const Icon = stat.icon;
@@ -158,6 +149,21 @@ export function Stats() {
             );
           })}
         </motion.div>
+
+        {/* Google Reviews CTA */}
+        <div className="mt-12 text-center">
+          <a
+            href="https://g.page/r/CVku8ribbwIZEAE/review"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-800 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-slate-700"
+          >
+            <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+            Laissez-nous un avis sur Google
+            <ExternalLink className="h-4 w-4 text-slate-400" />
+          </a>
+        </div>
+
       </div>
     </section>
   );
