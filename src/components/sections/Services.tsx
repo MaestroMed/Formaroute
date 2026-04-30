@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Gift } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { formations } from '@/data/formations';
 import { FormationIcon } from '@/components/icons/FormationIcon';
@@ -64,6 +64,9 @@ export function Services() {
           {displayedFormations.map((formation) => {
             const isPopular = formation.popular;
             const isNew = formation.new;
+            const codeInclus = formation.features.some((f) =>
+              f.toLowerCase().startsWith('code valable')
+            );
 
             return (
               <motion.div key={formation.id} variants={itemVariants}>
@@ -119,13 +122,21 @@ export function Services() {
                       </div>
                     </div>
 
-                    {/* CPF Badge */}
-                    {formation.eligibleCPF && (
-                      <div className="mt-4 flex items-center gap-2 rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700">
-                        <span>✓</span>
-                        <span>Éligible CPF</span>
-                      </div>
-                    )}
+                    {/* Badges */}
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {codeInclus && (
+                        <div className="inline-flex items-center gap-1.5 rounded-lg bg-yellow-50 px-3 py-2 text-sm text-yellow-700 ring-1 ring-yellow-200">
+                          <Gift className="h-4 w-4" />
+                          <span className="font-medium">Code offert</span>
+                        </div>
+                      )}
+                      {formation.eligibleCPF && (
+                        <div className="inline-flex items-center gap-2 rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700">
+                          <span>✓</span>
+                          <span>Éligible CPF</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </Link>
               </motion.div>

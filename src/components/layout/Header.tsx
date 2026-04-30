@@ -4,10 +4,43 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Phone, ChevronDown } from 'lucide-react';
+import {
+  Menu,
+  X,
+  Phone,
+  ChevronDown,
+  Wallet,
+  Briefcase,
+  Users,
+  Car,
+  Building,
+  TrendingUp,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { mainNavigation } from '@/data/navigation';
+import { FormationIcon } from '@/components/icons/FormationIcon';
+
+const lucideIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  Wallet,
+  Briefcase,
+  Users,
+  Car,
+  Building,
+  TrendingUp,
+};
+
+function NavChildIcon({ href, icon }: { href: string; icon?: string }) {
+  if (href.startsWith('/formations/')) {
+    const slug = href.replace('/formations/', '');
+    return <FormationIcon slug={slug} className="h-5 w-5" />;
+  }
+  if (icon && lucideIconMap[icon]) {
+    const Icon = lucideIconMap[icon];
+    return <Icon className="h-5 w-5" />;
+  }
+  return null;
+}
 
 const LOGO_PATH = '/logo/logo.png';
 
@@ -137,7 +170,7 @@ export function Header() {
                             className="flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-slate-50"
                           >
                             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-formaroute-blue-100 text-formaroute-blue-600">
-                              <span className="text-lg">🚗</span>
+                              <NavChildIcon href={child.href} icon={child.icon} />
                             </div>
                             <div>
                               <p className="font-medium text-slate-900">

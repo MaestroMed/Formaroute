@@ -1,6 +1,15 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, Award, Users, Car, Heart } from 'lucide-react';
+import {
+  ArrowRight,
+  Award,
+  Users,
+  Car,
+  Heart,
+  Building,
+  TrendingUp,
+  Camera,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
@@ -111,9 +120,9 @@ export default function AProposPage() {
 
             {/* Image Placeholder */}
             <div className="flex items-center justify-center rounded-2xl bg-gradient-to-br from-formaroute-blue-100 to-slate-100 p-12">
-              <div className="text-center">
-                <span className="text-6xl">🚗</span>
-                <p className="mt-4 text-slate-500">Photo de l'auto-école</p>
+              <div className="text-center text-slate-500">
+                <Camera className="mx-auto h-14 w-14 opacity-60" />
+                <p className="mt-4">Photo de l'auto-école</p>
               </div>
             </div>
           </div>
@@ -201,16 +210,6 @@ export default function AProposPage() {
               </div>
             ))}
           </div>
-
-          <div className="mt-8 text-center">
-            <Link
-              href="/a-propos/equipe"
-              className="inline-flex items-center gap-2 font-semibold text-formaroute-blue-600 hover:text-formaroute-blue-700"
-            >
-              Découvrir toute l'équipe
-              <ArrowRight className="h-5 w-5" />
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -222,7 +221,9 @@ export default function AProposPage() {
               href="/a-propos/vehicules"
               className="group rounded-2xl border-2 border-slate-200 bg-white p-6 transition-all hover:border-formaroute-blue-300 hover:shadow-lg"
             >
-              <span className="text-4xl">🚗</span>
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-formaroute-blue-100 text-formaroute-blue-600">
+                <Car className="h-7 w-7" />
+              </div>
               <h3 className="mt-4 font-heading text-xl font-bold text-slate-900 group-hover:text-formaroute-blue-600">
                 Nos Véhicules
               </h3>
@@ -234,7 +235,9 @@ export default function AProposPage() {
               href="/a-propos/locaux"
               className="group rounded-2xl border-2 border-slate-200 bg-white p-6 transition-all hover:border-formaroute-blue-300 hover:shadow-lg"
             >
-              <span className="text-4xl">🏢</span>
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-formaroute-blue-100 text-formaroute-blue-600">
+                <Building className="h-7 w-7" />
+              </div>
               <h3 className="mt-4 font-heading text-xl font-bold text-slate-900 group-hover:text-formaroute-blue-600">
                 Nos Locaux
               </h3>
@@ -246,7 +249,9 @@ export default function AProposPage() {
               href="/resultats"
               className="group rounded-2xl border-2 border-slate-200 bg-white p-6 transition-all hover:border-formaroute-blue-300 hover:shadow-lg"
             >
-              <span className="text-4xl">📊</span>
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-formaroute-blue-100 text-formaroute-blue-600">
+                <TrendingUp className="h-7 w-7" />
+              </div>
               <h3 className="mt-4 font-heading text-xl font-bold text-slate-900 group-hover:text-formaroute-blue-600">
                 Nos Résultats
               </h3>

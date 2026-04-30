@@ -1,6 +1,14 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle2, Calculator } from 'lucide-react';
+import {
+  ArrowRight,
+  CheckCircle2,
+  Calculator,
+  Wallet,
+  Briefcase,
+  CalendarRange,
+  Gift,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
@@ -147,6 +155,27 @@ export default function TarifsPage() {
         </div>
       </section>
 
+      {/* Code-inclus callout */}
+      <section className="bg-gradient-to-r from-formaroute-blue-700 via-formaroute-blue-600 to-formaroute-red-600 py-6 text-white">
+        <div className="container-custom">
+          <div className="flex flex-col items-center justify-center gap-4 text-center sm:flex-row sm:gap-6 sm:text-left">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-yellow-300/20 ring-2 ring-yellow-300/40">
+              <Gift className="h-7 w-7 text-yellow-300" />
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-widest text-yellow-300">
+                Offert
+              </p>
+              <p className="font-heading text-xl font-bold sm:text-2xl">
+                La formation au Code de la route est{' '}
+                <span className="text-yellow-300">incluse gratuitement</span>{' '}
+                dans tous nos forfaits permis
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Forfaits */}
       <section className="section bg-slate-50">
         <div className="container-custom">
@@ -154,47 +183,58 @@ export default function TarifsPage() {
             Forfaits Permis B
           </h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {forfaits.map((item, idx) => (
-              <div
-                key={idx}
-                className={`relative flex flex-col rounded-2xl border-2 bg-white p-6 ${
-                  item.popular
-                    ? 'border-formaroute-blue-500 ring-2 ring-formaroute-blue-100'
-                    : 'border-slate-200'
-                }`}
-              >
-                {item.popular && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-formaroute-blue-600 px-4 py-1 text-sm font-medium text-white">
-                    Populaire
-                  </span>
-                )}
-                <div>
-                  <h3 className="font-heading text-lg font-semibold text-slate-900">
-                    {item.name}
-                  </h3>
-                  {item.subtitle && (
-                    <p className="text-sm text-slate-500">{item.subtitle}</p>
+            {forfaits.map((item, idx) => {
+              const codeInclus = item.includes.some((inc) =>
+                inc.toLowerCase().startsWith('code valable')
+              );
+              return (
+                <div
+                  key={idx}
+                  className={`relative flex flex-col rounded-2xl border-2 bg-white p-6 ${
+                    item.popular
+                      ? 'border-formaroute-blue-500 ring-2 ring-formaroute-blue-100'
+                      : 'border-slate-200'
+                  }`}
+                >
+                  {item.popular && (
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-formaroute-blue-600 px-4 py-1 text-sm font-medium text-white">
+                      Populaire
+                    </span>
                   )}
+                  <div>
+                    <h3 className="font-heading text-lg font-semibold text-slate-900">
+                      {item.name}
+                    </h3>
+                    {item.subtitle && (
+                      <p className="text-sm text-slate-500">{item.subtitle}</p>
+                    )}
+                  </div>
+                  <div className="mt-4">
+                    <span className="font-mono text-4xl font-bold text-formaroute-blue-600">
+                      {item.price} €
+                    </span>
+                    <span className="ml-2 text-sm text-slate-500">TTC</span>
+                  </div>
+                  {codeInclus && (
+                    <div className="mt-4 inline-flex items-center gap-2 self-start rounded-full bg-yellow-50 px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-yellow-700 ring-1 ring-yellow-200">
+                      <Gift className="h-3.5 w-3.5" />
+                      Code de la route offert
+                    </div>
+                  )}
+                  <ul className="mt-4 space-y-2">
+                    {item.includes.map((inc, i) => (
+                      <li
+                        key={i}
+                        className="flex items-start gap-2 text-sm text-slate-600"
+                      >
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-formaroute-blue-600" />
+                        <span>{inc}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <div className="mt-4">
-                  <span className="font-mono text-4xl font-bold text-formaroute-blue-600">
-                    {item.price} €
-                  </span>
-                  <span className="ml-2 text-sm text-slate-500">TTC</span>
-                </div>
-                <ul className="mt-4 space-y-2">
-                  {item.includes.map((inc, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-2 text-sm text-slate-600"
-                    >
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-formaroute-blue-600" />
-                      <span>{inc}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -265,8 +305,8 @@ export default function TarifsPage() {
               href="/financement/cpf"
               className="group rounded-2xl border-2 border-slate-200 bg-white p-6 transition-all hover:border-formaroute-blue-300 hover:shadow-lg"
             >
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-formaroute-blue-100 text-2xl">
-                💳
+              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-formaroute-blue-100 text-formaroute-blue-600">
+                <Wallet className="h-7 w-7" />
               </div>
               <h3 className="font-heading text-xl font-bold text-slate-900">CPF</h3>
               <p className="mt-2 text-slate-600">
@@ -277,8 +317,8 @@ export default function TarifsPage() {
               href="/financement/pole-emploi"
               className="group rounded-2xl border-2 border-slate-200 bg-white p-6 transition-all hover:border-formaroute-blue-300 hover:shadow-lg"
             >
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-green-100 text-2xl">
-                🏢
+              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-green-100 text-green-700">
+                <Briefcase className="h-7 w-7" />
               </div>
               <h3 className="font-heading text-xl font-bold text-slate-900">Pôle Emploi</h3>
               <p className="mt-2 text-slate-600">
@@ -286,8 +326,8 @@ export default function TarifsPage() {
               </p>
             </Link>
             <div className="rounded-2xl border-2 border-slate-200 bg-white p-6">
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-purple-100 text-2xl">
-                📅
+              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-purple-100 text-purple-700">
+                <CalendarRange className="h-7 w-7" />
               </div>
               <h3 className="font-heading text-xl font-bold text-slate-900">
                 Paiement en plusieurs fois

@@ -2,8 +2,9 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Star, CheckCircle2, Phone, ExternalLink } from 'lucide-react';
+import { Star, CheckCircle2, Phone, ExternalLink, CalendarCheck, Gift } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { FormationIcon } from '@/components/icons/FormationIcon';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -130,16 +131,30 @@ export function Hero() {
                 
                 <div className="relative space-y-6">
                   <div className="flex items-center gap-4">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/20">
-                      <span className="text-4xl">🚗</span>
+                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/20 text-white">
+                      <FormationIcon slug="permis-b" className="h-8 w-8" />
                     </div>
-                  <div>
-                    <p className="text-sm text-white/70">Permis B</p>
-                    <p className="text-2xl font-bold text-white">à partir de 995€</p>
-                  </div>
+                    <div>
+                      <p className="text-sm text-white/70">Permis B</p>
+                      <p className="text-2xl font-bold text-white">à partir de 995€</p>
+                    </div>
                   </div>
 
-                  <div className="h-px bg-white/20" />
+                  <div className="rounded-2xl border border-yellow-300/40 bg-gradient-to-br from-yellow-300/15 to-yellow-300/5 p-4">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-yellow-300/20 text-yellow-200">
+                        <Gift className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold uppercase tracking-wide text-yellow-200">
+                          Formation Code offerte
+                        </p>
+                        <p className="text-sm text-white/80">
+                          Incluse gratuitement dans tous nos forfaits
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="rounded-2xl bg-white/10 p-4">
@@ -155,7 +170,7 @@ export function Hero() {
                   <div className="h-px bg-white/20" />
 
                   <div className="space-y-3">
-                    {['Code inclus', 'Véhicule double commande', 'Accompagnement examen'].map((item, i) => (
+                    {['Véhicule double commande', 'Accompagnement examen', 'Boîte manuelle ou auto'].map((item, i) => (
                       <div key={i} className="flex items-center gap-3">
                         <CheckCircle2 className="h-5 w-5 text-green-400" />
                         <span className="text-white">{item}</span>
@@ -173,8 +188,8 @@ export function Hero() {
                 className="absolute -right-8 bottom-1/4 z-20 rounded-2xl border border-slate-200 bg-white p-4 shadow-xl"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-formaroute-blue-100 text-2xl">
-                    📅
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-formaroute-blue-100 text-formaroute-blue-600">
+                    <CalendarCheck className="h-6 w-6" />
                   </div>
                   <div>
                     <p className="font-semibold text-slate-900">RDV confirmé</p>

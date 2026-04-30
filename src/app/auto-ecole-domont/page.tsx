@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowRight, MapPin, Clock, Phone, CheckCircle2, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { formations } from '@/data/formations';
+import { FormationIcon } from '@/components/icons/FormationIcon';
 
 export const metadata: Metadata = {
   title: 'Auto-école Domont (95330) | Permis B, Code, AAC | Formaroute',
@@ -213,8 +214,8 @@ export default function AutoEcoleDomontPage() {
                 href={`/formations/${formation.slug}`}
                 className="group rounded-2xl border-2 border-slate-100 bg-white p-6 transition-all hover:-translate-y-1 hover:border-formaroute-blue-200 hover:shadow-lg"
               >
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-formaroute-blue-100 text-xl">
-                  🚗
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-formaroute-blue-100 text-formaroute-blue-600">
+                  <FormationIcon slug={formation.slug} className="h-6 w-6" />
                 </div>
                 <h3 className="font-heading text-lg font-bold text-slate-900">
                   {formation.shortTitle}
