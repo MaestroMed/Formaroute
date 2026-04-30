@@ -10,7 +10,6 @@ export interface Formation {
   priceFrom?: boolean;
   duration?: string;
   hours?: number;
-  icon: string;
   features: string[];
   popular?: boolean;
   new?: boolean;

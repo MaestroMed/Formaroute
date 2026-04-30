@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { formations } from '@/data/formations';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { FormationIcon } from '@/components/icons/FormationIcon';
 
 export const metadata: Metadata = {
   title: 'Nos Formations | Code, Permis B, AAC, Stage Points',
@@ -70,8 +71,8 @@ export default function FormationsPage() {
 
                   <div className="p-6">
                     {/* Icon */}
-                    <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-formaroute-blue-100 text-2xl">
-                      🚗
+                    <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-formaroute-blue-100 text-formaroute-blue-600">
+                      <FormationIcon slug={formation.slug} className="h-7 w-7" />
                     </div>
 
                     {/* Title & Description */}

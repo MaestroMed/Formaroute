@@ -37,7 +37,7 @@ export function Hero() {
       <div className="absolute -right-40 -top-40 h-96 w-96 rounded-full bg-formaroute-blue-500/10 blur-3xl" />
       <div className="absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-formaroute-red-500/10 blur-3xl" />
 
-      <div className="container-custom relative flex min-h-[calc(100vh-3rem)] items-center pt-6">
+      <div className="container-custom relative flex min-h-screen items-center pt-24">
         <div className="grid gap-12 py-20 lg:grid-cols-2 lg:gap-20">
           {/* Left Content */}
           <motion.div
@@ -46,18 +46,10 @@ export function Hero() {
             animate="animate"
             className="flex flex-col justify-center"
           >
-            {/* Badge */}
-            <motion.div variants={fadeInUp}>
-              <span className="inline-flex items-center gap-2 rounded-full bg-formaroute-blue-100 px-4 py-2 text-sm font-medium text-formaroute-blue-700">
-                <span className="flex h-2 w-2 rounded-full bg-formaroute-blue-600" />
-                Nouvelle auto-école à Domont
-              </span>
-            </motion.div>
-
             {/* Heading */}
             <motion.h1
               variants={fadeInUp}
-              className="mt-6 font-heading text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl md:text-6xl lg:text-7xl"
+              className="font-heading text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl md:text-6xl lg:text-7xl"
             >
               Votre{' '}
               <span className="text-formaroute-blue-600">permis</span>

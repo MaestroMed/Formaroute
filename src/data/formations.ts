@@ -12,7 +12,6 @@ export const formations: Formation[] = [
     price: 350,
     priceFrom: true,
     duration: '4 à 6 semaines',
-    icon: 'BookOpen',
     features: [
       'Accès illimité à la plateforme en ligne',
       'Sessions en salle avec moniteur',
@@ -34,7 +33,6 @@ export const formations: Formation[] = [
     price: 1090,
     priceFrom: true,
     hours: 20,
-    icon: 'Car',
     features: [
       '20 heures de conduite minimum',
       'Véhicules récents et bien entretenus',
@@ -57,7 +55,6 @@ export const formations: Formation[] = [
     priceFrom: true,
     duration: '2 à 3 semaines',
     hours: 20,
-    icon: 'Zap',
     features: [
       'Formation condensée sur 2-3 semaines',
       'Code et conduite en parallèle',
@@ -79,7 +76,6 @@ export const formations: Formation[] = [
     priceFrom: true,
     duration: '1 à 3 ans',
     hours: 20,
-    icon: 'Users',
     features: [
       'Début de formation dès 15 ans',
       '20 heures de conduite initiale',
@@ -100,7 +96,6 @@ export const formations: Formation[] = [
     shortDescription: 'Récupérez 4 points en 2 jours de stage. Disponible à partir de mai 2026.',
     price: 250,
     duration: '2 jours',
-    icon: 'RotateCcw',
     features: [
       'Récupération de 4 points',
       'Stage sur 2 jours consécutifs',
@@ -122,7 +117,6 @@ export const formations: Formation[] = [
     price: 0,
     priceFrom: true,
     duration: 'Variable',
-    icon: 'GraduationCap',
     features: [
       'Ouverture prochaine année scolaire',
       'Formations qualifiantes',
@@ -144,7 +138,6 @@ export const formations: Formation[] = [
     price: 55,
     priceFrom: true,
     duration: '1 heure',
-    icon: 'TrendingUp',
     features: [
       'Cours à l\'heure',
       'Éco-conduite',
@@ -164,7 +157,6 @@ export const formations: Formation[] = [
     shortDescription: 'Évaluation gratuite pour estimer votre formation.',
     price: 0,
     duration: '1 heure',
-    icon: 'ClipboardCheck',
     features: [
       'Évaluation gratuite',
       'Sans engagement',

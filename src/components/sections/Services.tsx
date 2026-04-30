@@ -2,26 +2,10 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import {
-  BookOpen,
-  Car,
-  Zap,
-  Users,
-  Settings,
-  RotateCcw,
-  ArrowRight,
-} from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { formations } from '@/data/formations';
-
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  BookOpen,
-  Car,
-  Zap,
-  Users,
-  Settings,
-  RotateCcw,
-};
+import { FormationIcon } from '@/components/icons/FormationIcon';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -77,8 +61,7 @@ export function Services() {
           viewport={{ once: true, margin: '-100px' }}
           className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3"
         >
-          {displayedFormations.map((formation, index) => {
-            const Icon = iconMap[formation.icon] || Car;
+          {displayedFormations.map((formation) => {
             const isPopular = formation.popular;
             const isNew = formation.new;
 
@@ -110,7 +93,7 @@ export function Services() {
 
                     {/* Icon */}
                     <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-formaroute-blue-100 text-formaroute-blue-600 transition-colors group-hover:bg-formaroute-blue-600 group-hover:text-white">
-                      <Icon className="h-7 w-7" />
+                      <FormationIcon slug={formation.slug} className="h-7 w-7" />
                     </div>
 
                     {/* Content */}
