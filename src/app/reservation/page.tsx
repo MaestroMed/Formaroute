@@ -3,19 +3,19 @@ import Link from 'next/link';
 import { Phone, Clock, MapPin, CheckCircle2 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Réservation | Évaluation Gratuite',
+  title: 'Réservation | Évaluation de Départ',
   description:
-    "Contactez l'auto-école Formaroute à Domont par téléphone pour réserver votre évaluation gratuite. Notre équipe vous accueille du lundi au samedi.",
+    "Contactez l'auto-école Formaroute à Domont par téléphone pour réserver votre évaluation de départ. Notre équipe vous accueille du lundi au samedi.",
   openGraph: {
     title: 'Réservation | Formaroute Domont',
-    description: 'Appelez-nous pour réserver votre évaluation gratuite',
+    description: 'Appelez-nous pour réserver votre évaluation de départ',
   },
 };
 
 const benefits = [
-  'Évaluation gratuite et sans engagement',
+  "Évaluation de départ avec un moniteur (56€ manuelle / 60€ BVA)",
   "Estimation du nombre d'heures nécessaires",
-  'Présentation de nos formations et tarifs',
+  'Présentation de nos forfaits et tarifs',
   'Réponse à toutes vos questions',
   'Visite de nos locaux',
 ];
@@ -32,11 +32,11 @@ export default function ReservationPage() {
               <span>Contactez-nous par téléphone</span>
             </div>
             <h1 className="font-heading text-4xl font-bold md:text-5xl">
-              Réservez votre évaluation gratuite
+              Réservez votre évaluation de départ
             </h1>
             <p className="mt-4 text-lg text-white/80">
-              Appelez-nous pour prendre rendez-vous pour une évaluation gratuite et sans
-              engagement. Notre équipe vous accueillera dans nos locaux de Domont.
+              Appelez-nous pour prendre rendez-vous pour votre évaluation de départ avec un
+              moniteur diplômé. Notre équipe vous accueillera dans nos locaux de Domont.
             </p>
           </div>
         </div>
@@ -98,7 +98,7 @@ export default function ReservationPage() {
                 </h2>
                 <p className="mb-8 text-slate-600">
                   Notre équipe est disponible pour répondre à vos questions et planifier votre
-                  évaluation gratuite. Appelez-nous directement aux horaires d'ouverture.
+                  évaluation de départ. Appelez-nous directement aux horaires d'ouverture.
                 </p>
 
                 {/* Phone CTA */}
@@ -151,8 +151,8 @@ export default function ReservationPage() {
           <div className="mx-auto mt-8 max-w-3xl space-y-4">
             {[
               {
-                q: "L'évaluation est-elle vraiment gratuite ?",
-                a: "Oui, l'évaluation initiale est entièrement gratuite et sans engagement. Elle vous permet de découvrir notre auto-école et d'estimer le nombre d'heures de conduite dont vous aurez besoin.",
+                q: "Combien coûte l'évaluation de départ ?",
+                a: "L'évaluation de départ est facturée 56€ en boîte manuelle et 60€ en boîte automatique (BVA). Elle est obligatoire et permet d'estimer précisément le volume d'heures de conduite dont vous aurez besoin.",
               },
               {
                 q: "Combien de temps dure l'évaluation ?",

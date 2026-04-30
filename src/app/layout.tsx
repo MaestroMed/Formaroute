@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     template: '%s | Formaroute',
   },
   description:
-    "Auto-école à Domont (95330). Formation code de la route, permis B, conduite accompagnée, stage de récupération de points. Taux de réussite élevé. Réservez votre évaluation gratuite.",
+    "Auto-école à Domont (95330). Formation code de la route, permis B (manuelle ou auto), conduite accompagnée, passerelle. Taux de réussite élevé. Tarifs transparents.",
   keywords: [
     'auto école domont',
     'permis b domont',
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     siteName: 'Formaroute',
     title: 'Auto-école Domont | Permis B, Code, AAC | Formaroute',
     description:
-      "Auto-école à Domont (95330). Formation code de la route, permis B, conduite accompagnée. Réservez votre évaluation gratuite.",
+      "Auto-école à Domont (95330). Formation code de la route, permis B, conduite accompagnée. Tarifs transparents et financement CPF.",
     images: [
       {
         url: '/og-image.jpg',

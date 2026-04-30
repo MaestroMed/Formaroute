@@ -265,7 +265,7 @@ export default function VillePage({ params }: VillePageProps) {
             Vous habitez {villeName} ?
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-white/80">
-            Réservez votre évaluation gratuite et commencez votre formation
+            Réservez votre évaluation de départ et commencez votre formation
             avec l'auto-école de référence du Val-d'Oise.
           </p>
           <div className="mt-8">

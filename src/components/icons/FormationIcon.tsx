@@ -34,15 +34,41 @@ function PermisBIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-function PermisAccelereIcon(props: SVGProps<SVGSVGElement>) {
+function PermisAutoIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg {...baseProps} {...props}>
-      <path d="M4 16h2.5l1.2-3.6a2 2 0 0 1 1.9-1.4h6a2 2 0 0 1 1.7 1l1.7 2.9c.3.5.5 1 .5 1.6V17a1 1 0 0 1-1 1h-1.5" />
-      <circle cx="8" cy="18" r="1.6" />
-      <circle cx="16.5" cy="18" r="1.6" />
-      <path d="M9.6 18h5.3" />
-      <path d="M2 9l3-1.5M2 12h3" />
-      <path d="M13.5 4.5 11 8.5h2.2L11.7 12l3.6-4.5h-2.2L14.6 4.5Z" fill="currentColor" stroke="none" />
+      <path d="M4 15h2.5l1.2-3.6a2 2 0 0 1 1.9-1.4h6a2 2 0 0 1 1.7 1l1.7 2.9c.3.5.5 1 .5 1.6V16a1 1 0 0 1-1 1h-1.5" />
+      <circle cx="8" cy="17" r="1.6" />
+      <circle cx="16.5" cy="17" r="1.6" />
+      <path d="M9.6 17h5.3" />
+      <circle cx="12" cy="6" r="3.2" />
+      <path d="M10.6 7.2 12 4.4l1.4 2.8M10.95 6.4h2.1" />
+    </svg>
+  );
+}
+
+function PasserelleIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...baseProps} {...props}>
+      <rect x="3" y="6" width="6.5" height="5.5" rx="1" />
+      <rect x="14.5" y="12.5" width="6.5" height="5.5" rx="1" />
+      <path d="M6.25 8.5h0.05M17.75 15.25h0.05" strokeWidth={2.5} />
+      <path d="M9.5 8.75h6a3 3 0 0 1 3 3v0.75" />
+      <path d="M16.7 11l1.8 1.5 1.8-1.5" />
+      <path d="M14.5 15.25h-6a3 3 0 0 1-3-3v-0.75" />
+      <path d="M7.3 13l-1.8-1.5-1.8 1.5" />
+    </svg>
+  );
+}
+
+function AnnulationPermisIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...baseProps} {...props}>
+      <rect x="2.5" y="5" width="19" height="14" rx="2.2" />
+      <rect x="5" y="8" width="5" height="6" rx="0.6" />
+      <path d="M12.5 9h6M12.5 12h4" />
+      <circle cx="17.5" cy="15.5" r="3.2" />
+      <path d="M15.5 13.5 19.5 17.5" />
     </svg>
   );
 }
@@ -109,8 +135,10 @@ function EvaluationIcon(props: SVGProps<SVGSVGElement>) {
 const iconBySlug: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> = {
   'code-de-la-route': CodeIcon,
   'permis-b': PermisBIcon,
-  'permis-b-accelere': PermisAccelereIcon,
+  'permis-b-boite-auto': PermisAutoIcon,
   'conduite-accompagnee': ConduiteAccompagneeIcon,
+  'passerelle-boite-auto-manuelle': PasserelleIcon,
+  'forfait-annulation-permis': AnnulationPermisIcon,
   'stage-recuperation-points': StagePointsIcon,
   'formation-moniteur': CentreFormationIcon,
   perfectionnement: PerfectionnementIcon,

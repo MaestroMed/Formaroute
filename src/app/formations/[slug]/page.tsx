@@ -175,8 +175,8 @@ export default function FormationPage({ params }: FormationPageProps) {
             Prêt à commencer votre formation ?
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-slate-600">
-            Réservez votre évaluation gratuite et sans engagement.
-            Nos moniteurs vous accueilleront pour faire le point sur vos besoins.
+            Réservez votre évaluation de départ.
+            Nos moniteurs vous accueilleront pour faire le point sur vos besoins et estimer le volume d'heures nécessaire.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button asChild size="lg">

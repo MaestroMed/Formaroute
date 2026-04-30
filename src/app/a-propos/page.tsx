@@ -265,8 +265,8 @@ export default function AProposPage() {
             Prêt à nous rejoindre ?
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-white/80">
-            Venez nous rencontrer et découvrir notre auto-école lors d'une
-            évaluation gratuite et sans engagement.
+            Venez nous rencontrer et découvrir notre auto-école lors de votre
+            évaluation de départ.
           </p>
           <div className="mt-8">
             <Button

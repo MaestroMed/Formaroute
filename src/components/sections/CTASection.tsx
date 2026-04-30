@@ -25,7 +25,7 @@ export function CTASection() {
             {/* Badge */}
             <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm">
               <Calendar className="h-4 w-4" />
-              Évaluation gratuite et sans engagement
+              Réservez sans engagement
             </span>
 
             {/* Heading */}
@@ -33,7 +33,7 @@ export function CTASection() {
               Prêt à prendre la route ?
             </h2>
             <p className="mt-4 text-lg text-white/80 md:text-xl">
-              Réservez votre évaluation gratuite et commencez votre formation 
+              Réservez votre évaluation de départ et commencez votre formation
               avec l'auto-école de référence à Domont.
             </p>
           </motion.div>

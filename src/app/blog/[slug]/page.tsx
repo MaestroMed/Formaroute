@@ -26,17 +26,15 @@ const blogPosts: BlogPost[] = [
     image: '/blog/ouverture.jpg',
     content: `L'auto-école Formaroute ouvre officiellement ses portes le 1er avril 2026 au 4 avenue Jean Jaurès à Domont (95330).
 
-**Une offre de lancement exceptionnelle**
-
-Pour célébrer notre ouverture, nous proposons le forfait Permis B à seulement 990€ (au lieu de 1 090€) pour les 20 premiers inscrits. Ne tardez pas à nous appeler au 01 34 19 83 26 pour réserver votre place !
-
 **Nos formations disponibles dès l'ouverture**
 
-- Stage de code accéléré à 350€
-- Permis B complet à partir de 1 090€
-- Permis accéléré à partir de 1 390€
-- Conduite accompagnée (AAC) à partir de 1 350€
-- Stage de récupération de points (à partir de mai 2026)
+- Forfait Code (stage de code accéléré) — 195 € TTC
+- Permis B Boîte Manuelle — 1 195 € TTC
+- Permis B Boîte Automatique — à partir de 995 € TTC
+- Conduite accompagnée (AAC) — 1 395 € TTC
+- Passerelle (boîte auto vers manuelle) — 495 € TTC
+- Forfait Annulation de Permis — 595 € TTC
+- Stage de récupération de points — à partir de mai 2026
 
 **Nos horaires**
 
@@ -373,7 +371,7 @@ export default async function BlogPostPage({
             Prêt à commencer votre formation ?
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-white/80">
-            Contactez l'auto-école Formaroute à Domont pour votre évaluation gratuite.
+            Contactez l'auto-école Formaroute à Domont pour votre évaluation de départ.
           </p>
           <div className="mt-8">
             <a

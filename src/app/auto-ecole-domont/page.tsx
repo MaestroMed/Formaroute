@@ -7,7 +7,7 @@ import { formations } from '@/data/formations';
 export const metadata: Metadata = {
   title: 'Auto-école Domont (95330) | Permis B, Code, AAC | Formaroute',
   description:
-    "Auto-école à Domont (95330). Formation code de la route, permis B, conduite accompagnée, stage récupération de points. Taux de réussite 85%. Moniteurs diplômés. Réservez votre évaluation gratuite.",
+    "Auto-école à Domont (95330). Formation code de la route, permis B (manuelle ou auto), conduite accompagnée, passerelle. Taux de réussite 85%. Moniteurs diplômés. Tarifs transparents.",
   keywords: [
     'auto école domont',
     'auto ecole domont 95330',
@@ -72,7 +72,7 @@ export default function AutoEcoleDomontPage() {
                 className="bg-white text-formaroute-blue-600 hover:bg-slate-50"
               >
                 <Link href="/reservation">
-                  Évaluation gratuite
+                  Réserver maintenant
                   <ArrowRight className="h-5 w-5" />
                 </Link>
               </Button>
@@ -280,7 +280,7 @@ export default function AutoEcoleDomontPage() {
             Prêt à passer votre permis à Domont ?
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-white/80">
-            Réservez votre évaluation gratuite et sans engagement.
+            Réservez votre évaluation de départ pour démarrer votre formation.
             Notre équipe vous accueillera dans nos locaux de Domont.
           </p>
           <div className="mt-8">

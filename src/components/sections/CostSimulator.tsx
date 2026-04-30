@@ -8,11 +8,13 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
 const formations = [
-  { id: 'permis-b', name: 'Permis B', basePrice: 1290, hourlyRate: 55, minHours: 20 },
-  { id: 'aac', name: 'Conduite Accompagnée', basePrice: 1190, hourlyRate: 55, minHours: 20 },
-  { id: 'permis-auto', name: 'Permis Boîte Auto', basePrice: 990, hourlyRate: 55, minHours: 13 },
-  { id: 'code', name: 'Code seul', basePrice: 350, hourlyRate: 0, minHours: 0 },
+  { id: 'permis-b', name: 'Permis B Manuelle', basePrice: 1195, hourlyRate: 56, minHours: 20 },
+  { id: 'aac', name: 'Conduite Accompagnée', basePrice: 1395, hourlyRate: 56, minHours: 20 },
+  { id: 'permis-auto', name: 'Permis Boîte Auto', basePrice: 995, hourlyRate: 60, minHours: 13 },
+  { id: 'code', name: 'Code seul', basePrice: 195, hourlyRate: 0, minHours: 0 },
 ];
+
+const CODE_PRICE = 195;
 
 export function CostSimulator() {
   const [selectedFormation, setSelectedFormation] = useState(formations[0]);
@@ -33,7 +35,7 @@ export function CostSimulator() {
       total = formation.basePrice + extraHours * formation.hourlyRate;
 
       if (!includeCode && formation.id !== 'code') {
-        total -= 350; // Code price if not included
+        total -= CODE_PRICE;
       }
     }
 
@@ -131,7 +133,7 @@ export function CostSimulator() {
                 className="h-4 w-4 rounded border-slate-300 text-formaroute-blue-600"
               />
               <span className="text-sm text-slate-700">
-                Code de la route inclus (+350€)
+                Code de la route inclus (+{CODE_PRICE}€)
               </span>
             </label>
           </div>
@@ -208,14 +210,14 @@ export function CostSimulator() {
           <Info className="mt-0.5 h-4 w-4 shrink-0" />
           <p>
             Cette estimation est donnée à titre indicatif. Le nombre d'heures réel
-            sera déterminé lors de votre évaluation initiale gratuite.
+            sera déterminé lors de votre évaluation de départ (56€ manuelle / 60€ BVA).
           </p>
         </div>
 
         {/* CTA */}
         <Button asChild className="w-full">
           <Link href="/reservation">
-            Réserver mon évaluation gratuite
+            Réserver mon évaluation
             <ArrowRight className="h-5 w-5" />
           </Link>
         </Button>

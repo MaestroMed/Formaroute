@@ -12,22 +12,34 @@ export const mainNavigation: NavItem[] = [
         icon: 'BookOpen',
       },
       {
-        label: 'Permis B',
+        label: 'Permis B Boîte Manuelle',
         href: '/formations/permis-b',
-        description: 'Formation complète au permis',
+        description: 'Forfait traditionnel — 1 195€',
         icon: 'Car',
       },
       {
-        label: 'Permis Accéléré',
-        href: '/formations/permis-b-accelere',
-        description: 'Formation intensive',
+        label: 'Permis B Boîte Auto',
+        href: '/formations/permis-b-boite-auto',
+        description: 'BVA — à partir de 995€',
         icon: 'Zap',
       },
       {
         label: 'Conduite Accompagnée',
         href: '/formations/conduite-accompagnee',
-        description: 'AAC dès 15 ans',
+        description: 'AAC dès 15 ans — 1 395€',
         icon: 'Users',
+      },
+      {
+        label: 'Passerelle Auto → Manuelle',
+        href: '/formations/passerelle-boite-auto-manuelle',
+        description: 'Levée de la restriction BVA — 495€',
+        icon: 'Settings',
+      },
+      {
+        label: 'Forfait Annulation de Permis',
+        href: '/formations/forfait-annulation-permis',
+        description: 'Repasser après annulation — 595€',
+        icon: 'RotateCcw',
       },
       {
         label: 'Stage Points',
@@ -102,9 +114,11 @@ export const mainNavigation: NavItem[] = [
 export const footerNavigation = {
   formations: [
     { label: 'Stage de Code Accéléré', href: '/formations/code-de-la-route' },
-    { label: 'Permis B', href: '/formations/permis-b' },
-    { label: 'Permis Accéléré', href: '/formations/permis-b-accelere' },
+    { label: 'Permis B Boîte Manuelle', href: '/formations/permis-b' },
+    { label: 'Permis B Boîte Auto', href: '/formations/permis-b-boite-auto' },
     { label: 'Conduite Accompagnée', href: '/formations/conduite-accompagnee' },
+    { label: 'Passerelle Auto → Manuelle', href: '/formations/passerelle-boite-auto-manuelle' },
+    { label: 'Forfait Annulation de Permis', href: '/formations/forfait-annulation-permis' },
     { label: 'Stage Points', href: '/formations/stage-recuperation-points' },
   ],
   informations: [

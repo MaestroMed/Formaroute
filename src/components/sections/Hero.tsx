@@ -135,7 +135,7 @@ export function Hero() {
                     </div>
                   <div>
                     <p className="text-sm text-white/70">Permis B</p>
-                    <p className="text-2xl font-bold text-white">à partir de 1 090€</p>
+                    <p className="text-2xl font-bold text-white">à partir de 995€</p>
                   </div>
                   </div>
 
@@ -178,7 +178,7 @@ export function Hero() {
                   </div>
                   <div>
                     <p className="font-semibold text-slate-900">RDV confirmé</p>
-                    <p className="text-sm text-slate-500">Évaluation gratuite</p>
+                    <p className="text-sm text-slate-500">Évaluation de départ</p>
                   </div>
                 </div>
               </motion.div>

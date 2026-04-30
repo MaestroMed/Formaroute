@@ -9,7 +9,7 @@ import { FormationIcon } from '@/components/icons/FormationIcon';
 export const metadata: Metadata = {
   title: 'Nos Formations | Code, Permis B, AAC, Stage Points',
   description:
-    "Découvrez toutes nos formations : code de la route, permis B, permis accéléré, conduite accompagnée, stage de récupération de points. Auto-école Formaroute à Domont.",
+    "Découvrez toutes nos formations : forfait code, permis B (manuelle ou auto), conduite accompagnée, passerelle, annulation. Auto-école Formaroute à Domont.",
   openGraph: {
     title: 'Formations Auto-école Formaroute Domont',
     description: 'Code, Permis B, AAC, Stage Points - Toutes nos formations',
