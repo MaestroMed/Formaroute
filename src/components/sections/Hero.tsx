@@ -48,8 +48,13 @@ export function Hero() {
             className="flex flex-col justify-center"
           >
             {/* Heading */}
-            <motion.h1
-              variants={fadeInUp}
+            {/* h1 volontairement NON anime : c'est l'element LCP de la page.
+                Avec `variants={fadeInUp}`, Framer Motion le rendait a opacity:0 cote
+                serveur, si bien que le plus grand element visible n'etait peint
+                qu'apres hydratation -- ce qui degrade mecaniquement la Largest
+                Contentful Paint, et laisse un hero vide si le JS tarde ou echoue.
+                Le reste du hero continue de s'animer normalement. */}
+            <h1
               className="font-heading text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl md:text-6xl lg:text-7xl"
             >
               Votre{' '}
@@ -57,7 +62,7 @@ export function Hero() {
               <br />
               commence{' '}
               <span className="text-formaroute-red-600">ici</span>
-            </motion.h1>
+            </h1>
 
             {/* Description */}
             <motion.p

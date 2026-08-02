@@ -82,9 +82,15 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'verification_token',
-  },
+  // Pas de balise `verification` ici, volontairement.
+  //
+  // Ce champ contenait `google: 'verification_token'` : le placeholder n'avait
+  // jamais ete remplace, la balise emise ne validait donc rien et la propriete
+  // Search Console n'a jamais ete verifiee depuis la mise en ligne.
+  //
+  // La verification se fait desormais par enregistrement TXT DNS chez le
+  // registrar. C'est la seule methode qui survit a une refonte, a un changement
+  // de framework ou a un redeploiement -- precisement ce qui l'a fait perdre ici.
 };
 
 export const viewport: Viewport = {
