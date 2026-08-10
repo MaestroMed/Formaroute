@@ -1,6 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    // Cache des images optimisées : 31 jours.
+    //
+    // Sans cette valeur, Next retombe sur son défaut (court) et Vercel
+    // RETRANSFORME l'image à chaque expiration au lieu de la resservir.
+    // Facture d'août 2026 : 366 557 transformations pour 4,86 M de lectures
+    // sur le parc, soit $29,15 — une retransformation toutes les 13 lectures.
+    //
+    // ⚠ Les noms de fichiers ne sont pas hashés : un visuel modifié doit être
+    // RENOMMÉ, sinon l'ancienne version reste servie jusqu'à 31 jours.
+    minimumCacheTTL: 2678400, // 31 jours
     remotePatterns: [
       {
         protocol: 'https',
