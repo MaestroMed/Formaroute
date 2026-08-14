@@ -1,0 +1,51 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 512 512"
+  role="img"
+  aria-label="Formaroute"
+>
+  <!--
+    Monogramme Formaroute.
+
+    Contraintes de lisibilité à 16 px : une seule forme pleine, une seule
+    lettre, aucun détail sous 24 px de côté. Le F occupe 60 % de la hauteur
+    pour rester net une fois rastérisé en 16×16.
+
+    Couleurs reprises des variables de globals.css :
+      primary    hsl(221.2 83% 53%)  #2563EB
+      secondary  hsl(0 84% 60%)      #EF4444
+
+    Note : pas de double tiret dans ce commentaire, XML l'interdit.
+
+    La barre rouge en pied évoque le marquage au sol. Elle disparaît
+    visuellement sous 32 px, ce qui est voulu : elle sert l'identité aux
+    grandes tailles sans brouiller les petites.
+  -->
+  <defs>
+    <linearGradient id="fond" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="url(#fond)" />
+
+  <!-- F : fût + deux barres, tracé en un seul path pour un rendu net -->
+  <path
+    fill="#FFFFFF"
+    d="M170 128
+       h188
+       v54
+       H232
+       v72
+       h108
+       v54
+       H232
+       v112
+       h-62
+       z"
+  />
+
+  <!-- Marquage au sol -->
+  <rect x="170" y="404" width="172" height="18" rx="9" fill="#EF4444" />
+</svg>
