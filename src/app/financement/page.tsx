@@ -1,141 +1,140 @@
-import { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, CreditCard, Building2, Users, Wallet } from 'lucide-react';
+import { ArrowRight, CreditCard, Building2, Users, Wallet, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { site } from '@/data/site';
+import { buildMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Financement | CPF, Pôle Emploi, Paiement en Plusieurs Fois',
+export const metadata = buildMetadata({
+  title: 'Financer son permis : CPF, France Travail, aides jeunes',
   description:
-    "Découvrez toutes les solutions pour financer votre permis : CPF, aides Pôle Emploi, Mission Locale, paiement en plusieurs fois. Auto-école Formaroute à Domont.",
-  openGraph: {
-    title: 'Financement Permis | Formaroute Domont',
-    description: 'CPF, Pôle Emploi, Mission Locale, facilités de paiement',
-  },
-};
+    'Les solutions pour financer votre permis à Domont : paiement en plusieurs fois, aides France Travail, Mission Locale, permis à 1 € par jour et CPF.',
+  path: '/financement',
+});
+
+const cpfAvailable = site.quality.qualiopiCertified;
 
 const financingOptions = [
   {
+    id: 'cpf',
     icon: CreditCard,
-    title: 'CPF - Compte Personnel de Formation',
-    description:
-      "Utilisez vos droits à la formation pour financer tout ou partie de votre permis B. Démarches simplifiées, nous vous accompagnons.",
-    link: '/financement/cpf',
-    features: [
-      'Permis B éligible',
-      'Financement jusqu\'à 100%',
-      'Inscription sur moncompteformation.gouv.fr',
-      'Accompagnement personnalisé',
-    ],
+    title: 'CPF — Compte Personnel de Formation',
+    description: cpfAvailable
+      ? 'Utilisez vos droits à la formation pour financer tout ou partie de votre permis B, directement sur moncompteformation.gouv.fr.'
+      : "Formaroute prépare sa certification Qualiopi, indispensable pour proposer le financement CPF. Ce mode de financement n'est pas encore disponible chez nous : nous l'annoncerons ici dès l'obtention de la certification.",
+    features: cpfAvailable
+      ? [
+          'Permis B (boîte manuelle ou automatique)',
+          'Inscription sur moncompteformation.gouv.fr',
+          "Participation forfaitaire obligatoire de l'État (sauf exonérations)",
+          'Complément possible par paiement personnel',
+        ]
+      : [
+          'Certification Qualiopi en cours',
+          'Consultez dès maintenant vos droits sur moncompteformation.gouv.fr',
+        ],
     color: 'from-blue-500 to-blue-600',
   },
   {
+    id: 'france-travail',
     icon: Building2,
-    title: 'Pôle Emploi / France Travail',
+    title: 'France Travail (ex-Pôle emploi)',
     description:
-      "Demandeurs d'emploi, bénéficiez de l'AIF (Aide Individuelle à la Formation) pour financer votre permis et faciliter votre retour à l'emploi.",
-    link: '/financement/pole-emploi',
+      "Demandeurs d'emploi : une aide au financement du permis peut être accordée lorsqu'il facilite votre retour à l'emploi. Parlez-en à votre conseiller France Travail.",
     features: [
-      'AIF (Aide Individuelle à la Formation)',
-      'Prise en charge partielle ou totale',
-      'Devis personnalisé',
-      'Dossier accompagné',
+      'Aide individuelle selon votre situation',
+      'Devis fourni par nos soins',
+      'Décision prise par votre conseiller',
     ],
     color: 'from-green-500 to-green-600',
   },
   {
+    id: 'jeunes',
     icon: Users,
-    title: 'Mission Locale (16-25 ans)',
+    title: 'Aides pour les jeunes',
     description:
-      "Jeunes de 16 à 25 ans, des aides spécifiques existent pour vous aider à financer votre permis et favoriser votre insertion professionnelle.",
-    link: '/financement/mission-locale',
+      "Mission Locale (16-25 ans), aides de certaines collectivités et prêt « permis à 1 € par jour » (15-25 ans, auprès des banques partenaires de l'État, réservé aux écoles de conduite partenaires du dispositif).",
     features: [
-      'Aides pour les 16-25 ans',
-      'Selon situation et projet',
-      'Accompagnement social',
-      'Démarches facilitées',
+      'Mission Locale : selon situation et projet',
+      'Permis à 1 € par jour : renseignez-vous auprès de nous',
+      'Aides locales : selon votre commune ou département',
     ],
     color: 'from-purple-500 to-purple-600',
   },
   {
+    id: 'paiement',
     icon: Wallet,
-    title: 'Paiement en Plusieurs Fois',
-    description:
-      "Étalez le paiement de votre formation en 3, 4 ou 6 fois sans frais. Une solution souple pour s'adapter à votre budget.",
-    link: null,
-    features: [
-      'Sans frais supplémentaires',
-      'Jusqu\'à 6 mensualités',
-      'Début de formation immédiat',
-      'Selon profil',
-    ],
+    title: 'Paiement en plusieurs fois',
+    description: `Étalez le paiement de votre formation ${site.paymentPlan}. L'échéancier est précisé dans votre contrat.`,
+    features: ['Échéancier défini à l’inscription', 'Selon le forfait choisi'],
     color: 'from-orange-500 to-orange-600',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Comment connaître mes droits CPF ?',
+    a: 'Les actifs (salariés, demandeurs d’emploi, indépendants) cumulent des droits CPF. Connectez-vous sur moncompteformation.gouv.fr avec FranceConnect pour consulter votre solde.',
+  },
+  {
+    q: 'Puis-je cumuler plusieurs aides ?',
+    a: 'Dans certains cas oui, par exemple une aide France Travail complétée par un paiement personnel. Nous étudions votre situation avec vous.',
+  },
+  {
+    q: 'Combien de temps pour obtenir une aide France Travail ?',
+    a: 'Le délai dépend de votre agence et de votre dossier. Demandez-nous un devis rapidement pour le transmettre à votre conseiller.',
   },
 ];
 
 export default function FinancementPage() {
   return (
-    <main className="pt-20">
+    <div className="pt-20">
       {/* Hero */}
       <section className="bg-gradient-to-br from-formaroute-blue-600 to-formaroute-blue-800 py-16 text-white">
         <div className="container-custom">
           <div className="mx-auto max-w-3xl text-center">
-            <h1 className="font-heading text-4xl font-bold md:text-5xl">
-              Financez votre Permis
-            </h1>
-            <p className="mt-4 text-lg text-white/80">
-              Plusieurs solutions existent pour financer votre formation.
-              CPF, aides Pôle Emploi, Mission Locale ou paiement échelonné :
-              trouvez celle qui vous convient.
+            <h1 className="font-heading text-4xl font-bold md:text-5xl">Financez votre permis</h1>
+            <p className="mt-4 text-lg text-white/90">
+              Paiement échelonné, aides France Travail, aides pour les jeunes : plusieurs solutions
+              existent. Nous vous aidons à trouver la vôtre.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Financing Options */}
+      {/* Options */}
       <section className="section bg-slate-50">
         <div className="container-custom">
           <div className="grid gap-8 md:grid-cols-2">
-            {financingOptions.map((option, index) => {
+            {financingOptions.map((option) => {
               const Icon = option.icon;
               return (
                 <div
-                  key={index}
-                  className="rounded-2xl border border-slate-200 bg-white p-8"
+                  key={option.id}
+                  id={option.id}
+                  className="scroll-mt-24 rounded-2xl border border-slate-200 bg-white p-8"
                 >
                   <div
                     className={`mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${option.color}`}
                   >
                     <Icon className="h-7 w-7 text-white" />
                   </div>
-
                   <h2 className="mb-3 font-heading text-2xl font-bold text-slate-900">
                     {option.title}
                   </h2>
                   <p className="mb-6 text-slate-600">{option.description}</p>
-
-                  <ul className="mb-6 space-y-2">
-                    {option.features.map((feature, i) => (
-                      <li key={i} className="flex items-center gap-2 text-sm text-slate-600">
-                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-green-100 text-xs text-green-600">
+                  <ul className="space-y-2">
+                    {option.features.map((feature) => (
+                      <li key={feature} className="flex items-center gap-2 text-sm text-slate-600">
+                        <span
+                          aria-hidden="true"
+                          className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-100 text-xs text-green-600"
+                        >
                           ✓
                         </span>
                         {feature}
                       </li>
                     ))}
                   </ul>
-
-                  {option.link ? (
-                    <Button asChild className="w-full">
-                      <Link href={option.link}>
-                        En savoir plus
-                        <ArrowRight className="h-4 w-4" />
-                      </Link>
-                    </Button>
-                  ) : (
-                    <Button asChild variant="outline" className="w-full">
-                      <Link href="/contact">Nous contacter</Link>
-                    </Button>
-                  )}
                 </div>
               );
             })}
@@ -143,32 +142,15 @@ export default function FinancementPage() {
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* FAQ */}
       <section className="section bg-white">
         <div className="container-custom">
           <h2 className="heading-md text-center text-slate-900">
             Questions fréquentes sur le financement
           </h2>
           <div className="mx-auto mt-8 max-w-3xl space-y-4">
-            {[
-              {
-                q: "Comment savoir si je suis éligible au CPF ?",
-                a: "Tous les actifs (salariés, demandeurs d'emploi, indépendants) cumulent des droits CPF. Connectez-vous sur moncompteformation.gouv.fr pour consulter votre solde.",
-              },
-              {
-                q: "Le CPF couvre-t-il la totalité du permis ?",
-                a: "Cela dépend de votre solde CPF. Si celui-ci ne couvre pas la totalité, vous pouvez compléter le reste à charge de votre poche ou cumuler avec d'autres aides.",
-              },
-              {
-                q: "Puis-je cumuler plusieurs aides ?",
-                a: "Dans certains cas oui. Par exemple, le CPF peut être complété par un financement personnel. Nous étudions votre situation pour optimiser le financement.",
-              },
-              {
-                q: "Quels sont les délais pour obtenir un financement Pôle Emploi ?",
-                a: "Comptez environ 2 à 4 semaines pour la validation d'un dossier AIF. Nous vous aidons à constituer le dossier pour accélérer la procédure.",
-              },
-            ].map((faq, i) => (
-              <div key={i} className="rounded-xl border border-slate-200 p-6">
+            {faqs.map((faq) => (
+              <div key={faq.q} className="rounded-xl border border-slate-200 p-6">
                 <h3 className="font-semibold text-slate-900">{faq.q}</h3>
                 <p className="mt-2 text-slate-600">{faq.a}</p>
               </div>
@@ -181,11 +163,10 @@ export default function FinancementPage() {
       <section className="section bg-formaroute-blue-600 text-white">
         <div className="container-custom text-center">
           <h2 className="font-heading text-3xl font-bold">
-            Besoin d'aide pour votre financement ?
+            Besoin d&apos;aide pour votre financement ?
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-white/80">
-            Notre équipe vous accompagne dans vos démarches et vous aide
-            à trouver la meilleure solution de financement.
+          <p className="mx-auto mt-4 max-w-2xl text-white/90">
+            Notre équipe vous accompagne dans vos démarches et vous fournit les devis nécessaires.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button
@@ -198,17 +179,15 @@ export default function FinancementPage() {
                 <ArrowRight className="h-5 w-5" />
               </Link>
             </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="border-white/30 text-white hover:bg-white/10"
-            >
-              <a href="tel:+33XXXXXXXXX">01 XX XX XX XX</a>
+            <Button asChild size="lg" variant="outline-light">
+              <a href={site.contact.phoneHref}>
+                <Phone className="h-5 w-5" />
+                {site.contact.phoneDisplay}
+              </a>
             </Button>
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

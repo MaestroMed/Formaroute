@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useId, useState } from 'react';
+import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -16,6 +16,7 @@ interface FAQAccordionProps {
 
 export function FAQAccordion({ questions }: FAQAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const baseId = useId();
 
   return (
     <div className="space-y-3">
@@ -32,7 +33,9 @@ export function FAQAccordion({ questions }: FAQAccordionProps) {
           <button
             onClick={() => setOpenIndex(openIndex === index ? null : index)}
             className="flex w-full items-center justify-between px-6 py-4 text-left"
+            type="button"
             aria-expanded={openIndex === index}
+            aria-controls={`faq-answer-${baseId}-${index}`}
           >
             <span className="pr-4 font-semibold text-slate-900">{item.question}</span>
             <motion.div
@@ -48,20 +51,14 @@ export function FAQAccordion({ questions }: FAQAccordionProps) {
               />
             </motion.div>
           </button>
-          <AnimatePresence>
-            {openIndex === index && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.2, ease: 'easeInOut' }}
-              >
-                <div className="border-t border-slate-200 px-6 py-4">
-                  <p className="text-slate-600">{item.answer}</p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <div
+            id={`faq-answer-${baseId}-${index}`}
+            role="region"
+            hidden={openIndex !== index}
+            className="border-t border-slate-200 px-6 py-4"
+          >
+            <p className="text-slate-600">{item.answer}</p>
+          </div>
         </div>
       ))}
     </div>

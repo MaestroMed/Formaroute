@@ -1,24 +1,22 @@
-import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
-import { formations } from '@/data/formations';
+import { formations, formatFormationPrice } from '@/data/formations';
+import { site, lessonsToHours } from '@/data/site';
+import { buildMetadata } from '@/lib/seo';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { FormationIcon } from '@/components/icons/FormationIcon';
 
-export const metadata: Metadata = {
-  title: 'Nos Formations | Code, Permis B, AAC, Stage Points',
+export const metadata = buildMetadata({
+  title: 'Nos formations : code, permis B, conduite accompagnée',
   description:
-    "Découvrez toutes nos formations : forfait code, permis B (manuelle ou auto), conduite accompagnée, passerelle, annulation. Auto-école Formaroute à Domont.",
-  openGraph: {
-    title: 'Formations Auto-école Formaroute Domont',
-    description: 'Code, Permis B, AAC, Stage Points - Toutes nos formations',
-  },
-};
+    'Toutes nos formations : forfait code, permis B en boîte manuelle ou automatique, conduite accompagnée, passerelle, annulation de permis, perfectionnement. Auto-école Formaroute à Domont.',
+  path: '/formations',
+});
 
 export default function FormationsPage() {
   return (
-    <main className="pt-20">
+    <div className="pt-20">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-formaroute-blue-600 to-formaroute-blue-800 py-20 text-white">
         <div className="container-custom">
@@ -26,9 +24,9 @@ export default function FormationsPage() {
             <h1 className="font-heading text-4xl font-bold md:text-5xl lg:text-6xl">
               Nos Formations
             </h1>
-            <p className="mt-4 text-lg text-white/80 md:text-xl">
-              Du code de la route au permis B, en passant par la conduite accompagnée
-              et les stages de points, trouvez la formation adaptée à vos besoins.
+            <p className="mt-4 text-lg text-white/90 md:text-xl">
+              Du code de la route au permis B, en passant par la conduite accompagnée et la
+              passerelle boîte automatique, trouvez la formation adaptée à vos besoins.
             </p>
           </div>
         </div>
@@ -56,16 +54,10 @@ export default function FormationsPage() {
                 >
                   {/* Badges */}
                   <div className="absolute right-4 top-4 flex gap-2">
-                    {isPopular && (
-                      <span className="badge-primary">Populaire</span>
-                    )}
-                    {isNew && (
-                      <span className="badge-secondary">Nouveau</span>
-                    )}
+                    {isPopular && <span className="badge-primary">Populaire</span>}
+                    {isNew && <span className="badge-secondary">Nouveau</span>}
                     {isComingSoon && (
-                      <span className="badge bg-slate-100 text-slate-600">
-                        Bientôt
-                      </span>
+                      <span className="badge bg-slate-100 text-slate-600">Bientôt</span>
                     )}
                   </div>
 
@@ -79,9 +71,7 @@ export default function FormationsPage() {
                     <h2 className="mb-2 font-heading text-xl font-bold text-slate-900">
                       {formation.shortTitle}
                     </h2>
-                    <p className="mb-4 text-slate-600">
-                      {formation.shortDescription}
-                    </p>
+                    <p className="mb-4 text-slate-600">{formation.shortDescription}</p>
 
                     {/* Features */}
                     <ul className="mb-6 space-y-2">
@@ -99,26 +89,29 @@ export default function FormationsPage() {
                         {formation.priceFrom ? 'À partir de' : 'Prix'}
                       </p>
                       <p className="font-mono text-3xl font-bold text-formaroute-blue-600">
-                        {formation.price === 0 ? 'Gratuit' : `${formation.price}€`}
+                        {formatFormationPrice(formation)}
                       </p>
-                      {formation.hours && (
+                      {formation.lessons && (
                         <p className="text-sm text-slate-500">
-                          {formation.hours} heures de conduite
+                          {formation.lessons} leçons de 50 min (soit{' '}
+                          {lessonsToHours(formation.lessons)})
                         </p>
                       )}
                     </div>
 
                     {/* CPF Badge */}
-                    {formation.eligibleCPF && (
+                    {formation.eligibleCPF && site.quality.qualiopiCertified && (
                       <div className="mb-4 rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700">
-                        ✓ Éligible CPF
+                        Éligible CPF
                       </div>
                     )}
 
                     {/* CTA */}
                     {isComingSoon ? (
-                      <Button disabled className="w-full" variant="secondary">
-                        Bientôt disponible
+                      <Button asChild className="w-full" variant="secondary">
+                        <Link href={`/formations/${formation.slug}`}>
+                          Bientôt disponible — en savoir plus
+                        </Link>
                       </Button>
                     ) : (
                       <Button asChild className="w-full">
@@ -142,9 +135,9 @@ export default function FormationsPage() {
           <h2 className="font-heading text-3xl font-bold md:text-4xl">
             Une question sur nos formations ?
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-white/80">
-            Notre équipe est à votre disposition pour vous conseiller
-            et vous aider à choisir la formation adaptée à vos besoins.
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-white/90">
+            Notre équipe est à votre disposition pour vous conseiller et vous aider à choisir la
+            formation adaptée à vos besoins.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button
@@ -154,17 +147,12 @@ export default function FormationsPage() {
             >
               <Link href="/contact">Nous contacter</Link>
             </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="border-white/30 text-white hover:bg-white/10"
-            >
+            <Button asChild size="lg" variant="outline-light">
               <Link href="/reservation">Réserver une évaluation</Link>
             </Button>
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

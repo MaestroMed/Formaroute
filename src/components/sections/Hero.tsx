@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Star, CheckCircle2, Phone, ExternalLink, CalendarCheck, Gift } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { FormationIcon } from '@/components/icons/FormationIcon';
+import { site } from '@/data/site';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -22,18 +23,18 @@ const staggerContainer = {
 };
 
 const highlights = [
-  'Moniteurs diplômés d\'État',
-  'Taux de réussite élevé',
-  'Véhicules récents',
-  'Financement CPF',
+  'Enseignants diplômés',
+  'Boîte manuelle ou automatique',
+  'Véhicules récents à double commande',
+  site.quality.qualiopiCertified ? 'Financement CPF' : 'Paiement en plusieurs fois',
 ];
 
 export function Hero() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-white to-formaroute-blue-50">
       {/* Background Pattern */}
-      <div className="absolute inset-0 bg-grid opacity-50" />
-      
+      <div className="bg-grid absolute inset-0 opacity-50" />
+
       {/* Decorative Elements */}
       <div className="absolute -right-40 -top-40 h-96 w-96 rounded-full bg-formaroute-blue-500/10 blur-3xl" />
       <div className="absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-formaroute-red-500/10 blur-3xl" />
@@ -48,32 +49,24 @@ export function Hero() {
             className="flex flex-col justify-center"
           >
             {/* Heading */}
-            <motion.h1
-              variants={fadeInUp}
-              className="font-heading text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl md:text-6xl lg:text-7xl"
-            >
-              Votre{' '}
-              <span className="text-formaroute-blue-600">permis</span>
+            <h1 className="font-heading text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl md:text-6xl lg:text-7xl">
+              Votre <span className="text-formaroute-blue-600">permis</span>
               <br />
-              commence{' '}
-              <span className="text-formaroute-red-600">ici</span>
-            </motion.h1>
+              commence <span className="text-formaroute-red-600">ici</span>
+            </h1>
 
             {/* Description */}
             <motion.p
               variants={fadeInUp}
               className="mt-6 max-w-xl text-lg text-slate-600 md:text-xl"
             >
-              Auto-école Formaroute à Domont. Formation au code de la route, 
-              permis B, conduite accompagnée et stage de récupération de points. 
-              Votre réussite est notre priorité.
+              Auto-école Formaroute à Domont. Formation au code de la route, permis B en boîte
+              manuelle ou automatique, conduite accompagnée et perfectionnement. Votre réussite est
+              notre priorité.
             </motion.p>
 
             {/* Highlights */}
-            <motion.div
-              variants={fadeInUp}
-              className="mt-8 grid grid-cols-2 gap-3"
-            >
+            <motion.div variants={fadeInUp} className="mt-8 grid grid-cols-2 gap-3">
               {highlights.map((item, index) => (
                 <div key={index} className="flex items-center gap-2">
                   <CheckCircle2 className="h-5 w-5 text-formaroute-blue-600" />
@@ -83,14 +76,11 @@ export function Hero() {
             </motion.div>
 
             {/* CTA Buttons */}
-            <motion.div
-              variants={fadeInUp}
-              className="mt-10 flex flex-col gap-4 sm:flex-row"
-            >
+            <motion.div variants={fadeInUp} className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Button asChild size="xl">
-                <a href="tel:+33134198326">
+                <a href={site.contact.phoneHref}>
                   <Phone className="h-5 w-5" />
-                  01 34 19 83 26
+                  {site.contact.phoneDisplay}
                 </a>
               </Button>
               <Button asChild variant="outline" size="xl">
@@ -99,12 +89,9 @@ export function Hero() {
             </motion.div>
 
             {/* Google Reviews Link */}
-            <motion.div
-              variants={fadeInUp}
-              className="mt-10"
-            >
+            <motion.div variants={fadeInUp} className="mt-10">
               <a
-                href="https://g.page/r/CVku8ribbwIZEAE/review"
+                href={site.social.googleReview}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-formaroute-blue-600 hover:underline"
@@ -128,15 +115,18 @@ export function Hero() {
               <div className="relative z-10 overflow-hidden rounded-3xl bg-gradient-to-br from-formaroute-blue-600 to-formaroute-blue-800 p-8 shadow-2xl">
                 <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/10" />
                 <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-formaroute-red-500/20" />
-                
+
                 <div className="relative space-y-6">
                   <div className="flex items-center gap-4">
                     <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/20 text-white">
                       <FormationIcon slug="permis-b" className="h-8 w-8" />
                     </div>
                     <div>
-                      <p className="text-sm text-white/70">Permis B</p>
-                      <p className="text-2xl font-bold text-white">à partir de 995€</p>
+                      <p className="text-sm text-white/80">Permis B</p>
+                      <p className="text-2xl font-bold text-white">dès 995 €</p>
+                      <p className="text-xs text-white/80">
+                        boîte automatique · 1 195 € en manuelle
+                      </p>
                     </div>
                   </div>
 
@@ -150,7 +140,7 @@ export function Hero() {
                           Formation Code offerte
                         </p>
                         <p className="text-sm text-white/80">
-                          Incluse gratuitement dans tous nos forfaits
+                          Incluse dans tous nos forfaits permis
                         </p>
                       </div>
                     </div>
@@ -158,19 +148,23 @@ export function Hero() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="rounded-2xl bg-white/10 p-4">
-                      <p className="text-3xl font-bold text-white">85%</p>
-                      <p className="text-sm text-white/70">Taux de réussite</p>
+                      <p className="text-3xl font-bold text-white">50 min</p>
+                      <p className="text-sm text-white/80">par leçon de conduite</p>
                     </div>
                     <div className="rounded-2xl bg-white/10 p-4">
-                      <p className="text-3xl font-bold text-white">20h</p>
-                      <p className="text-sm text-white/70">Minimum légal</p>
+                      <p className="text-3xl font-bold text-white">56 €</p>
+                      <p className="text-sm text-white/80">l&apos;évaluation de départ</p>
                     </div>
                   </div>
 
                   <div className="h-px bg-white/20" />
 
                   <div className="space-y-3">
-                    {['Véhicule double commande', 'Accompagnement examen', 'Boîte manuelle ou auto'].map((item, i) => (
+                    {[
+                      'Véhicule double commande',
+                      'Accompagnement examen',
+                      'Boîte manuelle ou auto',
+                    ].map((item, i) => (
                       <div key={i} className="flex items-center gap-3">
                         <CheckCircle2 className="h-5 w-5 text-green-400" />
                         <span className="text-white">{item}</span>
@@ -185,7 +179,7 @@ export function Hero() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.8, duration: 0.5 }}
-                className="absolute -right-8 bottom-1/4 z-20 rounded-2xl border border-slate-200 bg-white p-4 shadow-xl"
+                className="absolute -bottom-8 right-8 z-20 rounded-2xl border border-slate-200 bg-white p-4 shadow-xl"
               >
                 <div className="flex items-center gap-3">
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-formaroute-blue-100 text-formaroute-blue-600">
@@ -208,6 +202,7 @@ export function Hero() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        aria-hidden="true"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}

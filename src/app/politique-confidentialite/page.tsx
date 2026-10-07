@@ -1,171 +1,136 @@
-import { Metadata } from 'next';
+import { LegalPage, LegalSection, Field } from '@/components/legal/LegalPage';
+import { site, todo } from '@/data/site';
+import { buildMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Politique de Confidentialité',
-  description: "Politique de confidentialité et gestion des données personnelles - Formaroute",
-  robots: { index: true, follow: true },
-};
+export const metadata = buildMetadata({
+  title: 'Politique de confidentialité',
+  description:
+    "Comment l'auto-école Formaroute collecte, utilise et protège vos données personnelles.",
+  path: '/politique-confidentialite',
+});
 
 export default function PolitiqueConfidentialitePage() {
   return (
-    <main className="pt-20">
-      <section className="section bg-white">
-        <div className="container-custom">
-          <div className="mx-auto max-w-3xl">
-            <h1 className="font-heading text-4xl font-bold text-slate-900">
-              Politique de Confidentialité
-            </h1>
+    <LegalPage
+      title="Politique de confidentialité"
+      intro="Cette page explique quelles données personnelles nous collectons, pourquoi, combien de temps nous les conservons et comment exercer vos droits (RGPD)."
+    >
+      <LegalSection title="1. Responsable du traitement">
+        <p>
+          <strong>{site.legal.companyName ?? site.name}</strong> — SIRET{' '}
+          <Field value={todo(site.legal.siret)} />
+          <br />
+          {site.address.full}
+          <br />
+          Email : {site.contact.email} — Téléphone : {site.contact.phoneDisplay}
+        </p>
+      </LegalSection>
 
-            <div className="mt-8 space-y-8 text-slate-600">
-              <div>
-                <h2 className="mb-4 font-heading text-xl font-bold text-slate-900">
-                  1. Introduction
-                </h2>
-                <p>
-                  Formaroute s'engage à protéger la vie privée des utilisateurs de son site
-                  web. Cette politique de confidentialité explique comment nous collectons,
-                  utilisons et protégeons vos données personnelles conformément au Règlement
-                  Général sur la Protection des Données (RGPD).
-                </p>
-              </div>
-
-              <div>
-                <h2 className="mb-4 font-heading text-xl font-bold text-slate-900">
-                  2. Responsable du traitement
-                </h2>
-                <p>
-                  Le responsable du traitement des données est :<br />
-                  <strong>Formaroute</strong><br />
-                  [Adresse à compléter], 95330 Domont<br />
-                  Email : contact@formaroute.fr<br />
-                  Téléphone : 01 XX XX XX XX
-                </p>
-              </div>
-
-              <div>
-                <h2 className="mb-4 font-heading text-xl font-bold text-slate-900">
-                  3. Données collectées
-                </h2>
-                <p>Nous collectons les données suivantes :</p>
-                <ul className="mt-2 list-inside list-disc space-y-1">
-                  <li>Nom et prénom</li>
-                  <li>Adresse email</li>
-                  <li>Numéro de téléphone</li>
-                  <li>Données de navigation (cookies)</li>
-                  <li>Informations fournies via les formulaires</li>
-                </ul>
-              </div>
-
-              <div>
-                <h2 className="mb-4 font-heading text-xl font-bold text-slate-900">
-                  4. Finalités du traitement
-                </h2>
-                <p>Vos données sont utilisées pour :</p>
-                <ul className="mt-2 list-inside list-disc space-y-1">
-                  <li>Répondre à vos demandes de contact</li>
-                  <li>Gérer les inscriptions et réservations</li>
-                  <li>Vous envoyer des informations sur nos services (avec votre accord)</li>
-                  <li>Améliorer notre site et nos services</li>
-                  <li>Respecter nos obligations légales</li>
-                </ul>
-              </div>
-
-              <div>
-                <h2 className="mb-4 font-heading text-xl font-bold text-slate-900">
-                  5. Base légale
-                </h2>
-                <p>Le traitement de vos données repose sur :</p>
-                <ul className="mt-2 list-inside list-disc space-y-1">
-                  <li>Votre consentement</li>
-                  <li>L'exécution d'un contrat</li>
-                  <li>Le respect d'obligations légales</li>
-                  <li>Notre intérêt légitime</li>
-                </ul>
-              </div>
-
-              <div>
-                <h2 className="mb-4 font-heading text-xl font-bold text-slate-900">
-                  6. Durée de conservation
-                </h2>
-                <p>
-                  Vos données sont conservées pendant la durée nécessaire aux finalités
-                  pour lesquelles elles ont été collectées, et au maximum pendant 3 ans
-                  après votre dernier contact avec nous.
-                </p>
-              </div>
-
-              <div>
-                <h2 className="mb-4 font-heading text-xl font-bold text-slate-900">
-                  7. Vos droits
-                </h2>
-                <p>Conformément au RGPD, vous disposez des droits suivants :</p>
-                <ul className="mt-2 list-inside list-disc space-y-1">
-                  <li><strong>Droit d'accès :</strong> obtenir une copie de vos données</li>
-                  <li><strong>Droit de rectification :</strong> corriger vos données</li>
-                  <li><strong>Droit à l'effacement :</strong> demander la suppression de vos données</li>
-                  <li><strong>Droit à la limitation :</strong> limiter le traitement de vos données</li>
-                  <li><strong>Droit à la portabilité :</strong> recevoir vos données dans un format structuré</li>
-                  <li><strong>Droit d'opposition :</strong> vous opposer au traitement</li>
-                </ul>
-                <p className="mt-4">
-                  Pour exercer ces droits, contactez-nous à : contact@formaroute.fr
-                </p>
-              </div>
-
-              <div>
-                <h2 className="mb-4 font-heading text-xl font-bold text-slate-900">
-                  8. Cookies
-                </h2>
-                <p>
-                  Notre site utilise des cookies pour améliorer votre expérience de navigation.
-                  Vous pouvez configurer votre navigateur pour refuser les cookies.
-                </p>
-                <p className="mt-2">Types de cookies utilisés :</p>
-                <ul className="mt-2 list-inside list-disc space-y-1">
-                  <li><strong>Cookies essentiels :</strong> nécessaires au fonctionnement du site</li>
-                  <li><strong>Cookies analytiques :</strong> mesure d'audience (Google Analytics)</li>
-                </ul>
-              </div>
-
-              <div>
-                <h2 className="mb-4 font-heading text-xl font-bold text-slate-900">
-                  9. Sécurité
-                </h2>
-                <p>
-                  Nous mettons en œuvre des mesures techniques et organisationnelles
-                  appropriées pour protéger vos données contre tout accès non autorisé,
-                  perte ou altération.
-                </p>
-              </div>
-
-              <div>
-                <h2 className="mb-4 font-heading text-xl font-bold text-slate-900">
-                  10. Réclamation
-                </h2>
-                <p>
-                  Si vous estimez que vos droits ne sont pas respectés, vous pouvez
-                  introduire une réclamation auprès de la CNIL (Commission Nationale
-                  de l'Informatique et des Libertés) : www.cnil.fr
-                </p>
-              </div>
-
-              <div>
-                <h2 className="mb-4 font-heading text-xl font-bold text-slate-900">
-                  11. Modifications
-                </h2>
-                <p>
-                  Cette politique de confidentialité peut être modifiée à tout moment.
-                  Les modifications entrent en vigueur dès leur publication sur le site.
-                </p>
-              </div>
-            </div>
-
-            <p className="mt-12 text-sm text-slate-500">
-              Dernière mise à jour : Janvier 2024
-            </p>
-          </div>
+      <LegalSection title="2. Données collectées, finalités et bases légales">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-sm">
+            <thead>
+              <tr className="border-b border-slate-200">
+                <th scope="col" className="py-2 pr-4 font-semibold text-slate-900">
+                  Finalité
+                </th>
+                <th scope="col" className="py-2 pr-4 font-semibold text-slate-900">
+                  Données
+                </th>
+                <th scope="col" className="py-2 pr-4 font-semibold text-slate-900">
+                  Base légale
+                </th>
+                <th scope="col" className="py-2 font-semibold text-slate-900">
+                  Conservation
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 align-top">
+              <tr>
+                <td className="py-2 pr-4">
+                  Répondre aux demandes envoyées via le formulaire de contact
+                </td>
+                <td className="py-2 pr-4">Nom, prénom, email, téléphone, message</td>
+                <td className="py-2 pr-4">Consentement / mesures précontractuelles</td>
+                <td className="py-2">3 ans après le dernier contact</td>
+              </tr>
+              <tr>
+                <td className="py-2 pr-4">
+                  Gestion de la formation (inscription, dossier ANTS, planning, livret)
+                </td>
+                <td className="py-2 pr-4">
+                  Identité, coordonnées, pièces justificatives, progression
+                </td>
+                <td className="py-2 pr-4">Exécution du contrat et obligations légales</td>
+                <td className="py-2">Durée de la formation, puis 5 ans</td>
+              </tr>
+              <tr>
+                <td className="py-2 pr-4">Facturation et comptabilité</td>
+                <td className="py-2 pr-4">Identité, prestations, paiements</td>
+                <td className="py-2 pr-4">Obligation légale</td>
+                <td className="py-2">10 ans</td>
+              </tr>
+              <tr>
+                <td className="py-2 pr-4">
+                  Questionnaires de satisfaction et traitement des réclamations
+                </td>
+                <td className="py-2 pr-4">Réponses, échanges</td>
+                <td className="py-2 pr-4">Intérêt légitime (amélioration de la qualité)</td>
+                <td className="py-2">3 ans</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </section>
-    </main>
+      </LegalSection>
+
+      <LegalSection title="3. Destinataires et sous-traitants">
+        <p>
+          Vos données sont destinées au personnel de l&apos;auto-école et, le cas échéant, aux
+          administrations compétentes (ANTS, préfecture) et aux financeurs de votre formation. Elles
+          ne sont jamais vendues.
+        </p>
+        <p>Nous faisons appel aux prestataires techniques suivants :</p>
+        <ul className="list-inside list-disc space-y-1">
+          <li>Vercel Inc. (États-Unis) : hébergement du site ;</li>
+          <li>Resend (États-Unis) : acheminement des messages du formulaire de contact ;</li>
+          <li>Google (Gmail) : messagerie de l&apos;auto-école ;</li>
+          <li>Google Maps : uniquement si vous choisissez d&apos;afficher la carte.</li>
+        </ul>
+        <p>
+          Ces transferts hors de l&apos;Union européenne sont encadrés par le cadre de protection
+          des données UE–États-Unis (Data Privacy Framework) ou par les clauses contractuelles types
+          de la Commission européenne.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="4. Cookies">
+        <p>
+          Ce site n&apos;utilise ni cookies publicitaires ni outil de mesure d&apos;audience. Seuls
+          des éléments strictement nécessaires à son fonctionnement peuvent être utilisés. La carte
+          Google Maps, susceptible de déposer des cookies, n&apos;est chargée que si vous cliquez
+          sur « Afficher la carte ».
+        </p>
+      </LegalSection>
+
+      <LegalSection title="5. Vos droits">
+        <p>
+          Vous disposez d&apos;un droit d&apos;accès, de rectification, d&apos;effacement, de
+          limitation, de portabilité et d&apos;opposition, ainsi que du droit de retirer votre
+          consentement à tout moment. Pour les exercer, écrivez-nous à {site.contact.email} ou à
+          l&apos;adresse ci-dessus. Nous répondons dans un délai d&apos;un mois.
+        </p>
+        <p>
+          Si vous estimez que vos droits ne sont pas respectés, vous pouvez adresser une réclamation
+          à la CNIL (www.cnil.fr).
+        </p>
+      </LegalSection>
+
+      <LegalSection title="6. Sécurité">
+        <p>
+          Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour
+          protéger vos données contre tout accès non autorisé, perte ou altération.
+        </p>
+      </LegalSection>
+    </LegalPage>
   );
 }

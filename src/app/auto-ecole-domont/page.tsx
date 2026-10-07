@@ -1,57 +1,38 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, MapPin, Clock, Phone, CheckCircle2, Star } from 'lucide-react';
+import { ArrowRight, MapPin, Clock, Phone, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { formations } from '@/data/formations';
+import { formations, formatFormationPrice } from '@/data/formations';
+import { site } from '@/data/site';
+import { villes } from '@/data/villes';
+import { buildMetadata } from '@/lib/seo';
 import { FormationIcon } from '@/components/icons/FormationIcon';
 
-export const metadata: Metadata = {
-  title: 'Auto-école Domont (95330) | Permis B, Code, AAC | Formaroute',
+export const metadata: Metadata = buildMetadata({
+  title: 'Auto-école à Domont (95330)',
   description:
-    "Auto-école à Domont (95330). Formation code de la route, permis B (manuelle ou auto), conduite accompagnée, passerelle. Taux de réussite 85%. Moniteurs diplômés. Tarifs transparents.",
-  keywords: [
-    'auto école domont',
-    'auto ecole domont 95330',
-    'permis b domont',
-    'code de la route domont',
-    'conduite accompagnée domont',
-  ],
-  openGraph: {
-    title: 'Auto-école Domont | Formaroute',
-    description: 'Formation permis B, code, conduite accompagnée à Domont (95)',
-  },
-  alternates: {
-    canonical: 'https://formaroute.fr/auto-ecole-domont',
-  },
-};
+    'Formaroute, auto-école au 4 avenue Jean Jaurès à Domont (95330) : code de la route, permis B manuelle ou automatique, conduite accompagnée, passerelle. Tarifs TTC affichés.',
+  path: '/auto-ecole-domont',
+});
 
 const features = [
-  'Moniteurs diplômés d\'État avec + de 10 ans d\'expérience',
-  'Taux de réussite de 85% au permis B',
-  'Véhicules récents à double commande',
-  'Horaires flexibles : matin, midi, soir et samedi',
-  'Formation au code en salle et en ligne',
-  'Financement CPF et paiement en plusieurs fois',
-];
-
-const neighborhoods = [
-  'Centre-ville de Domont',
-  'Quartier de la Gare',
-  'Les Music-Halls',
-  'La Mare du Moulin',
-  'Le Bois des Music-Halls',
+  "Enseignants diplômés, titulaires de l'autorisation d'enseigner",
+  "Évaluation de départ et estimation écrite du nombre d'heures",
+  'Véhicules récents à double commande, boîte manuelle ou automatique',
+  'Formation au code en salle et entraînement en ligne',
+  'Tarifs TTC affichés, paiement en plusieurs fois',
 ];
 
 export default function AutoEcoleDomontPage() {
-  const mainFormations = formations.filter(
-    (f) => ['code', 'permis-b', 'conduite-accompagnee', 'stage-points'].includes(f.id)
+  const mainFormations = formations.filter((f) =>
+    ['code', 'permis-b', 'permis-b-auto', 'conduite-accompagnee'].includes(f.id)
   );
 
   return (
-    <main className="pt-20">
+    <div className="pt-20">
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-formaroute-blue-600 via-formaroute-blue-700 to-formaroute-blue-800 py-20 text-white">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" aria-hidden="true" />
         <div className="container-custom relative">
           <div className="mx-auto max-w-4xl text-center">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 backdrop-blur-sm">
@@ -61,10 +42,9 @@ export default function AutoEcoleDomontPage() {
             <h1 className="font-heading text-4xl font-bold md:text-5xl lg:text-6xl">
               Auto-école à Domont
             </h1>
-            <p className="mt-6 text-lg text-white/80 md:text-xl">
-              Votre auto-école de confiance au cœur de Domont. Formation au code de la route,
-              permis B, conduite accompagnée et stage de récupération de points.
-              Plus de 500 élèves formés avec un taux de réussite de 85%.
+            <p className="mt-6 text-lg text-white/90 md:text-xl">
+              Votre auto-école de proximité à Domont. Formation au code de la route, permis B en
+              boîte manuelle ou automatique, conduite accompagnée et perfectionnement.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button
@@ -77,33 +57,12 @@ export default function AutoEcoleDomontPage() {
                   <ArrowRight className="h-5 w-5" />
                 </Link>
               </Button>
-              <Button
-                asChild
-                size="xl"
-                variant="outline"
-                className="border-white/30 text-white hover:bg-white/10"
-              >
-                <a href="tel:+33XXXXXXXXX">
+              <Button asChild size="xl" variant="outline-light">
+                <a href={site.contact.phoneHref}>
                   <Phone className="h-5 w-5" />
-                  01 XX XX XX XX
+                  {site.contact.phoneDisplay}
                 </a>
               </Button>
-            </div>
-
-            {/* Trust Indicators */}
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-6">
-              <div className="flex items-center gap-2">
-                <div className="flex">
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <span>4.8/5 sur Google</span>
-              </div>
-              <div className="h-6 w-px bg-white/30" />
-              <div>+500 élèves formés</div>
-              <div className="h-6 w-px bg-white/30" />
-              <div>85% de réussite</div>
             </div>
           </div>
         </div>
@@ -119,14 +78,14 @@ export default function AutoEcoleDomontPage() {
                 <span className="text-formaroute-blue-600">Domont</span>
               </h2>
               <p className="mt-4 text-lg text-slate-600">
-                Située au cœur de Domont dans le Val-d'Oise (95), Formaroute vous accompagne
-                dans l'obtention de votre permis de conduire. Notre équipe de moniteurs diplômés
-                d'État met son expertise à votre service pour une formation de qualité.
+                Située {site.address.street} à Domont, dans le Val-d&apos;Oise, Formaroute vous
+                accompagne dans l&apos;obtention de votre permis de conduire, de l&apos;évaluation
+                de départ jusqu&apos;à l&apos;examen.
               </p>
               <p className="mt-4 text-slate-600">
-                Que vous soyez lycéen, étudiant, en reconversion professionnelle ou simplement
-                à la recherche d'une auto-école de confiance, nous adaptons notre pédagogie
-                à votre profil et à vos disponibilités.
+                Que vous soyez lycéen, étudiant, en reconversion professionnelle ou simplement à la
+                recherche d'une auto-école de confiance, nous adaptons notre pédagogie à votre
+                profil et à vos disponibilités.
               </p>
 
               <div className="mt-8 space-y-3">
@@ -142,52 +101,40 @@ export default function AutoEcoleDomontPage() {
             <div className="space-y-6">
               {/* Info Card */}
               <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-                <h3 className="mb-4 font-heading text-xl font-bold text-slate-900">
+                <h2 className="mb-4 font-heading text-xl font-bold text-slate-900">
                   Informations pratiques
-                </h3>
+                </h2>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
                     <MapPin className="mt-0.5 h-5 w-5 text-formaroute-blue-600" />
                     <div>
                       <p className="font-medium text-slate-900">Adresse</p>
-                      <p className="text-slate-600">[Adresse à compléter], 95330 Domont</p>
+                      <p className="text-slate-600">{site.address.full}</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <Clock className="mt-0.5 h-5 w-5 text-formaroute-blue-600" />
                     <div>
                       <p className="font-medium text-slate-900">Horaires</p>
-                      <p className="text-slate-600">Lun - Ven : 9h - 19h</p>
-                      <p className="text-slate-600">Samedi : 9h - 17h</p>
+                      {site.hours.display.map((h) => (
+                        <p key={h.days} className="text-slate-600">
+                          {h.days} : {h.hours}
+                        </p>
+                      ))}
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <Phone className="mt-0.5 h-5 w-5 text-formaroute-blue-600" />
                     <div>
                       <p className="font-medium text-slate-900">Téléphone</p>
-                      <p className="text-slate-600">01 XX XX XX XX</p>
+                      <a
+                        href={site.contact.phoneHref}
+                        className="text-slate-600 hover:text-formaroute-blue-600"
+                      >
+                        {site.contact.phoneDisplay}
+                      </a>
                     </div>
                   </div>
-                </div>
-              </div>
-
-              {/* Neighborhoods */}
-              <div className="rounded-2xl border border-slate-200 bg-white p-6">
-                <h3 className="mb-4 font-heading text-xl font-bold text-slate-900">
-                  Zones de prise en charge à Domont
-                </h3>
-                <p className="mb-4 text-slate-600">
-                  Nous récupérons nos élèves dans tous les quartiers de Domont :
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {neighborhoods.map((neighborhood, i) => (
-                    <span
-                      key={i}
-                      className="rounded-full bg-formaroute-blue-100 px-3 py-1 text-sm text-formaroute-blue-700"
-                    >
-                      {neighborhood}
-                    </span>
-                  ))}
                 </div>
               </div>
             </div>
@@ -199,9 +146,7 @@ export default function AutoEcoleDomontPage() {
       <section className="section bg-slate-50">
         <div className="container-custom">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="heading-lg text-slate-900">
-              Nos formations à Domont
-            </h2>
+            <h2 className="heading-lg text-slate-900">Nos formations à Domont</h2>
             <p className="mt-4 text-lg text-slate-600">
               Découvrez nos différentes formations disponibles dans notre auto-école de Domont.
             </p>
@@ -220,11 +165,10 @@ export default function AutoEcoleDomontPage() {
                 <h3 className="font-heading text-lg font-bold text-slate-900">
                   {formation.shortTitle}
                 </h3>
-                <p className="mt-2 text-sm text-slate-600">
-                  {formation.shortDescription}
-                </p>
+                <p className="mt-2 text-sm text-slate-600">{formation.shortDescription}</p>
                 <p className="mt-4 font-mono text-xl font-bold text-formaroute-blue-600">
-                  {formation.priceFrom ? 'dès ' : ''}{formation.price}€
+                  {formation.priceFrom ? 'dès ' : ''}
+                  {formatFormationPrice(formation)}
                 </p>
               </Link>
             ))}
@@ -242,35 +186,27 @@ export default function AutoEcoleDomontPage() {
         </div>
       </section>
 
-      {/* Nearby Cities */}
-      <section className="section bg-white">
+      {/* Zones desservies */}
+      <section id="zones-desservies" className="section scroll-mt-24 bg-white">
         <div className="container-custom">
-          <h2 className="heading-md text-center text-slate-900">
-            Également accessible depuis les villes voisines
-          </h2>
+          <h2 className="heading-md text-center text-slate-900">Zones desservies</h2>
           <p className="mx-auto mt-4 max-w-2xl text-center text-slate-600">
-            Notre auto-école de Domont est facilement accessible depuis les communes environnantes.
+            Nos élèves viennent de Domont et des communes voisines :
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            {[
-              { name: 'Ezanville', slug: 'ezanville', distance: '2 km' },
-              { name: 'Moisselles', slug: 'moisselles', distance: '3 km' },
-              { name: 'Bouffémont', slug: 'bouffemont', distance: '3 km' },
-              { name: 'Saint-Brice-sous-Forêt', slug: 'saint-brice-sous-foret', distance: '4 km' },
-              { name: 'Montmorency', slug: 'montmorency', distance: '6 km' },
-              { name: 'Eaubonne', slug: 'eaubonne', distance: '7 km' },
-            ].map((city) => (
-              <Link
-                key={city.slug}
-                href={`/auto-ecole-${city.slug}`}
-                className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm transition-all hover:border-formaroute-blue-300 hover:bg-formaroute-blue-50"
+          <ul className="mx-auto mt-8 flex max-w-4xl flex-wrap justify-center gap-3">
+            {villes.map((ville) => (
+              <li
+                key={ville.slug}
+                className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm"
               >
-                <MapPin className="h-4 w-4 text-formaroute-blue-600" />
-                <span>{city.name}</span>
-                <span className="text-slate-400">({city.distance})</span>
-              </Link>
+                <MapPin className="h-4 w-4 text-formaroute-blue-600" aria-hidden="true" />
+                <span>{ville.name}</span>
+                {ville.distance > 0 && (
+                  <span className="text-slate-500">({ville.distance} km)</span>
+                )}
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
@@ -280,9 +216,9 @@ export default function AutoEcoleDomontPage() {
           <h2 className="font-heading text-3xl font-bold md:text-4xl">
             Prêt à passer votre permis à Domont ?
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-white/80">
-            Réservez votre évaluation de départ pour démarrer votre formation.
-            Notre équipe vous accueillera dans nos locaux de Domont.
+          <p className="mx-auto mt-4 max-w-2xl text-white/90">
+            Réservez votre évaluation de départ pour démarrer votre formation. Notre équipe vous
+            accueillera dans nos locaux de Domont.
           </p>
           <div className="mt-8">
             <Button
@@ -298,6 +234,6 @@ export default function AutoEcoleDomontPage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

@@ -1,137 +1,109 @@
-import { Metadata } from 'next';
+import Link from 'next/link';
+import { LegalPage, LegalSection, Field } from '@/components/legal/LegalPage';
+import { site, todo } from '@/data/site';
+import { buildMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Mentions Légales',
-  description: "Mentions légales du site Formaroute - Auto-école à Domont (95330)",
-  robots: { index: true, follow: true },
-};
+export const metadata = buildMetadata({
+  title: 'Mentions légales',
+  description: 'Mentions légales du site de l’auto-école Formaroute à Domont (95330).',
+  path: '/mentions-legales',
+});
 
 export default function MentionsLegalesPage() {
+  const { legal } = site;
+
   return (
-    <main className="pt-20">
-      <section className="section bg-white">
-        <div className="container-custom">
-          <div className="mx-auto max-w-3xl">
-            <h1 className="font-heading text-4xl font-bold text-slate-900">
-              Mentions Légales
-            </h1>
+    <LegalPage title="Mentions légales">
+      <LegalSection title="1. Éditeur du site">
+        <p>
+          Le site formaroute.fr est édité par :<br />
+          <strong>{legal.companyName ?? site.name}</strong> (nom commercial : {site.name})<br />
+          Forme juridique : <Field value={todo(legal.legalForm)} />
+          {legal.shareCapital && <>, au capital de {legal.shareCapital}</>}
+          <br />
+          SIRET : <Field value={todo(legal.siret)} />
+          <br />
+          Immatriculation : <Field value={todo(legal.registry)} />
+          <br />
+          N° de TVA intracommunautaire : <Field value={todo(legal.vatNumber)} />
+          <br />
+          Siège : {site.address.full}
+          <br />
+          Téléphone : {site.contact.phoneDisplay}
+          <br />
+          Email : {site.contact.email}
+        </p>
+        <p>
+          Établissement d&apos;enseignement de la conduite agréé par la préfecture du
+          Val-d&apos;Oise, agrément n° <Field value={todo(legal.agrementEcole)} />.
+          <br />
+          Organisme de formation : déclaration d&apos;activité n° <Field
+            value={todo(legal.nda)}
+          />{' '}
+          (cet enregistrement ne vaut pas agrément de l&apos;État).
+        </p>
+      </LegalSection>
 
-            <div className="mt-8 space-y-8 text-slate-600">
-              <div>
-                <h2 className="mb-4 font-heading text-xl font-bold text-slate-900">
-                  1. Éditeur du site
-                </h2>
-                <p>
-                  Le site formaroute.fr est édité par :<br />
-                  <strong>Formaroute</strong><br />
-                  [Forme juridique à compléter]<br />
-                  SIRET : [À compléter]<br />
-                  Numéro d'agrément préfectoral : [À compléter]<br />
-                  Adresse : [À compléter], 95330 Domont<br />
-                  Téléphone : 01 XX XX XX XX<br />
-                  Email : contact@formaroute.fr
-                </p>
-              </div>
+      <LegalSection title="2. Directeur de la publication">
+        <p>
+          <Field value={todo(legal.publicationDirector)} />
+        </p>
+      </LegalSection>
 
-              <div>
-                <h2 className="mb-4 font-heading text-xl font-bold text-slate-900">
-                  2. Directeur de la publication
-                </h2>
-                <p>
-                  Le directeur de la publication est [Nom du responsable à compléter],
-                  en qualité de [Fonction à compléter].
-                </p>
-              </div>
+      <LegalSection title="3. Hébergement">
+        <p>
+          Vercel Inc.
+          <br />
+          440 N Barranca Ave #4133, Covina, CA 91723, États-Unis
+          <br />
+          Site web : vercel.com
+        </p>
+      </LegalSection>
 
-              <div>
-                <h2 className="mb-4 font-heading text-xl font-bold text-slate-900">
-                  3. Hébergement
-                </h2>
-                <p>
-                  Le site est hébergé par :<br />
-                  <strong>Vercel Inc.</strong><br />
-                  440 N Barranca Ave #4133<br />
-                  Covina, CA 91723<br />
-                  États-Unis<br />
-                  Site web : vercel.com
-                </p>
-              </div>
+      <LegalSection title="4. Propriété intellectuelle">
+        <p>
+          L&apos;ensemble du contenu de ce site (textes, images, logos) est protégé par le droit
+          d&apos;auteur et le droit des marques. Toute reproduction, même partielle, est interdite
+          sans autorisation préalable.
+        </p>
+      </LegalSection>
 
-              <div>
-                <h2 className="mb-4 font-heading text-xl font-bold text-slate-900">
-                  4. Propriété intellectuelle
-                </h2>
-                <p>
-                  L'ensemble du contenu de ce site (textes, images, vidéos, logos, etc.)
-                  est protégé par le droit d'auteur et le droit des marques. Toute
-                  reproduction, même partielle, est interdite sans autorisation préalable.
-                </p>
-              </div>
+      <LegalSection title="5. Données personnelles et cookies">
+        <p>
+          Le traitement de vos données personnelles est décrit dans notre{' '}
+          <Link
+            href="/politique-confidentialite"
+            className="text-formaroute-blue-600 hover:underline"
+          >
+            politique de confidentialité
+          </Link>
+          .
+        </p>
+        <p>
+          Ce site n&apos;utilise pas de cookies publicitaires ni de mesure d&apos;audience. La carte
+          Google Maps n&apos;est chargée que si vous cliquez sur « Afficher la carte » ; Google peut
+          alors déposer ses propres cookies.
+        </p>
+      </LegalSection>
 
-              <div>
-                <h2 className="mb-4 font-heading text-xl font-bold text-slate-900">
-                  5. Données personnelles
-                </h2>
-                <p>
-                  Les informations recueillies sur ce site font l'objet d'un traitement
-                  informatique destiné à la gestion des demandes de contact et des
-                  inscriptions. Conformément au RGPD, vous disposez d'un droit d'accès,
-                  de rectification et de suppression de vos données.
-                </p>
-                <p className="mt-2">
-                  Pour exercer ces droits, contactez-nous à : contact@formaroute.fr
-                </p>
-                <p className="mt-2">
-                  Pour plus d'informations, consultez notre{' '}
-                  <a
-                    href="/politique-confidentialite"
-                    className="text-formaroute-blue-600 hover:underline"
-                  >
-                    politique de confidentialité
-                  </a>
-                  .
-                </p>
-              </div>
+      <LegalSection title="6. Médiation de la consommation">
+        <p>
+          En cas de litige, vous pouvez recourir gratuitement au médiateur de la consommation :{' '}
+          <Field value={todo(site.mediator.name)} />
+          {site.mediator.website && <> — {site.mediator.website}</>}. Voir aussi notre{' '}
+          <Link href="/reclamations" className="text-formaroute-blue-600 hover:underline">
+            procédure de réclamation
+          </Link>
+          .
+        </p>
+      </LegalSection>
 
-              <div>
-                <h2 className="mb-4 font-heading text-xl font-bold text-slate-900">
-                  6. Cookies
-                </h2>
-                <p>
-                  Ce site utilise des cookies pour améliorer l'expérience utilisateur
-                  et mesurer l'audience. En poursuivant votre navigation, vous acceptez
-                  l'utilisation de ces cookies.
-                </p>
-              </div>
-
-              <div>
-                <h2 className="mb-4 font-heading text-xl font-bold text-slate-900">
-                  7. Crédits
-                </h2>
-                <p>
-                  Conception et développement : [À compléter]<br />
-                  Photographies : [À compléter]
-                </p>
-              </div>
-
-              <div>
-                <h2 className="mb-4 font-heading text-xl font-bold text-slate-900">
-                  8. Litiges
-                </h2>
-                <p>
-                  En cas de litige, une solution amiable sera recherchée avant toute
-                  action judiciaire. À défaut, les tribunaux français seront seuls
-                  compétents.
-                </p>
-              </div>
-            </div>
-
-            <p className="mt-12 text-sm text-slate-500">
-              Dernière mise à jour : Janvier 2024
-            </p>
-          </div>
-        </div>
-      </section>
-    </main>
+      <LegalSection title="7. Litiges">
+        <p>
+          Le présent site est soumis au droit français. En cas de litige, une solution amiable sera
+          recherchée avant toute action judiciaire.
+        </p>
+      </LegalSection>
+    </LegalPage>
   );
 }

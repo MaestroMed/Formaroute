@@ -14,15 +14,17 @@ const buttonVariants = cva(
           'bg-formaroute-red-600 text-white shadow-lg shadow-formaroute-red-600/25 hover:bg-formaroute-red-700 hover:shadow-xl hover:-translate-y-0.5',
         outline:
           'border-2 border-formaroute-blue-600 bg-white text-formaroute-blue-600 hover:bg-formaroute-blue-50 hover:-translate-y-0.5',
-        secondary:
-          'bg-slate-100 text-slate-900 hover:bg-slate-200 hover:-translate-y-0.5',
+        // Bouton contour pour les fonds foncés (bandeaux bleus).
+        'outline-light':
+          'border-2 border-white/60 bg-transparent text-white hover:bg-white/10 hover:-translate-y-0.5',
+        secondary: 'bg-slate-100 text-slate-900 hover:bg-slate-200 hover:-translate-y-0.5',
         ghost: 'hover:bg-slate-100 hover:text-slate-900',
         link: 'text-formaroute-blue-600 underline-offset-4 hover:underline',
       },
       size: {
         default: 'h-11 px-6 py-2',
         sm: 'h-9 rounded-lg px-4 text-xs',
-        lg: 'h-13 rounded-xl px-8 text-base',
+        lg: 'h-12 rounded-xl px-8 text-base',
         xl: 'h-14 rounded-xl px-10 text-lg',
         icon: 'h-10 w-10',
       },
@@ -35,8 +37,7 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }
 
@@ -44,11 +45,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button';
     return (
-      <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
-        {...props}
-      />
+      <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
     );
   }
 );

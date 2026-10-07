@@ -15,11 +15,13 @@ import {
   Car,
   Building,
   TrendingUp,
+  ShieldCheck,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { mainNavigation } from '@/data/navigation';
 import { FormationIcon } from '@/components/icons/FormationIcon';
+import { site } from '@/data/site';
 
 const lucideIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Wallet,
@@ -28,6 +30,7 @@ const lucideIconMap: Record<string, React.ComponentType<{ className?: string }>>
   Car,
   Building,
   TrendingUp,
+  ShieldCheck,
 };
 
 function NavChildIcon({ href, icon }: { href: string; icon?: string }) {
@@ -42,42 +45,19 @@ function NavChildIcon({ href, icon }: { href: string; icon?: string }) {
   return null;
 }
 
-const LOGO_PATH = '/logo/logo.png';
-
-function Logo({ scrolled }: { scrolled: boolean }) {
-  const [hasLogo, setHasLogo] = useState(false);
-
-  useEffect(() => {
-    fetch(LOGO_PATH, { method: 'HEAD' })
-      .then((res) => setHasLogo(res.ok))
-      .catch(() => setHasLogo(false));
-  }, []);
-
-  if (hasLogo) {
-    return (
-      <Image
-        src={LOGO_PATH}
-        alt="Formaroute"
-        width={160}
-        height={40}
-        className="h-10 w-auto object-contain"
-        priority
-      />
-    );
-  }
-
+function Logo() {
   return (
     <>
-      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-formaroute-blue-600">
-        <span className="font-heading text-xl font-black text-white">F</span>
-      </div>
-      <span
-        className={cn(
-          'font-heading text-2xl font-black tracking-tight transition-colors',
-          scrolled ? 'text-slate-900' : 'text-slate-900'
-        )}
-      >
-        Forma<span className="text-formaroute-red-600">route</span>
+      <Image
+        src="/logo/logo-mark.png"
+        alt=""
+        width={52}
+        height={44}
+        className="h-11 w-auto"
+        priority
+      />
+      <span className="font-heading text-2xl font-black tracking-tight text-formaroute-blue-700">
+        Forma<span className="text-formaroute-red-600">Route</span>
       </span>
     </>
   );
@@ -92,7 +72,8 @@ export function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -104,23 +85,33 @@ export function Header() {
     }
   }, [isMobileMenuOpen]);
 
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActiveDropdown(null);
+        setIsMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
+
   return (
     <header
       className={cn(
         'fixed left-0 right-0 top-0 z-50 transition-all duration-300',
-        isScrolled
-          ? 'bg-white/95 shadow-lg backdrop-blur-lg'
-          : 'bg-transparent'
+        isScrolled ? 'bg-white/95 shadow-lg backdrop-blur-lg' : 'bg-transparent'
       )}
     >
-      <nav className="container-custom">
+      <nav className="container-custom" aria-label="Navigation principale">
         <div className="flex h-20 items-center justify-between">
           {/* Logo */}
           <Link
             href="/"
             className="flex items-center gap-2 text-2xl font-bold"
+            aria-label="Formaroute — accueil"
           >
-            <Logo scrolled={isScrolled} />
+            <Logo />
           </Link>
 
           {/* Desktop Navigation */}
@@ -128,9 +119,14 @@ export function Header() {
             {mainNavigation.map((item) => (
               <div
                 key={item.href}
-                className="relative"
+                className="relative flex items-center"
                 onMouseEnter={() => item.children && setActiveDropdown(item.label)}
                 onMouseLeave={() => setActiveDropdown(null)}
+                onBlur={(e) => {
+                  if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+                    setActiveDropdown(null);
+                  }
+                }}
               >
                 <Link
                   href={item.href}
@@ -142,15 +138,26 @@ export function Header() {
                   )}
                 >
                   {item.label}
-                  {item.children && (
+                </Link>
+                {item.children && (
+                  <button
+                    type="button"
+                    className="-ml-3 rounded-lg p-1 text-slate-700 hover:text-formaroute-blue-600"
+                    aria-expanded={activeDropdown === item.label}
+                    aria-controls={`menu-${item.label}`}
+                    aria-label={`Afficher le sous-menu ${item.label}`}
+                    onClick={() =>
+                      setActiveDropdown(activeDropdown === item.label ? null : item.label)
+                    }
+                  >
                     <ChevronDown
                       className={cn(
                         'h-4 w-4 transition-transform',
                         activeDropdown === item.label && 'rotate-180'
                       )}
                     />
-                  )}
-                </Link>
+                  </button>
+                )}
 
                 {/* Dropdown */}
                 <AnimatePresence>
@@ -160,6 +167,7 @@ export function Header() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.2 }}
+                      id={`menu-${item.label}`}
                       className="absolute left-0 top-full w-72 pt-2"
                     >
                       <div className="rounded-2xl border border-slate-200 bg-white p-2 shadow-xl">
@@ -167,19 +175,16 @@ export function Header() {
                           <Link
                             key={child.href}
                             href={child.href}
-                            className="flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-slate-50"
+                            onClick={() => setActiveDropdown(null)}
+                            className="flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-slate-50 focus-visible:bg-slate-50"
                           >
                             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-formaroute-blue-100 text-formaroute-blue-600">
                               <NavChildIcon href={child.href} icon={child.icon} />
                             </div>
                             <div>
-                              <p className="font-medium text-slate-900">
-                                {child.label}
-                              </p>
+                              <p className="font-medium text-slate-900">{child.label}</p>
                               {child.description && (
-                                <p className="text-sm text-slate-500">
-                                  {child.description}
-                                </p>
+                                <p className="text-sm text-slate-500">{child.description}</p>
                               )}
                             </div>
                           </Link>
@@ -195,16 +200,11 @@ export function Header() {
           {/* CTA Buttons */}
           <div className="hidden items-center gap-4 lg:flex">
             <a
-              href="tel:+33134198326"
-              className={cn(
-                'flex items-center gap-2 text-sm font-medium transition-colors',
-                isScrolled
-                  ? 'text-slate-700 hover:text-formaroute-blue-600'
-                  : 'text-slate-700 hover:text-formaroute-blue-600'
-              )}
+              href={site.contact.phoneHref}
+              className="flex items-center gap-2 text-sm font-medium text-slate-700 transition-colors hover:text-formaroute-blue-600"
             >
               <Phone className="h-4 w-4" />
-              <span>01 34 19 83 26</span>
+              <span>{site.contact.phoneDisplay}</span>
             </a>
             <Button asChild>
               <Link href="/reservation">Réserver</Link>
@@ -213,15 +213,14 @@ export function Header() {
 
           {/* Mobile Menu Button */}
           <button
+            type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="flex h-10 w-10 items-center justify-center rounded-lg lg:hidden"
             aria-label={isMobileMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
           >
-            {isMobileMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
+            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </nav>
@@ -233,7 +232,8 @@ export function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="border-t border-slate-200 bg-white lg:hidden"
+            id="mobile-menu"
+            className="max-h-[calc(100vh-5rem)] overflow-y-auto border-t border-slate-200 bg-white lg:hidden"
           >
             <div className="container-custom py-4">
               <div className="flex flex-col gap-2">
@@ -266,11 +266,11 @@ export function Header() {
 
               <div className="mt-4 flex flex-col gap-3 border-t border-slate-200 pt-4">
                 <a
-                  href="tel:+33134198326"
+                  href={site.contact.phoneHref}
                   className="flex items-center justify-center gap-2 rounded-lg border border-slate-200 px-4 py-3 font-medium text-slate-700"
                 >
                   <Phone className="h-5 w-5" />
-                  <span>01 34 19 83 26</span>
+                  <span>{site.contact.phoneDisplay}</span>
                 </a>
                 <Button asChild size="lg" className="w-full">
                   <Link href="/reservation">Réserver une évaluation</Link>

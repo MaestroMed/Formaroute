@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, Gift } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { formations } from '@/data/formations';
+import { formations, formatFormationPrice } from '@/data/formations';
+import { site } from '@/data/site';
 import { FormationIcon } from '@/components/icons/FormationIcon';
 
 const containerVariants = {
@@ -28,9 +29,9 @@ const itemVariants = {
 
 export function Services() {
   // Get the 6 main formations for display
-  const displayedFormations = formations.filter(
-    (f) => !f.comingSoon && f.id !== 'evaluation'
-  ).slice(0, 6);
+  const displayedFormations = formations
+    .filter((f) => !f.comingSoon && f.id !== 'evaluation')
+    .slice(0, 6);
 
   return (
     <section className="section bg-white">
@@ -44,12 +45,11 @@ export function Services() {
         >
           <span className="badge-primary mb-4">Nos formations</span>
           <h2 className="heading-lg text-slate-900">
-            Des formations adaptées à{' '}
-            <span className="text-formaroute-blue-600">vos besoins</span>
+            Des formations adaptées à <span className="text-formaroute-blue-600">vos besoins</span>
           </h2>
           <p className="mt-4 text-lg text-slate-600">
-            Que vous passiez votre premier permis ou que vous souhaitiez récupérer des points,
-            nous avons la formation qu'il vous faut.
+            Que vous passiez votre premier permis, changiez de boîte de vitesses ou souhaitiez
+            reprendre confiance au volant, nous avons la formation qu&apos;il vous faut.
           </p>
         </motion.div>
 
@@ -64,9 +64,10 @@ export function Services() {
           {displayedFormations.map((formation) => {
             const isPopular = formation.popular;
             const isNew = formation.new;
-            const codeInclus = formation.features.some((f) =>
-              f.toLowerCase().startsWith('code valable')
-            );
+            // « Code offert » : uniquement pour les forfaits permis qui incluent le code.
+            const codeInclus =
+              formation.id !== 'code' &&
+              formation.features.some((f) => f.toLowerCase().startsWith('code valable'));
 
             return (
               <motion.div key={formation.id} variants={itemVariants}>
@@ -83,12 +84,7 @@ export function Services() {
                     {/* Badge */}
                     {(isPopular || isNew) && (
                       <div className="absolute right-4 top-4">
-                        <span
-                          className={cn(
-                            'badge',
-                            isNew ? 'badge-secondary' : 'badge-primary'
-                          )}
-                        >
+                        <span className={cn('badge', isNew ? 'badge-secondary' : 'badge-primary')}>
                           {isNew ? 'Nouveau' : 'Populaire'}
                         </span>
                       </div>
@@ -103,9 +99,7 @@ export function Services() {
                     <h3 className="mb-2 font-heading text-xl font-bold text-slate-900">
                       {formation.shortTitle}
                     </h3>
-                    <p className="mb-4 line-clamp-2 text-slate-600">
-                      {formation.shortDescription}
-                    </p>
+                    <p className="mb-4 line-clamp-2 text-slate-600">{formation.shortDescription}</p>
 
                     {/* Price & CTA */}
                     <div className="flex items-end justify-between">
@@ -114,7 +108,7 @@ export function Services() {
                           {formation.priceFrom ? 'À partir de' : 'Prix'}
                         </p>
                         <p className="font-mono text-2xl font-bold text-formaroute-blue-600">
-                          {formation.price === 0 ? 'Gratuit' : `${formation.price}€`}
+                          {formatFormationPrice(formation)}
                         </p>
                       </div>
                       <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition-all group-hover:bg-formaroute-blue-600 group-hover:text-white">
@@ -130,9 +124,9 @@ export function Services() {
                           <span className="font-medium">Code offert</span>
                         </div>
                       )}
-                      {formation.eligibleCPF && (
+                      {formation.eligibleCPF && site.quality.qualiopiCertified && (
                         <div className="inline-flex items-center gap-2 rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700">
-                          <span>✓</span>
+                          <span aria-hidden="true">✓</span>
                           <span>Éligible CPF</span>
                         </div>
                       )}

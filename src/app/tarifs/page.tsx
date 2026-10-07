@@ -1,4 +1,3 @@
-import { Metadata } from 'next';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -10,16 +9,15 @@ import {
   Gift,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { buildMetadata } from '@/lib/seo';
+import { site } from '@/data/site';
 
-export const metadata: Metadata = {
-  title: 'Tarifs | Prix des Formations Auto-école',
+export const metadata = buildMetadata({
+  title: 'Tarifs du permis B, du code et de la conduite accompagnée',
   description:
-    "Découvrez nos tarifs transparents : permis B (boîte manuelle ou auto), conduite accompagnée, passerelle, forfait code, annulation. Tarifs TTC, financement CPF disponible.",
-  openGraph: {
-    title: 'Tarifs Auto-école Formaroute Domont',
-    description: 'Prix transparents TTC - Permis B, AAC, Passerelle, Code, Annulation',
-  },
-};
+    'Tarifs TTC de l’auto-école Formaroute à Domont : permis B boîte manuelle ou automatique, conduite accompagnée, passerelle, forfait code, annulation et prestations à l’unité.',
+  path: '/tarifs',
+});
 
 interface ForfaitItem {
   name: string;
@@ -92,10 +90,7 @@ const forfaits: ForfaitItem[] = [
     name: 'Passerelle',
     subtitle: 'Boîte auto vers boîte manuelle',
     price: 495,
-    includes: [
-      'Frais administratifs',
-      '7 leçons de conduite (50 min / leçon)',
-    ],
+    includes: ['Frais administratifs', '7 leçons de conduite (50 min / leçon)'],
   },
   {
     name: 'Forfait Code',
@@ -141,15 +136,15 @@ const prestations: PrestationItem[] = [
 
 export default function TarifsPage() {
   return (
-    <main className="pt-20">
+    <div className="pt-20">
       {/* Hero */}
       <section className="bg-gradient-to-br from-formaroute-blue-600 to-formaroute-blue-800 py-16 text-white">
         <div className="container-custom">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="font-heading text-4xl font-bold md:text-5xl">Nos Tarifs</h1>
-            <p className="mt-4 text-lg text-white/80">
-              Tarifs transparents et exprimés toutes taxes comprises (TTC).
-              Plusieurs solutions de financement pour s'adapter à votre budget.
+            <p className="mt-4 text-lg text-white/90">
+              Tarifs transparents et exprimés toutes taxes comprises (TTC). Plusieurs solutions de
+              financement pour s'adapter à votre budget.
             </p>
           </div>
         </div>
@@ -163,13 +158,10 @@ export default function TarifsPage() {
               <Gift className="h-7 w-7 text-yellow-300" />
             </div>
             <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-yellow-300">
-                Offert
-              </p>
+              <p className="text-xs font-bold uppercase tracking-widest text-yellow-300">Offert</p>
               <p className="font-heading text-xl font-bold sm:text-2xl">
                 La formation au Code de la route est{' '}
-                <span className="text-yellow-300">incluse gratuitement</span>{' '}
-                dans tous nos forfaits permis
+                <span className="text-yellow-300">incluse</span> dans tous nos forfaits permis
               </p>
             </div>
           </div>
@@ -179,14 +171,13 @@ export default function TarifsPage() {
       {/* Forfaits */}
       <section className="section bg-slate-50">
         <div className="container-custom">
-          <h2 className="mb-8 font-heading text-3xl font-bold text-slate-900">
-            Forfaits Permis B
-          </h2>
+          <h2 className="mb-8 font-heading text-3xl font-bold text-slate-900">Forfaits Permis B</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {forfaits.map((item, idx) => {
-              const codeInclus = item.includes.some((inc) =>
-                inc.toLowerCase().startsWith('code valable')
-              );
+              // « Code offert » uniquement sur les forfaits permis (pas sur le forfait code lui-même).
+              const codeInclus =
+                item.name !== 'Forfait Code' &&
+                item.includes.some((inc) => inc.toLowerCase().startsWith('code valable'));
               return (
                 <div
                   key={idx}
@@ -205,9 +196,7 @@ export default function TarifsPage() {
                     <h3 className="font-heading text-lg font-semibold text-slate-900">
                       {item.name}
                     </h3>
-                    {item.subtitle && (
-                      <p className="text-sm text-slate-500">{item.subtitle}</p>
-                    )}
+                    {item.subtitle && <p className="text-sm text-slate-500">{item.subtitle}</p>}
                   </div>
                   <div className="mt-4">
                     <span className="font-mono text-4xl font-bold text-formaroute-blue-600">
@@ -223,10 +212,7 @@ export default function TarifsPage() {
                   )}
                   <ul className="mt-4 space-y-2">
                     {item.includes.map((inc, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start gap-2 text-sm text-slate-600"
-                      >
+                      <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
                         <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-formaroute-blue-600" />
                         <span>{inc}</span>
                       </li>
@@ -247,18 +233,21 @@ export default function TarifsPage() {
               Prestations unitaires
             </h2>
             <p className="mb-8 text-slate-600">
-              À l'unité, hors forfait. <span className="font-medium">BVA</span> = boîte de
-              vitesse automatique.
+              À l'unité, hors forfait. <span className="font-medium">BVA</span> = boîte de vitesse
+              automatique.
             </p>
-            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+            <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white">
               <table className="w-full">
+                <caption className="sr-only">Tarifs des prestations à l&apos;unité</caption>
                 <thead className="bg-slate-50 text-left text-sm">
                   <tr>
-                    <th className="px-4 py-3 font-semibold text-slate-700">Prestation</th>
-                    <th className="px-4 py-3 text-right font-semibold text-slate-700">
+                    <th scope="col" className="px-4 py-3 font-semibold text-slate-700">
+                      Prestation
+                    </th>
+                    <th scope="col" className="px-4 py-3 text-right font-semibold text-slate-700">
                       Boîte manuelle
                     </th>
-                    <th className="px-4 py-3 text-right font-semibold text-slate-700">
+                    <th scope="col" className="px-4 py-3 text-right font-semibold text-slate-700">
                       BVA
                     </th>
                   </tr>
@@ -268,9 +257,7 @@ export default function TarifsPage() {
                     <tr key={i} className="text-sm">
                       <td className="px-4 py-3">
                         <div className="font-medium text-slate-900">{p.name}</div>
-                        {p.note && (
-                          <div className="text-xs text-slate-500">{p.note}</div>
-                        )}
+                        {p.note && <div className="text-xs text-slate-500">{p.note}</div>}
                       </td>
                       <td className="px-4 py-3 text-right font-mono font-semibold text-slate-900">
                         {p.price} €
@@ -283,10 +270,18 @@ export default function TarifsPage() {
                 </tbody>
               </table>
             </div>
-            <p className="mt-6 text-center text-sm text-slate-500">
-              Une documentation détaillée est disponible dans l'établissement sur simple demande.
-              Tarifs exprimés toutes taxes comprises (TTC).
-            </p>
+            <div className="mt-6 space-y-2 text-center text-sm text-slate-600">
+              <p>
+                Le nombre de leçons d&apos;un forfait est indicatif : le volume réellement
+                nécessaire est estimé lors de l&apos;évaluation de départ et précisé dans le
+                contrat. Les leçons supplémentaires et l&apos;accompagnement à chaque présentation à
+                l&apos;examen pratique sont facturés au tarif unitaire ci-dessus.
+              </p>
+              <p>
+                Tarifs exprimés toutes taxes comprises (TTC). Une documentation détaillée est
+                disponible dans l&apos;établissement sur simple demande.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -302,7 +297,7 @@ export default function TarifsPage() {
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             <Link
-              href="/financement/cpf"
+              href="/financement#cpf"
               className="group rounded-2xl border-2 border-slate-200 bg-white p-6 transition-all hover:border-formaroute-blue-300 hover:shadow-lg"
             >
               <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-formaroute-blue-100 text-formaroute-blue-600">
@@ -310,17 +305,19 @@ export default function TarifsPage() {
               </div>
               <h3 className="font-heading text-xl font-bold text-slate-900">CPF</h3>
               <p className="mt-2 text-slate-600">
-                Utilisez votre Compte Personnel de Formation pour financer votre permis.
+                {site.quality.qualiopiCertified
+                  ? 'Utilisez votre Compte Personnel de Formation pour financer votre permis.'
+                  : 'Certification Qualiopi en cours : le financement CPF sera proposé dès son obtention.'}
               </p>
             </Link>
             <Link
-              href="/financement/pole-emploi"
+              href="/financement#france-travail"
               className="group rounded-2xl border-2 border-slate-200 bg-white p-6 transition-all hover:border-formaroute-blue-300 hover:shadow-lg"
             >
               <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-green-100 text-green-700">
                 <Briefcase className="h-7 w-7" />
               </div>
-              <h3 className="font-heading text-xl font-bold text-slate-900">Pôle Emploi</h3>
+              <h3 className="font-heading text-xl font-bold text-slate-900">France Travail</h3>
               <p className="mt-2 text-slate-600">
                 Aides pour les demandeurs d'emploi souhaitant passer leur permis.
               </p>
@@ -333,7 +330,7 @@ export default function TarifsPage() {
                 Paiement en plusieurs fois
               </h3>
               <p className="mt-2 text-slate-600">
-                Étalez le paiement de votre formation en 3, 4 ou 6 fois sans frais.
+                Étalez le paiement de votre formation {site.paymentPlan}.
               </p>
             </div>
           </div>
@@ -343,13 +340,11 @@ export default function TarifsPage() {
       {/* CTA */}
       <section className="section bg-formaroute-blue-600 text-white">
         <div className="container-custom text-center">
-          <Calculator className="mx-auto mb-4 h-12 w-12 text-white/80" />
-          <h2 className="font-heading text-3xl font-bold">
-            Besoin d'un devis personnalisé ?
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-white/80">
-            Contactez-nous pour obtenir un devis adapté à votre situation et découvrir
-            les aides auxquelles vous avez droit.
+          <Calculator className="mx-auto mb-4 h-12 w-12 text-white/80" aria-hidden="true" />
+          <h2 className="font-heading text-3xl font-bold">Besoin d'un devis personnalisé ?</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-white/90">
+            Contactez-nous pour obtenir un devis adapté à votre situation et découvrir les aides
+            auxquelles vous avez droit.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button
@@ -365,6 +360,6 @@ export default function TarifsPage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

@@ -3,6 +3,10 @@ import { DM_Sans, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { MotionProvider } from '@/components/layout/MotionProvider';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { site } from '@/data/site';
+import { villes } from '@/data/villes';
 
 // Fonts
 const dmSans = DM_Sans({
@@ -25,24 +29,25 @@ const jetbrainsMono = JetBrains_Mono({
 
 // Metadata
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://formaroute.fr'),
+  metadataBase: new URL(site.url),
   title: {
-    default: 'Auto-école Domont | Permis B, Code, AAC | Formaroute',
+    default: 'Auto-école Domont | Permis B, Code, Conduite accompagnée | Formaroute',
     template: '%s | Formaroute',
   },
   description:
-    "Auto-école à Domont (95330). Formation code de la route, permis B (manuelle ou auto), conduite accompagnée, passerelle. Taux de réussite élevé. Tarifs transparents.",
+    'Auto-école à Domont (95330) : code de la route, permis B en boîte manuelle ou automatique, conduite accompagnée, passerelle. Évaluation de départ et tarifs TTC affichés.',
   keywords: [
     'auto école domont',
     'permis b domont',
     'code de la route domont',
     'conduite accompagnée 95',
-    'stage récupération points val d\'oise',
+    "permis boîte automatique val d'oise",
     'auto école 95330',
   ],
-  authors: [{ name: 'Formaroute' }],
-  creator: 'Formaroute',
-  publisher: 'Formaroute',
+  authors: [{ name: site.name }],
+  creator: site.name,
+  publisher: site.name,
+  alternates: { canonical: '/' },
   formatDetection: {
     email: false,
     address: false,
@@ -51,25 +56,16 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
-    url: 'https://formaroute.fr',
-    siteName: 'Formaroute',
-    title: 'Auto-école Domont | Permis B, Code, AAC | Formaroute',
+    url: site.url,
+    siteName: site.name,
+    title: 'Auto-école Domont | Permis B, Code, Conduite accompagnée | Formaroute',
     description:
-      "Auto-école à Domont (95330). Formation code de la route, permis B, conduite accompagnée. Tarifs transparents et financement CPF.",
-    images: [
-      {
-        url: '/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Formaroute - Auto-école à Domont',
-      },
-    ],
+      'Auto-école à Domont (95330) : code de la route, permis B manuelle ou automatique, conduite accompagnée. Tarifs TTC transparents.',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Auto-école Domont | Formaroute',
-    description: 'Formation permis B, code, conduite accompagnée à Domont (95)',
-    images: ['/twitter-image.jpg'],
+    description: 'Code, permis B manuelle ou automatique, conduite accompagnée à Domont (95)',
   },
   robots: {
     index: true,
@@ -82,101 +78,79 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'verification_token',
-  },
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } }
+    : {}),
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#0f172a' },
-  ],
+  themeColor: '#2563eb',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
 };
 
-// JSON-LD Schema
+// JSON-LD : fiche établissement (Google, Bing, assistants)
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'DrivingSchool',
-  name: 'Formaroute',
-  description:
-    "Auto-école à Domont (95330). Formation code de la route, permis B, conduite accompagnée, stage de récupération de points.",
-  url: 'https://formaroute.fr',
-  telephone: '+33134198326',
-  email: 'contact.formaroute@gmail.com',
+  '@id': `${site.url}/#organisation`,
+  name: site.name,
+  description: site.description,
+  url: site.url,
+  logo: `${site.url}/logo/logo-512.jpg`,
+  image: `${site.url}/logo/logo-512.jpg`,
+  telephone: site.contact.phoneE164,
+  email: site.contact.email,
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '4 avenue Jean Jaurès',
-    addressLocality: 'Domont',
-    postalCode: '95330',
-    addressCountry: 'FR',
+    streetAddress: site.address.street,
+    addressLocality: site.address.city,
+    postalCode: site.address.postalCode,
+    addressRegion: site.address.region,
+    addressCountry: site.address.country,
   },
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: '49.0333',
-    longitude: '2.3333',
+    latitude: site.address.geo.latitude,
+    longitude: site.address.geo.longitude,
   },
-  openingHoursSpecification: [
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-      opens: '10:00',
-      closes: '12:00',
-    },
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-      opens: '15:00',
-      closes: '20:00',
-    },
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: 'Saturday',
-      opens: '10:00',
-      closes: '13:00',
-    },
-  ],
-  priceRange: '$$',
-  areaServed: [
-    { '@type': 'City', name: 'Domont' },
-    { '@type': 'City', name: 'Montmorency' },
-    { '@type': 'City', name: 'Eaubonne' },
-    { '@type': 'City', name: 'Taverny' },
-    { '@type': 'City', name: 'Ezanville' },
-    { '@type': 'City', name: 'Bouffémont' },
-  ],
-  sameAs: [
-    'https://facebook.com/formaroute',
-    'https://instagram.com/formaroute',
-  ],
+  openingHoursSpecification: site.hours.schema.map((h) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: h.dayOfWeek,
+    opens: h.opens,
+    closes: h.closes,
+  })),
+  priceRange: '€€',
+  currenciesAccepted: 'EUR',
+  areaServed: villes.map((v) => ({ '@type': 'City', name: v.name })),
+  sameAs: [site.social.facebook, site.social.instagram, site.social.googleBusiness],
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="fr"
       className={`${dmSans.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </head>
       <body className="min-h-screen bg-background font-body antialiased">
-        <div className="relative flex min-h-screen flex-col">
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
+        <JsonLd data={jsonLd} />
+        <a
+          href="#contenu"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:font-semibold focus:text-formaroute-blue-700 focus:shadow-lg"
+        >
+          Aller au contenu
+        </a>
+        <MotionProvider>
+          <div className="relative flex min-h-screen flex-col">
+            <Header />
+            <main id="contenu" className="flex-1">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </MotionProvider>
       </body>
     </html>
   );
