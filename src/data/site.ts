@@ -31,7 +31,8 @@ export interface ResultIndicator {
 
 export const site = {
   name: 'Formaroute',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://formaroute.fr',
+  // Domaine canonique : formaroute.fr redirige (308) vers www.
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.formaroute.fr',
   description:
     'Auto-école à Domont (95330) : code de la route, permis B en boîte manuelle ou automatique, conduite accompagnée, passerelle et perfectionnement.',
   openingDate: '2026-04-01',
