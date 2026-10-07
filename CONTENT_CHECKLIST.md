@@ -1,5 +1,7 @@
 # 📝 Checklist du Contenu - Formaroute
 
+> **Mise à jour (octobre 2026)** : les informations à fournir et l'audit Qualiopi sont désormais suivis dans [AUDIT_QUALIOPI.md](./AUDIT_QUALIOPI.md). Toutes les infos de l'entreprise se renseignent dans `src/data/site.ts`.
+
 Ce document liste tout le contenu textuel et média nécessaire pour compléter le site.
 
 ---
