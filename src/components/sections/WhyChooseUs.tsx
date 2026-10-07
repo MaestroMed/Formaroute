@@ -2,34 +2,34 @@
 
 import { motion } from 'framer-motion';
 import { Shield, Clock, CreditCard, Award } from 'lucide-react';
+import { site } from '@/data/site';
 
 const features = [
   {
     icon: Award,
     title: 'Moniteurs diplômés',
     description:
-      "Tous nos moniteurs sont titulaires du Titre Professionnel ECSR et bénéficient d'une expérience de plusieurs années.",
+      "Nos enseignants sont titulaires du titre professionnel ECSR (ou d'un diplôme équivalent) et de l'autorisation d'enseigner délivrée par la préfecture.",
     color: 'from-formaroute-blue-500 to-formaroute-blue-600',
   },
   {
     icon: Shield,
     title: 'Véhicules récents',
     description:
-      'Notre flotte de véhicules est régulièrement renouvelée pour vous offrir les meilleures conditions d\'apprentissage.',
+      "Notre flotte de véhicules est régulièrement renouvelée pour vous offrir les meilleures conditions d'apprentissage.",
     color: 'from-formaroute-red-500 to-formaroute-red-600',
   },
   {
     icon: Clock,
     title: 'Horaires flexibles',
-    description:
-      "Nos horaires s'adaptent à votre emploi du temps : du lundi au vendredi de 10h à 12h et de 15h à 20h, et le samedi de 10h à 13h.",
+    description: `Accueil au bureau : ${site.hours.short}. Les leçons de conduite sont planifiées selon votre emploi du temps.`,
     color: 'from-green-500 to-green-600',
   },
   {
     icon: CreditCard,
     title: 'Facilités de paiement',
     description:
-      'Paiement en plusieurs fois sans frais, CPF, aides Pôle Emploi... Nous trouvons la solution adaptée à votre budget.',
+      'Paiement en plusieurs fois, aides France Travail ou Mission Locale… Nous cherchons avec vous la solution adaptée à votre budget.',
     color: 'from-purple-500 to-purple-600',
   },
 ];
@@ -66,12 +66,11 @@ export function WhyChooseUs() {
         >
           <span className="badge-primary mb-4">Pourquoi nous choisir</span>
           <h2 className="heading-lg text-slate-900">
-            Une auto-école{' '}
-            <span className="text-formaroute-blue-600">différente</span>
+            Une auto-école <span className="text-formaroute-blue-600">différente</span>
           </h2>
           <p className="mt-4 text-lg text-slate-600">
-            Chez Formaroute, nous mettons tout en œuvre pour votre réussite 
-            avec une approche personnalisée et des outils modernes.
+            Chez Formaroute, nous mettons tout en œuvre pour votre réussite avec une approche
+            personnalisée et des outils modernes.
           </p>
         </motion.div>
 

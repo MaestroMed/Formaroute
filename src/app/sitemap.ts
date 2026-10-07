@@ -1,177 +1,58 @@
 import { MetadataRoute } from 'next';
 import { formations } from '@/data/formations';
-import { villes } from '@/data/villes';
+import { blogPosts } from '@/data/blog';
+import { site } from '@/data/site';
+
+/** Date de dernière modification du contenu (à mettre à jour lors d'une refonte de page). */
+const LAST_CONTENT_UPDATE = site.contentUpdatedAt;
+
+type Entry = {
+  path: string;
+  priority: number;
+  changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'];
+};
+
+const pages: Entry[] = [
+  { path: '/', priority: 1, changeFrequency: 'weekly' },
+  { path: '/formations', priority: 0.9, changeFrequency: 'monthly' },
+  { path: '/tarifs', priority: 0.9, changeFrequency: 'monthly' },
+  { path: '/reservation', priority: 0.9, changeFrequency: 'monthly' },
+  { path: '/auto-ecole-domont', priority: 0.8, changeFrequency: 'monthly' },
+  { path: '/contact', priority: 0.8, changeFrequency: 'monthly' },
+  { path: '/financement', priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/faq', priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/resultats', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/a-propos', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/a-propos/vehicules', priority: 0.5, changeFrequency: 'monthly' },
+  { path: '/a-propos/locaux', priority: 0.5, changeFrequency: 'monthly' },
+  { path: '/qualite', priority: 0.5, changeFrequency: 'monthly' },
+  { path: '/accessibilite-handicap', priority: 0.4, changeFrequency: 'yearly' },
+  { path: '/reclamations', priority: 0.3, changeFrequency: 'yearly' },
+  { path: '/blog', priority: 0.6, changeFrequency: 'weekly' },
+  { path: '/mentions-legales', priority: 0.2, changeFrequency: 'yearly' },
+  { path: '/cgv', priority: 0.3, changeFrequency: 'yearly' },
+  { path: '/reglement-interieur', priority: 0.3, changeFrequency: 'yearly' },
+  { path: '/politique-confidentialite', priority: 0.2, changeFrequency: 'yearly' },
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://formaroute.fr';
-  const currentDate = new Date().toISOString();
-
-  // Static pages
-  const staticPages: MetadataRoute.Sitemap = [
-    {
-      url: baseUrl,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/formations`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/tarifs`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/reservation`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/faq`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/a-propos`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/temoignages`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/resultats`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-  ];
-
-  // Formation pages
-  const formationPages: MetadataRoute.Sitemap = formations
+  const formationPages: Entry[] = formations
     .filter((f) => !f.comingSoon)
-    .map((formation) => ({
-      url: `${baseUrl}/formations/${formation.slug}`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    }));
+    .map((f) => ({ path: `/formations/${f.slug}`, priority: 0.8, changeFrequency: 'monthly' }));
 
-  // Financement pages
-  const financementPages: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}/financement`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/financement/cpf`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/financement/pole-emploi`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/financement/mission-locale`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-  ];
-
-  // SEO Local pages - Villes
-  const villePages: MetadataRoute.Sitemap = villes.map((ville) => ({
-    url: `${baseUrl}/auto-ecole-${ville.slug}`,
-    lastModified: currentDate,
-    changeFrequency: 'monthly' as const,
-    priority: ville.priority === 'haute' ? 0.9 : ville.priority === 'moyenne' ? 0.7 : 0.5,
+  const staticEntries = [...pages, ...formationPages].map((p) => ({
+    url: `${site.url}${p.path === '/' ? '' : p.path}`,
+    lastModified: LAST_CONTENT_UPDATE,
+    changeFrequency: p.changeFrequency,
+    priority: p.priority,
   }));
 
-  // SEO Local pages - Service + Ville (Domont only for now)
-  const serviceVillePages: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}/permis-b-domont`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/code-de-la-route-domont`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/stage-points-domont`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/conduite-accompagnee-domont`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-  ];
+  const blogEntries = blogPosts.map((post) => ({
+    url: `${site.url}/blog/${post.slug}`,
+    lastModified: post.updatedAt ?? post.publishedAt,
+    changeFrequency: 'yearly' as const,
+    priority: 0.5,
+  }));
 
-  // Legal pages
-  const legalPages: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}/mentions-legales`,
-      lastModified: currentDate,
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/cgv`,
-      lastModified: currentDate,
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/politique-confidentialite`,
-      lastModified: currentDate,
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-  ];
-
-  return [
-    ...staticPages,
-    ...formationPages,
-    ...financementPages,
-    ...villePages,
-    ...serviceVillePages,
-    ...legalPages,
-  ];
+  return [...staticEntries, ...blogEntries];
 }

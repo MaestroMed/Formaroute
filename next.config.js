@@ -11,16 +11,9 @@ const nextConfig = {
     // ⚠ Les noms de fichiers ne sont pas hashés : un visuel modifié doit être
     // RENOMMÉ, sinon l'ancienne version reste servie jusqu'à 31 jours.
     minimumCacheTTL: 2678400, // 31 jours
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'cdn.sanity.io',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-    ],
+    // Aucune image distante : seules les images de /public sont optimisées.
+    // (Autoriser un domaine externe permettrait à n'importe qui de faire
+    // transformer — et facturer — ses propres images via /_next/image.)
     formats: ['image/avif', 'image/webp'],
   },
   async redirects() {
@@ -52,7 +45,11 @@ const nextConfig = {
           },
           {
             key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin',
+            value: 'strict-origin-when-cross-origin',
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
           },
           {
             key: 'X-DNS-Prefetch-Control',

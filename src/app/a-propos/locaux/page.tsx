@@ -1,4 +1,3 @@
-import { Metadata } from 'next';
 import Link from 'next/link';
 import {
   ArrowLeft,
@@ -11,66 +10,51 @@ import {
   Phone,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Breadcrumb } from '@/components/layout/Breadcrumb';
+import { MapEmbed } from '@/components/sections/MapEmbed';
+import { site } from '@/data/site';
+import { buildMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Nos Locaux | Formaroute Domont',
+export const metadata = buildMetadata({
+  title: 'Nos locaux à Domont',
   description:
-    "Visitez les locaux de l'auto-école Formaroute au 4 avenue Jean Jaurès à Domont (95330). Salle de code, accueil, espaces modernes et accessibles.",
-  openGraph: {
-    title: 'Nos Locaux | Formaroute Domont',
-    description: 'Auto-école au 4 avenue Jean Jaurès à Domont (95330).',
-  },
-  alternates: {
-    canonical: 'https://formaroute.fr/a-propos/locaux',
-  },
-};
+    "Les locaux de l'auto-école Formaroute au 4 avenue Jean Jaurès à Domont (95330) : accueil, salle de code et bureau de rendez-vous.",
+  path: '/a-propos/locaux',
+});
 
 const amenities = [
   {
     icon: Wifi,
     title: 'Wi-Fi gratuit',
-    description:
-      "Connexion haut débit pour réviser le code en ligne directement sur place.",
+    description: 'Connexion haut débit pour réviser le code en ligne directement sur place.',
   },
   {
     icon: Coffee,
     title: 'Espace détente',
-    description:
-      "Coin café et eau à disposition pour patienter avant ou après votre cours.",
+    description: 'Coin café et eau à disposition pour patienter avant ou après votre cours.',
   },
   {
     icon: Accessibility,
     title: 'Accessibilité',
     description:
-      "Locaux pensés pour être accessibles. N'hésitez pas à nous contacter pour vos besoins spécifiques.",
+      "Vous avez des besoins spécifiques ? Contactez notre référent handicap avant votre venue : nous organisons l'accueil adapté.",
   },
   {
     icon: Clock,
-    title: 'Horaires étendus',
-    description:
-      "Ouverts du lundi au vendredi 10h-12h / 15h-20h, samedi 10h-13h. Pour s'adapter à votre emploi du temps.",
+    title: 'Horaires',
+    description: `Accueil : ${site.hours.short}.`,
   },
 ];
 
 export default function LocauxPage() {
   return (
-    <main className="pt-20">
-      {/* Breadcrumb */}
-      <div className="border-b border-slate-200 bg-slate-50">
-        <div className="container-custom py-4">
-          <nav className="flex items-center gap-2 text-sm">
-            <Link href="/" className="text-slate-500 hover:text-slate-700">
-              Accueil
-            </Link>
-            <span className="text-slate-400">/</span>
-            <Link href="/a-propos" className="text-slate-500 hover:text-slate-700">
-              À Propos
-            </Link>
-            <span className="text-slate-400">/</span>
-            <span className="font-medium text-slate-900">Nos Locaux</span>
-          </nav>
-        </div>
-      </div>
+    <div className="pt-20">
+      <Breadcrumb
+        items={[
+          { name: 'À propos', path: '/a-propos' },
+          { name: 'Nos locaux', path: '/a-propos/locaux' },
+        ]}
+      />
 
       {/* Hero */}
       <section className="bg-gradient-to-br from-formaroute-blue-600 to-formaroute-blue-800 py-16 text-white">
@@ -78,14 +62,12 @@ export default function LocauxPage() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 backdrop-blur-sm">
               <MapPin className="h-4 w-4" />
-              <span>4 avenue Jean Jaurès, 95330 Domont</span>
+              <span>{site.address.full}</span>
             </div>
-            <h1 className="font-heading text-4xl font-bold md:text-5xl">
-              Nos Locaux
-            </h1>
-            <p className="mt-4 text-lg text-white/80">
-              Un espace moderne et accueillant au cœur de Domont, pensé pour
-              votre confort tout au long de votre formation.
+            <h1 className="font-heading text-4xl font-bold md:text-5xl">Nos Locaux</h1>
+            <p className="mt-4 text-lg text-white/90">
+              Un espace moderne et accueillant au cœur de Domont, pensé pour votre confort tout au
+              long de votre formation.
             </p>
           </div>
         </div>
@@ -101,45 +83,37 @@ export default function LocauxPage() {
               </h2>
               <div className="mt-6 space-y-4 text-slate-600">
                 <p>
-                  Notre auto-école est idéalement située au 4 avenue Jean Jaurès,
-                  une artère centrale de Domont, à proximité de tous les commerces
-                  et facilement accessible en transport en commun comme en voiture.
+                  Notre auto-école est située {site.address.street}, à Domont, à proximité des
+                  commerces et accessible en transport en commun (gare de Domont, ligne H) comme en
+                  voiture.
                 </p>
                 <p>
-                  L'agence se compose d'un espace d'accueil convivial, d'une salle
-                  dédiée à la formation au code de la route et d'un bureau pour
-                  les rendez-vous individuels avec votre moniteur.
+                  L'agence se compose d'un espace d'accueil convivial, d'une salle dédiée à la
+                  formation au code de la route et d'un bureau pour les rendez-vous individuels avec
+                  votre moniteur.
                 </p>
                 <p>
-                  Que vous veniez pour votre évaluation de départ, une session
-                  de code ou pour planifier vos leçons de conduite, vous serez
-                  accueilli dans un cadre professionnel et chaleureux.
+                  Que vous veniez pour votre évaluation de départ, une session de code ou pour
+                  planifier vos leçons de conduite, vous serez accueilli dans un cadre professionnel
+                  et chaleureux.
                 </p>
               </div>
               <div className="mt-8 flex flex-wrap gap-4">
                 <Button asChild>
-                  <a href="tel:+33134198326">
+                  <a href={site.contact.phoneHref}>
                     <Phone className="h-4 w-4" />
-                    01 34 19 83 26
+                    {site.contact.phoneDisplay}
                   </a>
                 </Button>
                 <Button asChild variant="outline">
-                  <Link href="/contact">Itinéraire</Link>
+                  <a href={site.address.mapsUrl} target="_blank" rel="noopener noreferrer">
+                    Itinéraire
+                  </a>
                 </Button>
               </div>
             </div>
 
-            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
-              <iframe
-                src="https://maps.google.com/maps?q=4+avenue+Jean+Jaur%C3%A8s+Domont+95330&output=embed&hl=fr"
-                className="h-80 w-full"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Formaroute - 4 avenue Jean Jaurès, Domont"
-              />
-            </div>
+            <MapEmbed className="h-80 overflow-hidden rounded-2xl border border-slate-200" />
           </div>
         </div>
       </section>
@@ -152,24 +126,18 @@ export default function LocauxPage() {
               Confort et <span className="text-formaroute-blue-600">commodités</span>
             </h2>
             <p className="mt-4 text-slate-600">
-              Tout est pensé pour que votre passage chez Formaroute soit
-              agréable et productif.
+              Tout est pensé pour que votre passage chez Formaroute soit agréable et productif.
             </p>
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {amenities.map((a, i) => {
               const Icon = a.icon;
               return (
-                <div
-                  key={i}
-                  className="rounded-2xl border border-slate-200 bg-white p-6"
-                >
+                <div key={i} className="rounded-2xl border border-slate-200 bg-white p-6">
                   <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-formaroute-blue-100">
                     <Icon className="h-7 w-7 text-formaroute-blue-600" />
                   </div>
-                  <h3 className="mb-2 font-heading text-lg font-bold text-slate-900">
-                    {a.title}
-                  </h3>
+                  <h3 className="mb-2 font-heading text-lg font-bold text-slate-900">{a.title}</h3>
                   <p className="text-sm text-slate-600">{a.description}</p>
                 </div>
               );
@@ -182,25 +150,17 @@ export default function LocauxPage() {
       <section className="section bg-white">
         <div className="container-custom">
           <div className="mx-auto max-w-3xl">
-            <h2 className="heading-md text-center text-slate-900">
-              Horaires d'ouverture
-            </h2>
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-slate-200 bg-white p-6">
-                <div className="mb-3 flex items-center gap-3">
-                  <Clock className="h-5 w-5 text-formaroute-blue-600" />
-                  <p className="font-semibold text-slate-900">Lundi au Vendredi</p>
+            <h2 className="heading-md text-center text-slate-900">Horaires d&apos;ouverture</h2>
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              {site.hours.display.map((h) => (
+                <div key={h.days} className="rounded-2xl border border-slate-200 bg-white p-6">
+                  <div className="mb-3 flex items-center gap-3">
+                    <Clock className="h-5 w-5 text-formaroute-blue-600" aria-hidden="true" />
+                    <p className="font-semibold text-slate-900">{h.days}</p>
+                  </div>
+                  <p className="text-slate-600">{h.hours}</p>
                 </div>
-                <p className="text-slate-600">10h00 – 12h00</p>
-                <p className="text-slate-600">15h00 – 20h00</p>
-              </div>
-              <div className="rounded-2xl border border-slate-200 bg-white p-6">
-                <div className="mb-3 flex items-center gap-3">
-                  <Clock className="h-5 w-5 text-formaroute-blue-600" />
-                  <p className="font-semibold text-slate-900">Samedi</p>
-                </div>
-                <p className="text-slate-600">10h00 – 13h00</p>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -211,8 +171,8 @@ export default function LocauxPage() {
         <div className="container-custom text-center">
           <h2 className="heading-md text-slate-900">Venez nous rencontrer</h2>
           <p className="mx-auto mt-4 max-w-2xl text-slate-600">
-            Le meilleur moyen de découvrir Formaroute, c'est de pousser la porte
-            de notre agence à Domont.
+            Le meilleur moyen de découvrir Formaroute, c'est de pousser la porte de notre agence à
+            Domont.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button asChild size="lg">
@@ -230,6 +190,6 @@ export default function LocauxPage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

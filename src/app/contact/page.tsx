@@ -1,56 +1,54 @@
-import { Metadata } from 'next';
+import Link from 'next/link';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import { ContactForm } from '@/components/sections/ContactForm';
+import { MapEmbed } from '@/components/sections/MapEmbed';
+import { site } from '@/data/site';
+import { buildMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Contact | Nous Contacter',
+export const metadata = buildMetadata({
+  title: 'Contact',
   description:
-    "Contactez l'auto-école Formaroute à Domont. Téléphone, email, formulaire de contact. Nous sommes à votre disposition pour répondre à vos questions.",
-  openGraph: {
-    title: 'Contact | Auto-école Formaroute Domont',
-    description: 'Contactez-nous par téléphone, email ou formulaire',
-  },
-};
+    "Contactez l'auto-école Formaroute à Domont : téléphone, email, adresse, horaires et formulaire de contact.",
+  path: '/contact',
+});
 
 const contactInfo = [
   {
     icon: MapPin,
     title: 'Adresse',
-    content: '4 avenue Jean Jaurès\n95330 Domont',
-    link: 'https://maps.google.com/?q=4+avenue+Jean+Jaur%C3%A8s+Domont+95330',
+    content: `${site.address.street}\n${site.address.postalCode} ${site.address.city}`,
+    link: site.address.mapsUrl,
   },
   {
     icon: Phone,
     title: 'Téléphone',
-    content: '01 34 19 83 26',
-    link: 'tel:+33134198326',
+    content: site.contact.phoneDisplay,
+    link: site.contact.phoneHref,
   },
   {
     icon: Mail,
     title: 'Email',
-    content: 'contact.formaroute@gmail.com',
-    link: 'mailto:contact.formaroute@gmail.com',
+    content: site.contact.email,
+    link: `mailto:${site.contact.email}`,
   },
   {
     icon: Clock,
     title: 'Horaires',
-    content: 'Lun - Ven : 10h - 12h et 15h - 20h\nSamedi : 10h - 13h',
+    content: site.hours.display.map((h) => `${h.days} : ${h.hours}`).join('\n'),
   },
 ];
 
 export default function ContactPage() {
   return (
-    <main className="pt-20">
+    <div className="pt-20">
       {/* Hero */}
       <section className="bg-gradient-to-br from-formaroute-blue-600 to-formaroute-blue-800 py-16 text-white">
         <div className="container-custom">
           <div className="mx-auto max-w-3xl text-center">
-            <h1 className="font-heading text-4xl font-bold md:text-5xl">
-              Contactez-nous
-            </h1>
-            <p className="mt-4 text-lg text-white/80">
-              Une question ? Besoin d'informations ? Notre équipe est à votre
-              disposition pour vous accompagner dans votre projet.
+            <h1 className="font-heading text-4xl font-bold md:text-5xl">Contactez-nous</h1>
+            <p className="mt-4 text-lg text-white/90">
+              Une question ? Besoin d'informations ? Notre équipe est à votre disposition pour vous
+              accompagner dans votre projet.
             </p>
           </div>
         </div>
@@ -62,9 +60,7 @@ export default function ContactPage() {
           <div className="grid gap-12 lg:grid-cols-3">
             {/* Contact Info */}
             <div className="space-y-6">
-              <h2 className="font-heading text-2xl font-bold text-slate-900">
-                Nos coordonnées
-              </h2>
+              <h2 className="font-heading text-2xl font-bold text-slate-900">Nos coordonnées</h2>
               {contactInfo.map((info, index) => {
                 const Icon = info.icon;
                 const content = (
@@ -74,7 +70,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="font-semibold text-slate-900">{info.title}</p>
-                      <p className="whitespace-pre-line text-slate-600">
+                      <p className="whitespace-pre-line break-words text-slate-600">
                         {info.content}
                       </p>
                     </div>
@@ -96,19 +92,18 @@ export default function ContactPage() {
                 return <div key={index}>{content}</div>;
               })}
 
-              {/* Google Maps Embed */}
-              <div className="aspect-video overflow-hidden rounded-xl border border-slate-200">
-                <iframe
-                  src="https://maps.google.com/maps?q=4+avenue+Jean+Jaur%C3%A8s+Domont+95330&output=embed&hl=fr"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Formaroute - 4 avenue Jean Jaurès, Domont"
-                />
-              </div>
+              <MapEmbed className="aspect-video overflow-hidden rounded-xl border border-slate-200" />
+
+              <p className="text-sm text-slate-600">
+                Une réclamation ? Consultez notre{' '}
+                <Link
+                  href="/reclamations"
+                  className="font-semibold text-formaroute-blue-600 hover:underline"
+                >
+                  procédure de réclamation
+                </Link>
+                .
+              </p>
             </div>
 
             {/* Contact Form */}
@@ -123,6 +118,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

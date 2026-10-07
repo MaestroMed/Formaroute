@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import sitemap from "@/app/sitemap";
 import { INDEXNOW_ENDPOINT, INDEXNOW_KEY } from "@/lib/indexnow";
+import { site } from "@/data/site";
 
 
 // Soumet toutes les URLs du sitemap a IndexNow (Bing/Copilot notamment).
@@ -20,7 +21,8 @@ export async function POST(request: Request) {
   // Array.from et non le spread : la cible TypeScript de ce projet est
   // anterieure a ES2015, elle n'itere pas un Set au spread.
   const urlList = Array.from(new Set(entries.map((entry) => entry.url)));
-  const origin = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.formaroute.fr';
+  // Meme origine que le sitemap : IndexNow rejette les URLs d'un autre hote.
+  const origin = site.url;
 
   try {
     const res = await fetch(INDEXNOW_ENDPOINT, {

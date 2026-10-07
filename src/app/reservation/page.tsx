@@ -1,20 +1,18 @@
-import { Metadata } from 'next';
 import Link from 'next/link';
 import { Phone, Clock, MapPin, CheckCircle2 } from 'lucide-react';
+import { site } from '@/data/site';
+import { buildMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Réservation | Évaluation de Départ',
+export const metadata = buildMetadata({
+  title: 'Réserver votre évaluation de départ',
   description:
-    "Contactez l'auto-école Formaroute à Domont par téléphone pour réserver votre évaluation de départ. Notre équipe vous accueille du lundi au samedi.",
-  openGraph: {
-    title: 'Réservation | Formaroute Domont',
-    description: 'Appelez-nous pour réserver votre évaluation de départ',
-  },
-};
+    "Réservez par téléphone votre évaluation de départ à l'auto-école Formaroute à Domont : 50 minutes au volant avec un enseignant diplômé, 56 € (60 € en boîte automatique).",
+  path: '/reservation',
+});
 
 const benefits = [
-  "Évaluation de départ avec un moniteur (56€ manuelle / 60€ BVA)",
-  "Estimation du nombre d'heures nécessaires",
+  'Évaluation de départ au volant avec un enseignant (56 € manuelle / 60 € BVA)',
+  "Estimation écrite du nombre d'heures nécessaires, remise avant tout contrat",
   'Présentation de nos forfaits et tarifs',
   'Réponse à toutes vos questions',
   'Visite de nos locaux',
@@ -22,7 +20,7 @@ const benefits = [
 
 export default function ReservationPage() {
   return (
-    <main className="pt-20">
+    <div className="pt-20">
       {/* Hero */}
       <section className="bg-gradient-to-br from-formaroute-blue-600 to-formaroute-blue-800 py-16 text-white">
         <div className="container-custom">
@@ -34,9 +32,9 @@ export default function ReservationPage() {
             <h1 className="font-heading text-4xl font-bold md:text-5xl">
               Réservez votre évaluation de départ
             </h1>
-            <p className="mt-4 text-lg text-white/80">
-              Appelez-nous pour prendre rendez-vous pour votre évaluation de départ avec un
-              moniteur diplômé. Notre équipe vous accueillera dans nos locaux de Domont.
+            <p className="mt-4 text-lg text-white/90">
+              Appelez-nous pour prendre rendez-vous pour votre évaluation de départ avec un moniteur
+              diplômé. Notre équipe vous accueillera dans nos locaux de Domont.
             </p>
           </div>
         </div>
@@ -48,9 +46,7 @@ export default function ReservationPage() {
           <div className="grid gap-12 lg:grid-cols-3">
             {/* Benefits */}
             <div>
-              <h2 className="font-heading text-2xl font-bold text-slate-900">
-                Ce qui est inclus
-              </h2>
+              <h2 className="font-heading text-2xl font-bold text-slate-900">Ce qui est inclus</h2>
               <div className="mt-6 space-y-4">
                 {benefits.map((benefit, i) => (
                   <div key={i} className="flex items-start gap-3">
@@ -68,22 +64,25 @@ export default function ReservationPage() {
                     <MapPin className="mt-0.5 h-4 w-4 text-formaroute-blue-600" />
                     <div>
                       <p className="font-medium">Adresse</p>
-                      <p className="text-slate-600">4 avenue Jean Jaurès, 95330 Domont</p>
+                      <p className="text-slate-600">{site.address.full}</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <Clock className="mt-0.5 h-4 w-4 text-formaroute-blue-600" />
                     <div>
                       <p className="font-medium">Durée de l'évaluation</p>
-                      <p className="text-slate-600">Environ 1 heure</p>
+                      <p className="text-slate-600">50 minutes</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <Clock className="mt-0.5 h-4 w-4 text-formaroute-blue-600" />
                     <div>
                       <p className="font-medium">Horaires d'ouverture</p>
-                      <p className="text-slate-600">Lun - Ven : 10h - 12h et 15h - 20h</p>
-                      <p className="text-slate-600">Samedi : 10h - 13h</p>
+                      {site.hours.display.map((h) => (
+                        <p key={h.days} className="text-slate-600">
+                          {h.days} : {h.hours}
+                        </p>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -103,18 +102,18 @@ export default function ReservationPage() {
 
                 {/* Phone CTA */}
                 <a
-                  href="tel:+33134198326"
-                  className="group flex items-center gap-6 rounded-2xl bg-gradient-to-br from-formaroute-blue-600 to-formaroute-blue-700 p-8 text-white transition-all hover:shadow-xl hover:shadow-formaroute-blue-200"
+                  href={site.contact.phoneHref}
+                  className="group flex items-center gap-4 rounded-2xl bg-gradient-to-br from-formaroute-blue-600 to-formaroute-blue-700 p-8 text-white transition-all hover:shadow-xl hover:shadow-formaroute-blue-200 sm:gap-6"
                 >
                   <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-white/20">
                     <Phone className="h-8 w-8 text-white" />
                   </div>
                   <div>
-                    <p className="text-sm text-white/70">Appeler maintenant</p>
-                    <p className="text-3xl font-bold tracking-wide">01 34 19 83 26</p>
-                    <p className="mt-1 text-sm text-white/70">
-                      Lun - Ven : 10h - 12h et 15h - 20h | Sam : 10h - 13h
+                    <p className="text-sm text-white/90">Appeler maintenant</p>
+                    <p className="text-2xl font-bold tracking-wide sm:text-3xl">
+                      {site.contact.phoneDisplay}
                     </p>
+                    <p className="mt-1 text-sm text-white/90">{site.hours.short}</p>
                   </div>
                 </a>
 
@@ -152,11 +151,11 @@ export default function ReservationPage() {
             {[
               {
                 q: "Combien coûte l'évaluation de départ ?",
-                a: "L'évaluation de départ est facturée 56€ en boîte manuelle et 60€ en boîte automatique (BVA). Elle est obligatoire et permet d'estimer précisément le volume d'heures de conduite dont vous aurez besoin.",
+                a: "L'évaluation de départ est facturée 56€ en boîte manuelle et 60€ en boîte automatique (BVA). Elle est obligatoire avant la signature du contrat et permet d'estimer le volume d'heures de conduite dont vous aurez besoin.",
               },
               {
                 q: "Combien de temps dure l'évaluation ?",
-                a: "L'évaluation dure environ 1 heure. Elle comprend un entretien, une partie pratique en voiture et une présentation de nos formations.",
+                a: "L'évaluation dure 50 minutes. Elle comprend un court entretien et une mise en situation au volant. Vous repartez avec une estimation écrite du nombre d'heures nécessaires.",
               },
               {
                 q: 'Que dois-je apporter ?',
@@ -164,7 +163,7 @@ export default function ReservationPage() {
               },
               {
                 q: 'Comment prendre rendez-vous ?',
-                a: "Appelez-nous au 01 34 19 83 26 pendant nos horaires d'ouverture. Notre équipe vous proposera un créneau adapté à votre emploi du temps.",
+                a: `Appelez-nous au ${site.contact.phoneDisplay} pendant nos horaires d'ouverture. Notre équipe vous proposera un créneau adapté à votre emploi du temps.`,
               },
             ].map((faq, i) => (
               <div key={i} className="rounded-xl border border-slate-200 p-6">
@@ -183,6 +182,6 @@ export default function ReservationPage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

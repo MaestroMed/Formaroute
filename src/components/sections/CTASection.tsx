@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Phone, ArrowRight, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { site } from '@/data/site';
 
 export function CTASection() {
   return (
@@ -11,7 +12,7 @@ export function CTASection() {
       {/* Decorative Elements */}
       <div className="absolute -left-40 -top-40 h-80 w-80 rounded-full bg-formaroute-red-500/20 blur-3xl" />
       <div className="absolute -bottom-40 -right-40 h-80 w-80 rounded-full bg-white/10 blur-3xl" />
-      
+
       {/* Pattern */}
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
 
@@ -33,8 +34,8 @@ export function CTASection() {
               Prêt à prendre la route ?
             </h2>
             <p className="mt-4 text-lg text-white/80 md:text-xl">
-              Réservez votre évaluation de départ et commencez votre formation
-              avec l'auto-école de référence à Domont.
+              Réservez votre évaluation de départ et commencez votre formation avec votre auto-école
+              à Domont.
             </p>
           </motion.div>
 
@@ -56,15 +57,10 @@ export function CTASection() {
                 <ArrowRight className="h-5 w-5" />
               </Link>
             </Button>
-            <Button
-              asChild
-              size="xl"
-              variant="outline"
-              className="border-white/30 bg-transparent text-white hover:bg-white/10"
-            >
-              <a href="tel:+33134198326">
+            <Button asChild size="xl" variant="outline-light">
+              <a href={site.contact.phoneHref}>
                 <Phone className="h-5 w-5" />
-                01 34 19 83 26
+                {site.contact.phoneDisplay}
               </a>
             </Button>
           </motion.div>
@@ -75,22 +71,31 @@ export function CTASection() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
-            className="mt-12 flex flex-wrap items-center justify-center gap-8 text-white/60"
+            className="mt-12 flex flex-wrap items-center justify-center gap-8 text-white/90"
           >
             <div className="flex items-center gap-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-lg">
+              <span
+                aria-hidden="true"
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-lg"
+              >
                 ✓
               </span>
               <span>Sans engagement</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-lg">
+              <span
+                aria-hidden="true"
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-lg"
+              >
                 ✓
               </span>
               <span>Réponse rapide</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-lg">
+              <span
+                aria-hidden="true"
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-lg"
+              >
                 ✓
               </span>
               <span>Financement possible</span>

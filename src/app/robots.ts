@@ -1,17 +1,16 @@
 import { MetadataRoute } from 'next';
+import { site } from '@/data/site';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://formaroute.fr';
-
   return {
     rules: [
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/admin/', '/_next/', '/private/'],
+        // Ne pas bloquer /_next/ : Google en a besoin pour afficher les pages.
+        disallow: ['/api/'],
       },
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
-    host: baseUrl,
+    sitemap: `${site.url}/sitemap.xml`,
   };
 }
