@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Gift } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { formations, formatFormationPrice } from '@/data/formations';
-import { site } from '@/data/site';
 import { FormationIcon } from '@/components/icons/FormationIcon';
 
 const containerVariants = {
@@ -64,10 +63,11 @@ export function Services() {
           {displayedFormations.map((formation) => {
             const isPopular = formation.popular;
             const isNew = formation.new;
-            // « Code offert » : uniquement pour les forfaits permis qui incluent le code.
+            // « Code inclus » : forfaits permis comprenant la formation au code
+            // (jamais sur le forfait code lui-même ; l'examen reste payant à part).
             const codeInclus =
               formation.id !== 'code' &&
-              formation.features.some((f) => f.toLowerCase().startsWith('code valable'));
+              formation.features.some((f) => f.startsWith('Formation au code'));
 
             return (
               <motion.div key={formation.id} variants={itemVariants}>
@@ -121,13 +121,7 @@ export function Services() {
                       {codeInclus && (
                         <div className="inline-flex items-center gap-1.5 rounded-lg bg-yellow-50 px-3 py-2 text-sm text-yellow-700 ring-1 ring-yellow-200">
                           <Gift className="h-4 w-4" />
-                          <span className="font-medium">Code offert</span>
-                        </div>
-                      )}
-                      {formation.eligibleCPF && site.quality.qualiopiCertified && (
-                        <div className="inline-flex items-center gap-2 rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700">
-                          <span aria-hidden="true">✓</span>
-                          <span>Éligible CPF</span>
+                          <span className="font-medium">Formation au code incluse</span>
                         </div>
                       )}
                     </div>

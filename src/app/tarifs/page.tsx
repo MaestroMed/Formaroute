@@ -1,137 +1,123 @@
 import Link from 'next/link';
-import {
-  ArrowRight,
-  CheckCircle2,
-  Calculator,
-  Wallet,
-  Briefcase,
-  CalendarRange,
-  Gift,
-} from 'lucide-react';
+import { ArrowRight, CheckCircle2, Calculator, BookOpen, Laptop, Receipt } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { DocumentLinks } from '@/components/legal/DocumentLinks';
 import { buildMetadata } from '@/lib/seo';
 import { site } from '@/data/site';
 
 export const metadata = buildMetadata({
-  title: 'Tarifs du permis B, du code et de la conduite accompagnée',
+  title: 'Tarifs permis B, code et conduite accompagnée à Domont',
   description:
-    'Tarifs TTC de l’auto-école Formaroute à Domont : permis B boîte manuelle ou automatique, conduite accompagnée, passerelle, forfait code, annulation et prestations à l’unité.',
+    'Tarifs TTC de l’auto-école FORMAROUTE à Domont : permis B manuel 20 h, automatique 13 h ou 20 h, conduite accompagnée, forfait code, annulation de permis, suppléments.',
   path: '/tarifs',
 });
 
 interface ForfaitItem {
   name: string;
   subtitle?: string;
-  price: number;
+  price: number | null;
+  priceLabel?: string;
   includes: string[];
   popular?: boolean;
+  href: string;
 }
 
-interface PrestationItem {
-  name: string;
-  price: number;
-  bvaPrice?: number;
-  note?: string;
-}
+const CODE_INCLUS = 'Formation au code et accès aux ressources (12 mois)';
 
 const forfaits: ForfaitItem[] = [
   {
-    name: 'Permis B Traditionnel',
-    subtitle: 'Boîte manuelle',
+    name: 'Permis B — boîte manuelle',
+    subtitle: '20 heures de conduite',
     price: 1195,
     popular: true,
+    href: '/formations/permis-b',
     includes: [
       'Frais administratifs',
-      'Code valable 1 an + cours de code',
+      CODE_INCLUS,
       'Outils pédagogiques et administratifs',
-      "Livret d'apprentissage + livre et matériels de code",
-      '20 leçons de conduite (50 min / leçon)',
+      'Livret d’apprentissage + livre et matériels de code',
+      '20 heures de conduite (leçons de 60 min)',
     ],
   },
   {
-    name: 'Permis B Automatique',
-    subtitle: '13 leçons',
+    name: 'Permis B — boîte automatique',
+    subtitle: '13 heures de conduite',
     price: 995,
+    href: '/formations/permis-b-boite-auto',
     includes: [
       'Frais administratifs',
-      'Code valable 1 an + cours de code',
+      CODE_INCLUS,
       'Outils pédagogiques et administratifs',
-      "Livret d'apprentissage + livre et matériels de code",
-      '13 leçons de conduite (50 min / leçon)',
+      'Livret d’apprentissage + livre et matériels de code',
+      '13 heures de conduite (leçons de 60 min)',
     ],
   },
   {
-    name: 'Permis B Automatique',
-    subtitle: '20 leçons',
+    name: 'Permis B — boîte automatique',
+    subtitle: '20 heures de conduite',
     price: 1295,
+    href: '/formations/permis-b-boite-auto',
     includes: [
       'Frais administratifs',
-      'Code valable 1 an + cours de code',
+      CODE_INCLUS,
       'Outils pédagogiques et administratifs',
-      "Livret d'apprentissage + livre et matériels de code",
-      '20 leçons de conduite (50 min / leçon)',
+      'Livret d’apprentissage + livre et matériels de code',
+      '20 heures de conduite (leçons de 60 min)',
     ],
   },
   {
-    name: 'Conduite Accompagnée (AAC)',
+    name: 'Conduite accompagnée (AAC)',
     price: 1395,
     popular: true,
+    href: '/formations/conduite-accompagnee',
     includes: [
       'Frais administratifs',
-      'Code valable 1 an + cours de code',
+      CODE_INCLUS,
       'Outils pédagogiques et administratifs',
-      "Livret d'apprentissage + livre et matériels de code",
-      '20 leçons de conduite (13 pour BVA, 50 min / leçon)',
-      "Frais d'accompagnement pratique (AAC)",
-      '2 RDV pédagogiques (AAC uniquement)',
+      'Livret d’apprentissage + livre et matériels de code',
+      '20 heures de conduite (13 heures en automatique)',
+      'Rendez-vous préalable avec l’accompagnateur',
+      'Rendez-vous pédagogiques réglementaires',
     ],
   },
   {
-    name: 'Passerelle',
-    subtitle: 'Boîte auto vers boîte manuelle',
-    price: 495,
-    includes: ['Frais administratifs', '7 leçons de conduite (50 min / leçon)'],
-  },
-  {
-    name: 'Forfait Code',
+    name: 'Forfait code',
     price: 195,
+    href: '/formations/code-de-la-route',
     includes: [
       'Frais administratifs',
-      'Code valable 1 an + cours de code',
-      'Outils pédagogiques et administratifs',
+      'Cours de code et entraînements',
+      'Accès aux ressources pédagogiques : 12 mois à compter de l’activation',
       'Livre et matériel de code',
+      'Examen du code non inclus (30 € par passage, réglés à l’organisme d’examen)',
     ],
   },
   {
-    name: 'Forfait Annulation de Permis',
+    name: 'Forfait annulation de permis',
     price: 595,
+    href: '/formations/forfait-annulation-permis',
     includes: [
       'Frais administratifs',
-      'Code valable 1 an + cours de code',
+      CODE_INCLUS,
       'Outils pédagogiques et administratifs',
-      "Livret d'apprentissage + livre et matériels de code",
-      '6 leçons de conduite (50 min / leçon)',
-      "Frais d'accompagnement pratique",
+      'Livret d’apprentissage + livre et matériels de code',
+      '6 heures de conduite (leçons de 60 min)',
+      'Accompagnement à l’examen pratique',
     ],
+  },
+  {
+    name: 'Passerelle automatique → manuelle',
+    price: null,
+    priceLabel: 'Prochainement',
+    href: '/formations/passerelle-boite-auto-manuelle',
+    includes: ['Formation de levée de la restriction boîte automatique'],
   },
 ];
 
-const prestations: PrestationItem[] = [
-  { name: 'Frais administratifs', price: 130 },
-  { name: 'Code valable 1 an + cours de code', price: 90 },
-  {
-    name: 'Kit pédagogique et administratif',
-    price: 50,
-    note: "Livret d'apprentissage + livre et matériels de code",
-  },
-  { name: 'Évaluation de départ', price: 56, bvaPrice: 60 },
-  { name: '1 leçon de conduite B (50 min)', price: 56, bvaPrice: 60 },
-  { name: 'Pack-Web (code en ligne)', price: 30 },
-  { name: 'RDV préalable AAC', price: 112, bvaPrice: 120 },
-  { name: 'RDV pédagogique AAC', price: 112, bvaPrice: 120 },
-  { name: 'Attestation de suivi de formation', price: 30 },
-  { name: 'Démarche ANTS', price: 30 },
-  { name: "Frais d'accompagnement pratique", price: 56, bvaPrice: 60 },
+const supplements = [
+  { name: 'Évaluation de départ', manual: '56 €', auto: '60 €' },
+  { name: 'Heure de conduite complémentaire (60 min)', manual: '56 €', auto: '60 €' },
+  { name: 'Accompagnement à l’examen pratique', manual: '56 €', auto: '60 €' },
 ];
 
 export default function TarifsPage() {
@@ -141,29 +127,10 @@ export default function TarifsPage() {
       <section className="bg-gradient-to-br from-formaroute-blue-600 to-formaroute-blue-800 py-16 text-white">
         <div className="container-custom">
           <div className="mx-auto max-w-3xl text-center">
-            <h1 className="font-heading text-4xl font-bold md:text-5xl">Nos Tarifs</h1>
+            <h1 className="font-heading text-4xl font-bold md:text-5xl">Nos tarifs</h1>
             <p className="mt-4 text-lg text-white/90">
-              Tarifs transparents et exprimés toutes taxes comprises (TTC). Plusieurs solutions de
-              financement pour s'adapter à votre budget.
+              Tarifs toutes taxes comprises (TTC). Paiement possible {site.paymentPlan}.
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Code-inclus callout */}
-      <section className="bg-gradient-to-r from-formaroute-blue-700 via-formaroute-blue-600 to-formaroute-red-600 py-6 text-white">
-        <div className="container-custom">
-          <div className="flex flex-col items-center justify-center gap-4 text-center sm:flex-row sm:gap-6 sm:text-left">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-yellow-300/20 ring-2 ring-yellow-300/40">
-              <Gift className="h-7 w-7 text-yellow-300" />
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-yellow-300">Offert</p>
-              <p className="font-heading text-xl font-bold sm:text-2xl">
-                La formation au Code de la route est{' '}
-                <span className="text-yellow-300">incluse</span> dans tous nos forfaits permis
-              </p>
-            </div>
           </div>
         </div>
       </section>
@@ -171,167 +138,159 @@ export default function TarifsPage() {
       {/* Forfaits */}
       <section className="section bg-slate-50">
         <div className="container-custom">
-          <h2 className="mb-8 font-heading text-3xl font-bold text-slate-900">Forfaits Permis B</h2>
+          <h2 className="mb-8 font-heading text-3xl font-bold text-slate-900">Forfaits</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {forfaits.map((item, idx) => {
-              // « Code offert » uniquement sur les forfaits permis (pas sur le forfait code lui-même).
-              const codeInclus =
-                item.name !== 'Forfait Code' &&
-                item.includes.some((inc) => inc.toLowerCase().startsWith('code valable'));
-              return (
-                <div
-                  key={idx}
-                  className={`relative flex flex-col rounded-2xl border-2 bg-white p-6 ${
-                    item.popular
-                      ? 'border-formaroute-blue-500 ring-2 ring-formaroute-blue-100'
-                      : 'border-slate-200'
-                  }`}
-                >
-                  {item.popular && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-formaroute-blue-600 px-4 py-1 text-sm font-medium text-white">
-                      Populaire
+            {forfaits.map((item) => (
+              <div
+                key={`${item.name}-${item.subtitle ?? ''}`}
+                className={`relative flex flex-col rounded-2xl border-2 bg-white p-6 ${
+                  item.popular
+                    ? 'border-formaroute-blue-500 ring-2 ring-formaroute-blue-100'
+                    : 'border-slate-200'
+                }`}
+              >
+                {item.popular && (
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-formaroute-blue-600 px-4 py-1 text-sm font-medium text-white">
+                    Populaire
+                  </span>
+                )}
+                <h3 className="font-heading text-lg font-semibold text-slate-900">{item.name}</h3>
+                {item.subtitle && <p className="text-sm text-slate-500">{item.subtitle}</p>}
+                <div className="mt-4">
+                  {item.price !== null ? (
+                    <>
+                      <span className="font-mono text-4xl font-bold text-formaroute-blue-600">
+                        {item.price.toLocaleString('fr-FR')}&nbsp;€
+                      </span>
+                      <span className="ml-2 text-sm text-slate-500">TTC</span>
+                    </>
+                  ) : (
+                    <span className="font-heading text-2xl font-bold text-slate-500">
+                      {item.priceLabel}
                     </span>
                   )}
-                  <div>
-                    <h3 className="font-heading text-lg font-semibold text-slate-900">
-                      {item.name}
-                    </h3>
-                    {item.subtitle && <p className="text-sm text-slate-500">{item.subtitle}</p>}
-                  </div>
-                  <div className="mt-4">
-                    <span className="font-mono text-4xl font-bold text-formaroute-blue-600">
-                      {item.price} €
-                    </span>
-                    <span className="ml-2 text-sm text-slate-500">TTC</span>
-                  </div>
-                  {codeInclus && (
-                    <div className="mt-4 inline-flex items-center gap-2 self-start rounded-full bg-yellow-50 px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-yellow-700 ring-1 ring-yellow-200">
-                      <Gift className="h-3.5 w-3.5" />
-                      Code de la route offert
-                    </div>
-                  )}
-                  <ul className="mt-4 space-y-2">
-                    {item.includes.map((inc, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
-                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-formaroute-blue-600" />
-                        <span>{inc}</span>
-                      </li>
-                    ))}
-                  </ul>
                 </div>
-              );
-            })}
+                <ul className="mt-4 flex-1 space-y-2">
+                  {item.includes.map((inc) => (
+                    <li key={inc} className="flex items-start gap-2 text-sm text-slate-600">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-formaroute-blue-600" />
+                      <span>{inc}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href={item.href}
+                  className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-formaroute-blue-600 hover:underline"
+                >
+                  Détail de la formation
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Prestations unitaires */}
+      {/* Suppléments */}
       <section className="section bg-white">
         <div className="container-custom">
           <div className="mx-auto max-w-4xl">
-            <h2 className="mb-2 font-heading text-3xl font-bold text-slate-900">
-              Prestations unitaires
-            </h2>
-            <p className="mb-8 text-slate-600">
-              À l'unité, hors forfait. <span className="font-medium">BVA</span> = boîte de vitesse
-              automatique.
-            </p>
+            <h2 className="mb-2 font-heading text-3xl font-bold text-slate-900">En supplément</h2>
+            <p className="mb-8 text-slate-600">Prestations hors forfait, tarifs TTC.</p>
             <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white">
               <table className="w-full">
-                <caption className="sr-only">Tarifs des prestations à l&apos;unité</caption>
+                <caption className="sr-only">Tarifs des prestations en supplément</caption>
                 <thead className="bg-slate-50 text-left text-sm">
                   <tr>
                     <th scope="col" className="px-4 py-3 font-semibold text-slate-700">
                       Prestation
                     </th>
                     <th scope="col" className="px-4 py-3 text-right font-semibold text-slate-700">
-                      Boîte manuelle
+                      Manuelle
                     </th>
                     <th scope="col" className="px-4 py-3 text-right font-semibold text-slate-700">
-                      BVA
+                      Automatique
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {prestations.map((p, i) => (
-                    <tr key={i} className="text-sm">
-                      <td className="px-4 py-3">
-                        <div className="font-medium text-slate-900">{p.name}</div>
-                        {p.note && <div className="text-xs text-slate-500">{p.note}</div>}
+                <tbody className="divide-y divide-slate-100 text-sm">
+                  {supplements.map((p) => (
+                    <tr key={p.name}>
+                      <td className="px-4 py-3 font-medium text-slate-900">{p.name}</td>
+                      <td className="px-4 py-3 text-right font-mono font-semibold text-slate-900">
+                        {p.manual}
                       </td>
                       <td className="px-4 py-3 text-right font-mono font-semibold text-slate-900">
-                        {p.price} €
-                      </td>
-                      <td className="px-4 py-3 text-right font-mono text-slate-600">
-                        {p.bvaPrice ? `${p.bvaPrice} €` : '—'}
+                        {p.auto}
                       </td>
                     </tr>
                   ))}
+                  <tr>
+                    <td className="px-4 py-3 font-medium text-slate-900">
+                      Examen du code
+                      <div className="text-xs font-normal text-slate-500">
+                        {site.code.examFeeNote}
+                      </div>
+                    </td>
+                    <td
+                      colSpan={2}
+                      className="px-4 py-3 text-right font-mono font-semibold text-slate-900"
+                    >
+                      {site.code.examFee} € par passage
+                    </td>
+                  </tr>
                 </tbody>
               </table>
-            </div>
-            <div className="mt-6 space-y-2 text-center text-sm text-slate-600">
-              <p>
-                Le nombre de leçons d&apos;un forfait est indicatif : le volume réellement
-                nécessaire est estimé lors de l&apos;évaluation de départ et précisé dans le
-                contrat. Les leçons supplémentaires et l&apos;accompagnement à chaque présentation à
-                l&apos;examen pratique sont facturés au tarif unitaire ci-dessus.
-              </p>
-              <p>
-                Tarifs exprimés toutes taxes comprises (TTC). Une documentation détaillée est
-                disponible dans l&apos;établissement sur simple demande.
-              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Financing Options */}
+      {/* Code : préparation, ressources, examen */}
       <section className="section bg-slate-50">
         <div className="container-custom">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="heading-md text-slate-900">Options de financement</h2>
-            <p className="mt-4 text-slate-600">
-              Plusieurs solutions pour financer votre permis de conduire.
+          <div className="mx-auto max-w-4xl">
+            <h2 className="mb-8 font-heading text-3xl font-bold text-slate-900">
+              Le code : ce qui est compris, ce qui ne l&apos;est pas
+            </h2>
+            <div className="grid gap-6 md:grid-cols-3">
+              <div className="rounded-2xl border border-slate-200 bg-white p-6">
+                <BookOpen className="mb-3 h-7 w-7 text-formaroute-blue-600" aria-hidden="true" />
+                <h3 className="font-heading text-lg font-bold text-slate-900">
+                  Préparation au code
+                </h3>
+                <p className="mt-2 text-sm text-slate-600">
+                  Cours, entraînements et correction des erreurs, selon les prestations comprises
+                  dans le forfait.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-white p-6">
+                <Laptop className="mb-3 h-7 w-7 text-formaroute-blue-600" aria-hidden="true" />
+                <h3 className="font-heading text-lg font-bold text-slate-900">
+                  Accès aux ressources
+                </h3>
+                <p className="mt-2 text-sm text-slate-600">
+                  Valable {site.code.access}. Cette durée d&apos;accès ne correspond pas à la
+                  validité de l&apos;examen.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-white p-6">
+                <Receipt className="mb-3 h-7 w-7 text-formaroute-blue-600" aria-hidden="true" />
+                <h3 className="font-heading text-lg font-bold text-slate-900">
+                  Frais d&apos;examen
+                </h3>
+                <p className="mt-2 text-sm text-slate-600">
+                  {site.code.examFee} € {site.code.examFeeNote}. Non inclus dans les forfaits.
+                </p>
+              </div>
+            </div>
+            <p className="mt-6 text-sm text-slate-600">
+              Le volume prévisionnel de formation est proposé après l&apos;évaluation de départ et
+              adapté à la progression : des heures complémentaires peuvent être nécessaires. Une
+              documentation détaillée est disponible dans l&apos;établissement sur simple demande.
             </p>
-          </div>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            <Link
-              href="/financement#cpf"
-              className="group rounded-2xl border-2 border-slate-200 bg-white p-6 transition-all hover:border-formaroute-blue-300 hover:shadow-lg"
-            >
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-formaroute-blue-100 text-formaroute-blue-600">
-                <Wallet className="h-7 w-7" />
-              </div>
-              <h3 className="font-heading text-xl font-bold text-slate-900">CPF</h3>
-              <p className="mt-2 text-slate-600">
-                {site.quality.qualiopiCertified
-                  ? 'Utilisez votre Compte Personnel de Formation pour financer votre permis.'
-                  : 'Certification Qualiopi en cours : le financement CPF sera proposé dès son obtention.'}
-              </p>
-            </Link>
-            <Link
-              href="/financement#france-travail"
-              className="group rounded-2xl border-2 border-slate-200 bg-white p-6 transition-all hover:border-formaroute-blue-300 hover:shadow-lg"
-            >
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-green-100 text-green-700">
-                <Briefcase className="h-7 w-7" />
-              </div>
-              <h3 className="font-heading text-xl font-bold text-slate-900">France Travail</h3>
-              <p className="mt-2 text-slate-600">
-                Aides pour les demandeurs d'emploi souhaitant passer leur permis.
-              </p>
-            </Link>
-            <div className="rounded-2xl border-2 border-slate-200 bg-white p-6">
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-purple-100 text-purple-700">
-                <CalendarRange className="h-7 w-7" />
-              </div>
-              <h3 className="font-heading text-xl font-bold text-slate-900">
-                Paiement en plusieurs fois
-              </h3>
-              <p className="mt-2 text-slate-600">
-                Étalez le paiement de votre formation {site.paymentPlan}.
-              </p>
+            <div className="mt-6">
+              <DocumentLinks docs={[site.documents.tarifs, site.documents.programmePermisB]} />
             </div>
           </div>
         </div>
@@ -341,10 +300,13 @@ export default function TarifsPage() {
       <section className="section bg-formaroute-blue-600 text-white">
         <div className="container-custom text-center">
           <Calculator className="mx-auto mb-4 h-12 w-12 text-white/80" aria-hidden="true" />
-          <h2 className="font-heading text-3xl font-bold">Besoin d'un devis personnalisé ?</h2>
+          <h2 className="font-heading text-3xl font-bold">Une question sur nos tarifs ?</h2>
           <p className="mx-auto mt-4 max-w-2xl text-white/90">
-            Contactez-nous pour obtenir un devis adapté à votre situation et découvrir les aides
-            auxquelles vous avez droit.
+            Paiement possible {site.paymentPlan}. Consultez aussi les{' '}
+            <Link href="/financement" className="underline">
+              aides au financement
+            </Link>
+            .
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button
@@ -352,7 +314,7 @@ export default function TarifsPage() {
               size="lg"
               className="bg-white text-formaroute-blue-600 hover:bg-slate-50"
             >
-              <Link href="/contact">
+              <Link href="/contact?sujet=devis">
                 Demander un devis
                 <ArrowRight className="h-5 w-5" />
               </Link>

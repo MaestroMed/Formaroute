@@ -40,13 +40,3 @@ export function LegalSection({ title, children }: { title: string; children: Rea
     </section>
   );
 }
-
-/** Valeur issue de la config, mise en évidence si elle reste à compléter. */
-export function Field({ value }: { value: string }) {
-  const missing = value.startsWith('[');
-  return (
-    <span className={missing ? 'rounded bg-amber-100 px-1 text-amber-900' : undefined}>
-      {value}
-    </span>
-  );
-}

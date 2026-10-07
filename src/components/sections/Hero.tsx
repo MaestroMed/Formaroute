@@ -23,10 +23,10 @@ const staggerContainer = {
 };
 
 const highlights = [
-  'Enseignants diplômés',
+  'Leçons individuelles de 60 min',
   'Boîte manuelle ou automatique',
   'Véhicules récents à double commande',
-  site.quality.qualiopiCertified ? 'Financement CPF' : 'Paiement en plusieurs fois',
+  'Paiement en 3 ou 4 fois sans frais',
 ];
 
 export function Hero() {
@@ -137,10 +137,10 @@ export function Hero() {
                       </div>
                       <div>
                         <p className="text-sm font-bold uppercase tracking-wide text-yellow-200">
-                          Formation Code offerte
+                          Formation au code incluse
                         </p>
                         <p className="text-sm text-white/80">
-                          Incluse dans tous nos forfaits permis
+                          Dans nos forfaits permis · examen du code : 30 € à l&apos;organisme
                         </p>
                       </div>
                     </div>
@@ -148,7 +148,7 @@ export function Hero() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="rounded-2xl bg-white/10 p-4">
-                      <p className="text-3xl font-bold text-white">50 min</p>
+                      <p className="text-3xl font-bold text-white">60 min</p>
                       <p className="text-sm text-white/80">par leçon de conduite</p>
                     </div>
                     <div className="rounded-2xl bg-white/10 p-4">

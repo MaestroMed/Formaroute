@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { LegalPage, LegalSection, Field } from '@/components/legal/LegalPage';
-import { site, todo } from '@/data/site';
+import { LegalPage, LegalSection } from '@/components/legal/LegalPage';
+import { site } from '@/data/site';
 import { buildMetadata } from '@/lib/seo';
 
 export const metadata = buildMetadata({
@@ -37,10 +37,9 @@ export default function ReclamationsPage() {
 
       <LegalSection title="2. Traitement">
         <ul className="list-inside list-disc space-y-1">
-          <li>Accusé de réception sous 48 heures ouvrées.</li>
+          <li>Votre réclamation est enregistrée et nous en accusons réception.</li>
           <li>
-            Réponse écrite et motivée sous {site.quality.complaintResponseDays} jours ouvrés au plus
-            tard, après analyse et, si besoin, échange avec vous.
+            Après analyse et, si besoin, échange avec vous, nous vous apportons une réponse écrite.
           </li>
           <li>
             Chaque réclamation est enregistrée et analysée afin de mettre en place des actions
@@ -49,28 +48,17 @@ export default function ReclamationsPage() {
         </ul>
       </LegalSection>
 
-      <LegalSection title="3. Médiation de la consommation">
-        <p>
-          Si la réponse apportée ne vous satisfait pas, vous pouvez recourir gratuitement au
-          médiateur de la consommation, après avoir adressé une réclamation écrite à
-          l&apos;auto-école :
-        </p>
-        <p>
-          <Field value={todo(site.mediator.name)} />
-          {site.mediator.address && (
-            <>
-              <br />
-              {site.mediator.address}
-            </>
-          )}
-          {site.mediator.website && (
-            <>
-              <br />
-              {site.mediator.website}
-            </>
-          )}
-        </p>
-      </LegalSection>
+      {site.mediator.name && (
+        <LegalSection title="3. Médiation de la consommation">
+          <p>
+            Si la réponse apportée ne vous satisfait pas, vous pouvez recourir gratuitement au
+            médiateur de la consommation, après avoir adressé une réclamation écrite à
+            l&apos;auto-école : {site.mediator.name}
+            {site.mediator.address && <>, {site.mediator.address}</>}
+            {site.mediator.website && <> — {site.mediator.website}</>}.
+          </p>
+        </LegalSection>
+      )}
     </LegalPage>
   );
 }

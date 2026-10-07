@@ -22,10 +22,11 @@ import {
   formations,
   getFormationBySlug,
   formatFormationPrice,
-  DELAI_ACCES,
+  DUREES_ACCES,
   ACCESSIBILITE,
 } from '@/data/formations';
-import { site, hasResults, lessonsToHours } from '@/data/site';
+import { site, hasResults } from '@/data/site';
+import { DocumentLinks } from '@/components/legal/DocumentLinks';
 import { Button } from '@/components/ui/button';
 import { FormationIcon } from '@/components/icons/FormationIcon';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
@@ -53,7 +54,8 @@ export function generateMetadata({ params }: FormationPageProps): Metadata {
       path: `/formations/${formation.slug}`,
     }),
     // Les formations pas encore ouvertes ne sont pas indexées.
-    ...(formation.comingSoon ? { robots: { index: false, follow: true } } : {}),
+    // La passerelle n'est pas encore proposée : page non indexée.
+    ...(formation.id === 'passerelle' ? { robots: { index: false, follow: true } } : {}),
   };
 }
 
@@ -104,7 +106,16 @@ export default function FormationPage({ params }: FormationPageProps) {
     month: 'long',
     year: 'numeric',
   });
-  const showCPF = formation.eligibleCPF && site.quality.qualiopiCertified;
+  // Bouton principal adapté à chaque activité.
+  const cta =
+    formation.id === 'stage-points'
+      ? { href: '/contact?sujet=stage', label: 'Réserver un stage' }
+      : formation.id === 'formation-moniteur'
+        ? { href: '/contact?sujet=ecsr', label: 'Être informé de l’ouverture' }
+        : formation.comingSoon
+          ? { href: '/contact?sujet=info', label: 'Être informé' }
+          : { href: '/reservation', label: 'Réserver une évaluation' };
+  const isPermisB = Boolean(formation.certification);
   const results = site.results.indicators.filter((i) => i.rate !== null);
 
   const courseJsonLd = {
@@ -148,17 +159,12 @@ export default function FormationPage({ params }: FormationPageProps) {
               <div className="mb-4 flex flex-wrap gap-2">
                 {formation.comingSoon && (
                   <span className="rounded-full bg-white/20 px-3 py-1 text-sm font-medium">
-                    Ouverture prochaine
+                    Prochainement
                   </span>
                 )}
                 {formation.popular && (
                   <span className="rounded-full bg-white/20 px-3 py-1 text-sm font-medium">
                     Populaire
-                  </span>
-                )}
-                {showCPF && (
-                  <span className="rounded-full bg-green-500/20 px-3 py-1 text-sm font-medium text-green-100">
-                    Éligible CPF
                   </span>
                 )}
               </div>
@@ -181,11 +187,11 @@ export default function FormationPage({ params }: FormationPageProps) {
                 {formation.lessons && (
                   <div className="rounded-xl bg-white/10 p-4">
                     <Clock className="mb-2 h-6 w-6 text-white/80" aria-hidden="true" />
-                    <dt className="text-sm text-white/80">Leçons de conduite</dt>
+                    <dt className="text-sm text-white/80">Conduite</dt>
                     <dd className="text-xl font-bold">
-                      {formation.lessons} × 50 min
+                      {formation.lessons} heures
                       <span className="block text-sm font-normal text-white/80">
-                        soit {lessonsToHours(formation.lessons)}
+                        leçons de 60 min
                       </span>
                     </dd>
                   </div>
@@ -205,10 +211,8 @@ export default function FormationPage({ params }: FormationPageProps) {
                   size="lg"
                   className="bg-white text-formaroute-blue-600 hover:bg-slate-50"
                 >
-                  <Link href={formation.comingSoon ? '/contact' : '/reservation'}>
-                    {formation.comingSoon
-                      ? 'Être prévenu de l’ouverture'
-                      : 'Réserver une évaluation'}
+                  <Link href={cta.href}>
+                    {cta.label}
                     <ArrowRight className="h-5 w-5" />
                   </Link>
                 </Button>
@@ -229,6 +233,42 @@ export default function FormationPage({ params }: FormationPageProps) {
           </div>
         </div>
       </section>
+
+      {formation.id === 'stage-points' && (
+        <section className="section bg-white pb-0">
+          <div className="container-custom">
+            <div className="mx-auto max-w-3xl rounded-2xl border border-formaroute-blue-200 bg-formaroute-blue-50 p-6">
+              <h2 className="font-heading text-2xl font-bold text-slate-900">Prochaines dates</h2>
+              {site.stagePoints.dates.length > 0 ? (
+                <ul className="mt-4 space-y-2">
+                  {site.stagePoints.dates.map((d) => (
+                    <li
+                      key={d.label}
+                      className="flex items-center justify-between rounded-xl bg-white p-4"
+                    >
+                      <span className="font-medium text-slate-900">{d.label}</span>
+                      {d.places !== undefined && (
+                        <span className="text-sm text-slate-600">{d.places} places</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-2 text-slate-700">
+                  Contactez-nous pour connaître les prochaines dates et réserver votre place :{' '}
+                  <a
+                    href={site.contact.phoneHref}
+                    className="font-semibold text-formaroute-blue-600 hover:underline"
+                  >
+                    {site.contact.phoneDisplay}
+                  </a>
+                  .
+                </p>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Contenu du forfait */}
       <section className="section bg-white">
@@ -253,7 +293,7 @@ export default function FormationPage({ params }: FormationPageProps) {
         </div>
       </section>
 
-      {/* Fiche formation (Qualiopi, indicateur 1) */}
+      {/* Fiche formation */}
       <section className="section bg-slate-50">
         <div className="container-custom">
           <div className="mx-auto max-w-5xl">
@@ -279,7 +319,12 @@ export default function FormationPage({ params }: FormationPageProps) {
               </Section>
               <Section icon={Clock} title="Durée et délais d'accès">
                 <p className="text-slate-700">{formation.dureeDetail}</p>
-                <p className="mt-3 text-slate-700">{DELAI_ACCES}</p>
+                {isPermisB &&
+                  DUREES_ACCES.map((p) => (
+                    <p key={p} className="mt-3 text-slate-700">
+                      {p}
+                    </p>
+                  ))}
               </Section>
               <Section icon={Accessibility} title="Accessibilité">
                 <p className="text-slate-700">{ACCESSIBILITE}</p>
@@ -305,11 +350,7 @@ export default function FormationPage({ params }: FormationPageProps) {
                   .
                 </p>
                 <p className="mt-3 text-slate-700">
-                  {showCPF
-                    ? 'Formation finançable par le CPF sur moncompteformation.gouv.fr.'
-                    : formation.eligibleCPF
-                      ? 'Financement CPF : en cours de certification Qualiopi, non disponible pour le moment.'
-                      : 'Paiement en plusieurs fois possible, aides selon votre situation.'}{' '}
+                  Paiement possible {site.paymentPlan}.{' '}
                   <Link
                     href="/financement"
                     className="font-semibold text-formaroute-blue-600 hover:underline"
@@ -350,6 +391,15 @@ export default function FormationPage({ params }: FormationPageProps) {
               </div>
             )}
 
+            {isPermisB && (
+              <div className="mt-6">
+                <DocumentLinks
+                  title="Documents à télécharger"
+                  docs={[site.documents.programmePermisB, site.documents.tarifs]}
+                />
+              </div>
+            )}
+
             {formation.certification && (
               <div className="mt-6">
                 <Section icon={LineChart} title="Résultats">
@@ -386,15 +436,15 @@ export default function FormationPage({ params }: FormationPageProps) {
       {/* CTA */}
       <section className="section bg-formaroute-blue-50">
         <div className="container-custom text-center">
-          <h2 className="heading-md text-slate-900">Prêt à commencer votre formation ?</h2>
+          <h2 className="heading-md text-slate-900">Une question sur cette formation ?</h2>
           <p className="mx-auto mt-4 max-w-2xl text-slate-600">
-            Réservez votre évaluation de départ : nos enseignants font le point sur vos besoins et
-            estiment par écrit le volume d&apos;heures nécessaire.
+            Appelez-nous au {site.contact.phoneDisplay} ou écrivez-nous : nous vous répondons aux
+            horaires d&apos;accueil.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button asChild size="lg">
-              <Link href="/reservation">
-                Réserver une évaluation
+              <Link href={cta.href}>
+                {cta.label}
                 <ArrowRight className="h-5 w-5" />
               </Link>
             </Button>

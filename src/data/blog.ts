@@ -22,23 +22,25 @@ export const blogPosts: BlogPost[] = [
       "L'auto-école Formaroute ouvre officiellement ses portes à Domont. Découvrez nos formations, nos tarifs et nos horaires.",
     category: 'Actualités',
     publishedAt: '2026-03-15',
+    updatedAt: '2026-10-07',
     readingTime: 3,
     content: `L'auto-école Formaroute ouvre officiellement ses portes le 1er avril 2026 au 4 avenue Jean Jaurès à Domont (95330).
 
-**Nos formations disponibles dès l'ouverture**
+**Nos formations (tarifs TTC, mis à jour en octobre 2026)**
 
-- Forfait Code (stage de code accéléré) — 195 € TTC
-- Permis B Boîte Manuelle — 1 195 € TTC
-- Permis B Boîte Automatique — à partir de 995 € TTC
-- Conduite accompagnée (AAC) — 1 395 € TTC
-- Passerelle (boîte auto vers manuelle) — 495 € TTC
-- Forfait Annulation de Permis — 595 € TTC
-- Stage de récupération de points — ouverture prochaine
+- Forfait code — 195 € (examen du code : 30 € par passage, réglés à l'organisme d'examen)
+- Permis B boîte manuelle, 20 heures — 1 195 €
+- Permis B boîte automatique — 995 € (13 heures) ou 1 295 € (20 heures)
+- Conduite accompagnée (AAC) — 1 395 €
+- Forfait annulation de permis — 595 €
+- Stages de récupération de points — 250 €, dates sur demande
+- Passerelle boîte automatique vers manuelle — prochainement
 
-**Nos horaires**
+**Horaires d'accueil**
 
-Lundi au vendredi : 10h – 12h et 15h – 20h
-Samedi : 10h – 13h
+Lundi au vendredi : 10h – 12h et 16h – 20h
+Samedi : 10h – 14h
+Les leçons suivent le planning individuel.
 
 Venez nous rendre visite ou appelez-nous pour toute information !`,
   },
@@ -165,6 +167,7 @@ Pour toute question sur ces évolutions réglementaires, n'hésitez pas à nous 
       'Comment fonctionne le stage de récupération de points ? Conditions, déroulement, prix... On vous explique tout.',
     category: 'Guides',
     publishedAt: '2026-04-01',
+    updatedAt: '2026-10-07',
     readingTime: 6,
     content: `Vous avez perdu des points sur votre permis de conduire ? Le stage de récupération de points est la solution. Voici tout ce que vous devez savoir.
 
@@ -182,11 +185,11 @@ Le stage se déroule sur 2 jours consécutifs (14 heures), en groupe de 6 à 20 
 
 **À quel prix ?**
 
-Chez Formaroute, le stage sera proposé à 250 € TTC. Chaque centre agréé fixe librement son tarif.
+Chez Formaroute, le stage est proposé à 250 € TTC. Chaque centre agréé fixe librement son tarif.
 
-**Quand sera disponible le stage chez Formaroute ?**
+**Comment réserver chez Formaroute ?**
 
-Nos stages de récupération de points ouvriront prochainement. Contactez-nous pour être prévenu.
+Notre centre est agréé par la préfecture (agrément R2609500030). Contactez-nous au 01 34 19 83 26 pour connaître les prochaines dates et réserver votre place.
 
 **Attestation**
 

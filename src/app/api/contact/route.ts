@@ -14,7 +14,7 @@ const contactSchema = z.object({
     .min(10)
     .max(30)
     .regex(/^[0-9+().\s-]+$/),
-  subject: z.enum(['info', 'inscription', 'devis', 'reclamation', 'autre']),
+  subject: z.enum(['info', 'inscription', 'devis', 'stage', 'ecsr', 'reclamation', 'autre']),
   formation: z.string().max(60).optional(),
   message: z.string().trim().min(10).max(5000),
   consent: z.boolean().refine((val) => val === true),
@@ -49,6 +49,8 @@ const subjectLabels: Record<string, string> = {
   info: "Demande d'informations",
   inscription: 'Inscription',
   devis: 'Demande de devis',
+  stage: 'Stage de récupération de points',
+  ecsr: 'Formation moniteur TP ECSR',
   reclamation: 'Réclamation',
   autre: 'Autre',
 };

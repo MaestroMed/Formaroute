@@ -7,9 +7,9 @@ import { site } from '@/data/site';
 const features = [
   {
     icon: Award,
-    title: 'Moniteurs diplômés',
+    title: 'Enseignants autorisés',
     description:
-      "Nos enseignants sont titulaires du titre professionnel ECSR (ou d'un diplôme équivalent) et de l'autorisation d'enseigner délivrée par la préfecture.",
+      'Leçons individuelles sur route avec un enseignant titulaire de l’autorisation d’enseigner, sur véhicule à double commande.',
     color: 'from-formaroute-blue-500 to-formaroute-blue-600',
   },
   {

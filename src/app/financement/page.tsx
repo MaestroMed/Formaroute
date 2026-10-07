@@ -1,39 +1,17 @@
 import Link from 'next/link';
-import { ArrowRight, CreditCard, Building2, Users, Wallet, Phone } from 'lucide-react';
+import { ArrowRight, Building2, Users, Wallet, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { site } from '@/data/site';
 import { buildMetadata } from '@/lib/seo';
 
 export const metadata = buildMetadata({
-  title: 'Financer son permis : CPF, France Travail, aides jeunes',
+  title: 'Financer son permis à Domont : paiement en 3 ou 4 fois, aides',
   description:
-    'Les solutions pour financer votre permis à Domont : paiement en plusieurs fois, aides France Travail, Mission Locale, permis à 1 € par jour et CPF.',
+    'Les solutions pour financer votre permis à Domont : paiement en 3 ou 4 fois sans frais, aides France Travail, Mission Locale, permis à 1 € par jour.',
   path: '/financement',
 });
 
-const cpfAvailable = site.quality.qualiopiCertified;
-
 const financingOptions = [
-  {
-    id: 'cpf',
-    icon: CreditCard,
-    title: 'CPF — Compte Personnel de Formation',
-    description: cpfAvailable
-      ? 'Utilisez vos droits à la formation pour financer tout ou partie de votre permis B, directement sur moncompteformation.gouv.fr.'
-      : "Formaroute prépare sa certification Qualiopi, indispensable pour proposer le financement CPF. Ce mode de financement n'est pas encore disponible chez nous : nous l'annoncerons ici dès l'obtention de la certification.",
-    features: cpfAvailable
-      ? [
-          'Permis B (boîte manuelle ou automatique)',
-          'Inscription sur moncompteformation.gouv.fr',
-          "Participation forfaitaire obligatoire de l'État (sauf exonérations)",
-          'Complément possible par paiement personnel',
-        ]
-      : [
-          'Certification Qualiopi en cours',
-          'Consultez dès maintenant vos droits sur moncompteformation.gouv.fr',
-        ],
-    color: 'from-blue-500 to-blue-600',
-  },
   {
     id: 'france-travail',
     icon: Building2,
@@ -63,7 +41,7 @@ const financingOptions = [
   {
     id: 'paiement',
     icon: Wallet,
-    title: 'Paiement en plusieurs fois',
+    title: 'Paiement en 3 ou 4 fois sans frais',
     description: `Étalez le paiement de votre formation ${site.paymentPlan}. L'échéancier est précisé dans votre contrat.`,
     features: ['Échéancier défini à l’inscription', 'Selon le forfait choisi'],
     color: 'from-orange-500 to-orange-600',
@@ -71,10 +49,6 @@ const financingOptions = [
 ];
 
 const faqs = [
-  {
-    q: 'Comment connaître mes droits CPF ?',
-    a: 'Les actifs (salariés, demandeurs d’emploi, indépendants) cumulent des droits CPF. Connectez-vous sur moncompteformation.gouv.fr avec FranceConnect pour consulter votre solde.',
-  },
   {
     q: 'Puis-je cumuler plusieurs aides ?',
     a: 'Dans certains cas oui, par exemple une aide France Travail complétée par un paiement personnel. Nous étudions votre situation avec vous.',

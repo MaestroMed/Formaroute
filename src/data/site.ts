@@ -2,19 +2,9 @@
  * Source unique de vérité pour toutes les informations de l'entreprise.
  *
  * Toute coordonnée, mention légale ou indicateur de résultat affiché sur le
- * site doit venir d'ici. Un champ laissé à `null` s'affiche « [À compléter] »
- * (voir `todo()`), ce qui rend visible ce qu'il reste à fournir.
- *
- * Les champs à remplir par le gérant sont listés dans AUDIT_QUALIOPI.md.
+ * site doit venir d'ici. Un champ laissé à `null` n'est pas affiché : les
+ * informations encore manquantes sont listées dans DEMANDES_GERANT.md.
  */
-
-export const TODO_LABEL = '[À compléter]';
-
-/** Rend la valeur, ou « [À compléter] » si elle est absente. */
-export function todo(value: string | number | null | undefined): string {
-  if (value === null || value === undefined || value === '') return TODO_LABEL;
-  return String(value);
-}
 
 export interface ResultIndicator {
   /** Libellé affiché (ex. « Permis B — 1re présentation »). */
@@ -27,41 +17,64 @@ export interface ResultIndicator {
   period: string | null;
   /** Source du chiffre (ex. « Données ministère de l'Intérieur »). */
   source: string | null;
+  /** Méthode de calcul (ex. « reçus / présentés, 1re présentation »). */
+  method: string | null;
+}
+
+/** Document téléchargeable (PDF déposé dans public/documents/). */
+export interface SiteDocument {
+  label: string;
+  /** Chemin public, ex. « /documents/programme-permis-b.pdf ». */
+  file: string;
+}
+
+/** Date d'un stage de récupération de points. */
+export interface StageDate {
+  /** Dates affichées, ex. « 12 et 13 novembre 2026 ». */
+  label: string;
+  /** Places restantes (facultatif). */
+  places?: number;
 }
 
 export const site = {
   name: 'Formaroute',
+  /** Raison sociale et enseigne. */
+  brand: 'FORMAROUTE',
   // Domaine canonique : formaroute.fr redirige (308) vers www.
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.formaroute.fr',
   description:
-    'Auto-école à Domont (95330) : code de la route, permis B en boîte manuelle ou automatique, conduite accompagnée, passerelle et perfectionnement.',
+    'Auto-école à Domont (95330) : permis B manuel et automatique, conduite accompagnée et supervisée, forfait code, stages de récupération de points.',
   openingDate: '2026-04-01',
 
   legal: {
     /** Raison sociale (si différente du nom commercial). */
-    companyName: null as string | null,
+    companyName: 'SAS CONTRA' as string | null,
     /** SARL, SAS, EI… */
-    legalForm: null as string | null,
+    legalForm: 'SAS' as string | null,
     shareCapital: null as string | null,
-    siret: null as string | null,
+    siret: '99929100800012' as string | null,
     /** Ville du RCS ou RM (ex. « RCS Pontoise »). */
     registry: null as string | null,
     vatNumber: null as string | null,
-    /** Agrément préfectoral d'exploitation de l'école de conduite (E XX 095 XXXX 0). */
-    agrementEcole: null as string | null,
-    /** Agrément préfectoral du centre de stages de récupération de points. */
-    agrementStagePoints: null as string | null,
+    /** Agrément préfectoral d'exploitation de l'école de conduite. */
+    agrementEcole: 'E2609500070' as string | null,
+    /** Agrément préfectoral du centre de stages de récupération de points (CSSR). */
+    agrementStagePoints: 'R2609500030' as string | null,
+    /** Agrément du centre de formation des enseignants (ECSR). */
+    agrementEcsr: 'F2609500010' as string | null,
     /** Numéro de déclaration d'activité d'organisme de formation (DREETS). */
-    nda: null as string | null,
+    nda: '11951049995' as string | null,
+    president: 'Cédric CONTESENNE',
+    directeurGeneral: 'Brahim TRAHIM',
     /** Directeur / directrice de la publication. */
-    publicationDirector: null as string | null,
+    publicationDirector: 'Cédric CONTESENNE, Président' as string | null,
   },
 
   contact: {
     phoneDisplay: '01 34 19 83 26',
     phoneHref: 'tel:+33134198326',
     phoneE164: '+33134198326',
-    email: 'contact.formaroute@gmail.com',
+    email: 'formaroute95@gmail.com',
   },
 
   address: {
@@ -82,11 +95,13 @@ export const site = {
   hours: {
     /** Affichage court, une ligne par plage. */
     display: [
-      { days: 'Lundi – Vendredi', hours: '10h – 12h / 15h – 20h' },
-      { days: 'Samedi', hours: '10h – 13h' },
+      { days: 'Lundi – Vendredi', hours: '10h – 12h / 16h – 20h' },
+      { days: 'Samedi', hours: '10h – 14h' },
       { days: 'Dimanche', hours: 'Fermé' },
     ],
-    short: 'Lun–Ven 10h–12h / 15h–20h · Sam 10h–13h',
+    short: 'Lun–Ven 10h–12h / 16h–20h · Sam 10h–14h',
+    /** Précision affichée sous les horaires d'accueil. */
+    lessonsNote: 'Les leçons suivent le planning individuel.',
     /** Format schema.org. */
     schema: [
       {
@@ -96,24 +111,25 @@ export const site = {
       },
       {
         dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        opens: '15:00',
+        opens: '16:00',
         closes: '20:00',
       },
-      { dayOfWeek: ['Saturday'], opens: '10:00', closes: '13:00' },
+      { dayOfWeek: ['Saturday'], opens: '10:00', closes: '14:00' },
     ],
   },
 
   social: {
-    facebook: 'https://facebook.com/formaroute',
-    instagram: 'https://instagram.com/formaroute',
+    /** Pages Facebook / Instagram : non confirmées, masquées tant que null. */
+    facebook: null as string | null,
+    instagram: null as string | null,
     googleBusiness: 'https://g.page/r/CVku8ribbwIZEAE',
     googleReview: 'https://g.page/r/CVku8ribbwIZEAE/review',
   },
 
-  /** Référent handicap (Qualiopi, indicateur 26). */
+  /** Référent handicap. */
   handicapReferent: {
-    name: null as string | null,
-    email: 'contact.formaroute@gmail.com',
+    name: 'Brahim TRAHIM',
+    email: 'formaroute95@gmail.com',
     phoneDisplay: '01 34 19 83 26',
   },
 
@@ -122,19 +138,6 @@ export const site = {
     name: null as string | null,
     website: null as string | null,
     address: null as string | null,
-  },
-
-  quality: {
-    /**
-     * Passer à `true` uniquement quand le certificat Qualiopi est obtenu ET que
-     * les formations sont référencées sur Mon Compte Formation (EDOF).
-     * Pilote l'affichage de toutes les mentions « Éligible CPF ».
-     */
-    qualiopiCertified: false,
-    /** Numéro / organisme certificateur, une fois obtenu. */
-    qualiopiCertificate: null as string | null,
-    /** Délai de réponse aux réclamations, en jours ouvrés. */
-    complaintResponseDays: 10,
   },
 
   /**
@@ -147,13 +150,21 @@ export const site = {
   results: {
     updatedAt: null as string | null,
     indicators: [
-      { label: 'Code de la route (ETG)', rate: null, candidates: null, period: null, source: null },
+      {
+        label: 'Code de la route (ETG)',
+        rate: null,
+        candidates: null,
+        period: null,
+        source: null,
+        method: null,
+      },
       {
         label: 'Permis B — boîte manuelle',
         rate: null,
         candidates: null,
         period: null,
         source: null,
+        method: null,
       },
       {
         label: 'Permis B — boîte automatique',
@@ -161,6 +172,7 @@ export const site = {
         candidates: null,
         period: null,
         source: null,
+        method: null,
       },
       {
         label: 'Conduite accompagnée (AAC)',
@@ -168,6 +180,7 @@ export const site = {
         candidates: null,
         period: null,
         source: null,
+        method: null,
       },
     ] as ResultIndicator[],
     /** Taux de satisfaction des élèves (questionnaire de fin de formation). */
@@ -191,10 +204,50 @@ export const site = {
    */
   team: [] as { name: string; role: string; bio: string; diplomas: string[] }[],
 
-  /** Modalités de paiement échelonné annoncées sur le site (à confirmer par le gérant). */
-  paymentPlan: 'en 3, 4 ou 6 fois sans frais',
+  /** Modalités de paiement échelonné. */
+  paymentPlan: 'en 3 ou 4 fois sans frais',
 
-  lessonMinutes: 50,
+  /** Formation au code : accès aux ressources et frais d'examen (hors forfait). */
+  code: {
+    access: '12 mois à compter de son activation',
+    examFee: 30,
+    examFeeNote: 'par passage, réglés directement à l’organisme d’examen',
+  },
+
+  /** Stages de récupération de points. */
+  stagePoints: {
+    price: 250,
+    /** Prochaines dates. Liste vide : « contactez-nous pour les prochaines dates ». */
+    dates: [] as StageDate[],
+  },
+
+  /** Formation de moniteurs (TP ECSR). */
+  ecsr: {
+    opening: 'janvier 2027',
+  },
+
+  /**
+   * Documents téléchargeables. Déposer le PDF dans public/documents/ :
+   * le lien apparaît automatiquement sur le site (voir getAvailableDocuments).
+   */
+  documents: {
+    programmePermisB: {
+      label: 'Programme et conditions du Permis B (PDF)',
+      file: '/documents/programme-permis-b.pdf',
+    },
+    reglementInterieur: {
+      label: 'Règlement intérieur (PDF)',
+      file: '/documents/reglement-interieur.pdf',
+    },
+    contrat: {
+      label: 'Contrat de formation type (PDF)',
+      file: '/documents/contrat-formation.pdf',
+    },
+    tarifs: { label: 'Grille tarifaire (PDF)', file: '/documents/tarifs.pdf' },
+  } satisfies Record<string, SiteDocument>,
+
+  /** Durée d'une leçon de conduite, accueil et bilan compris. */
+  lessonMinutes: 60,
   /** Date de dernière mise à jour des fiches formation et documents qualité. */
   contentUpdatedAt: '2026-10-07',
 } as const;
@@ -203,7 +256,7 @@ export function hasResults(): boolean {
   return site.results.indicators.some((i) => i.rate !== null);
 }
 
-/** Durée formatée « 16 h 40 » pour un nombre de leçons. */
+/** Durée formatée « 20 h » pour un nombre de leçons. */
 export function lessonsToHours(lessons: number): string {
   const total = lessons * site.lessonMinutes;
   const h = Math.floor(total / 60);

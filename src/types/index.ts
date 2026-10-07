@@ -13,14 +13,12 @@ export interface Formation {
   popular?: boolean;
   new?: boolean;
   comingSoon?: boolean;
-  /** Formation finançable par le CPF une fois l'organisme certifié Qualiopi. */
-  eligibleCPF?: boolean;
   /** Libellé de prix remplaçant le montant (ex. « Sur devis »). */
   priceLabel?: string;
-  /** Nombre de leçons de conduite incluses (50 min chacune). */
+  /** Nombre d'heures de conduite incluses (leçons de 60 min). */
   lessons?: number;
 
-  // Informations obligatoires Qualiopi (indicateur 1) et certification (indicateur 3)
+  // Informations sur la prestation (objectifs, prérequis, programme…) et certification
   objectifs: string[];
   prerequis: string[];
   public: string;

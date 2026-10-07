@@ -19,24 +19,24 @@ const faqCategories = [
     name: 'Questions générales',
     questions: [
       {
+        question: 'Comment se passe l’inscription ?',
+        answer:
+          'L’inscription comprend la prise de contact, l’évaluation de départ, la constitution du dossier et la signature du contrat. L’évaluation est habituellement proposée sous un jour après la demande, et la première leçon sous trois jours après l’évaluation et la finalisation de l’inscription, selon vos disponibilités et dans le respect des délais légaux applicables.',
+      },
+      {
         question: 'Combien de temps faut-il pour obtenir le permis ?',
         answer:
-          "La durée dépend de plusieurs facteurs : votre disponibilité, votre capacité d'apprentissage et le type de formation choisie. En moyenne, comptez 3 à 6 mois pour une formation classique. L'évaluation de départ permet d'estimer précisément le volume d'heures dont vous aurez besoin.",
+          'Cela dépend de votre progression et de vos disponibilités. Le volume prévisionnel de formation est proposé après l’évaluation de départ, puis adapté à votre progression. Aucune date d’examen ni réussite n’est garantie.',
       },
       {
-        question: "Quels documents sont nécessaires pour s'inscrire ?",
+        question: 'Quels documents faut-il pour s’inscrire ?',
         answer:
-          "Pour vous inscrire, vous aurez besoin de : une pièce d'identité en cours de validité, un justificatif de domicile de moins de 6 mois, une photo d'identité numérique aux normes (e-photo), l'ASSR 2 ou l'ASR selon votre âge, et le certificat de participation à la JDC pour les 17-25 ans.",
-      },
-      {
-        question: 'Peut-on commencer la formation avant 18 ans ?',
-        answer:
-          "Oui ! Vous pouvez débuter la formation dès 15 ans, notamment en conduite accompagnée (AAC). L'examen pratique est possible dès 17 ans. Avec l'AAC, la période probatoire est réduite à 2 ans au lieu de 3.",
+          'Une pièce d’identité en cours de validité, un justificatif de domicile et une photo d’identité. Les conditions détaillées d’accès et d’examen figurent dans le document Permis B, disponible à l’accueil et sur demande.',
       },
       {
         question: 'Quel est votre taux de réussite ?',
         answer:
-          'Formaroute a ouvert en avril 2026. Nos premiers taux de réussite seront publiés sur la page « Nos résultats » dès que les données officielles portant sur une période complète seront disponibles.',
+          'Nos taux de réussite seront publiés sur la page « Nos résultats » uniquement lorsqu’ils seront réels, datés et accompagnés des effectifs et de la méthode de calcul.',
       },
     ],
   },
@@ -45,19 +45,17 @@ const faqCategories = [
     name: 'Code de la route',
     questions: [
       {
-        question: 'Comment se déroule la formation au code ?',
+        question: 'Comment se déroule la préparation au code ?',
         answer:
-          'La formation au code combine des cours thématiques en salle et un entraînement sur des séries de questions, en salle ou en ligne. Des tests blancs réguliers permettent de suivre votre progression.',
+          'Par des cours, des entraînements au code et la correction des erreurs, selon les prestations comprises dans le forfait.',
       },
       {
-        question: 'Combien de temps pour avoir le code ?',
-        answer:
-          'Avec un entraînement régulier, comptez en général 4 à 8 semaines. Le rythme dépend de votre disponibilité et de vos résultats aux tests blancs.',
+        question: 'Combien de temps ai-je accès aux ressources du code ?',
+        answer: `L’accès aux ressources pédagogiques du code est valable ${site.code.access}. Cette durée ne correspond pas à la validité de l’examen.`,
       },
       {
-        question: "L'examen du code est-il difficile ?",
-        answer:
-          "L'examen comprend 40 questions : il faut au moins 35 bonnes réponses. Avec une bonne préparation et des tests blancs réguliers, la réussite est à portée de main.",
+        question: 'L’examen du code est-il compris dans le forfait ?',
+        answer: `Non. Les frais de passage de l’examen du code, soit ${site.code.examFee} € par passage, sont réglés séparément, directement à l’organisme d’examen.`,
       },
     ],
   },
@@ -66,78 +64,75 @@ const faqCategories = [
     name: 'Permis B',
     questions: [
       {
-        question: "Combien d'heures de conduite minimum ?",
+        question: 'Combien d’heures de conduite faut-il ?',
         answer:
-          "Le minimum réglementaire est de 20 heures de conduite pour le permis B en boîte manuelle et de 13 heures en boîte automatique. Le volume réellement nécessaire dépend de chacun : il est estimé lors de l'évaluation de départ.",
+          'Pour un premier permis B, hors cas particuliers, la formation pratique minimale est de 20 heures en manuelle ou 13 heures en automatique. Le volume prévisionnel est proposé après l’évaluation de départ et adapté à votre progression.',
       },
       {
-        question: 'Puis-je choisir mes horaires de conduite ?',
+        question: 'Combien de temps dure une leçon ?',
         answer:
-          'Oui, les leçons sont planifiées avec vous selon vos disponibilités et celles de nos enseignants, en semaine et le samedi.',
+          'Une leçon dure 60 minutes au total, comprenant accueil, objectifs, conduite et bilan.',
       },
       {
-        question: 'Où se déroulent les leçons de conduite ?',
-        answer:
-          'Les leçons se déroulent à Domont et dans les communes environnantes, sur des parcours variés : ville, route, voie rapide. Le lieu de départ des leçons est convenu avec votre enseignant.',
+        question: 'Comment sont planifiées les leçons ?',
+        answer: `Les leçons suivent votre planning individuel. L’accueil est ouvert ${site.hours.short}.`,
       },
       {
-        question: "Que se passe-t-il si j'échoue à l'examen ?",
+        question: 'Manuelle ou automatique : quelle différence ?',
         answer:
-          "En cas d'échec, nous analysons ensemble les points à améliorer et planifions des leçons ciblées. Une nouvelle date d'examen est demandée dès que possible ; le délai dépend des places attribuées par la préfecture.",
+          'En boîte manuelle, vous apprenez l’embrayage et le changement de rapports. En boîte automatique, l’apprentissage se fait sur véhicule automatique et le permis est assorti de la restriction correspondante.',
+      },
+      {
+        question: 'Les leçons se font-elles sur piste ?',
+        answer:
+          'Non. Les leçons sont individuelles, en présentiel, sur route, avec un enseignant autorisé et un véhicule à double commande. Aucune piste n’est utilisée.',
       },
     ],
   },
   {
     id: 'aac',
-    name: 'Conduite accompagnée',
+    name: 'Conduite accompagnée et supervisée',
     questions: [
       {
-        question: 'Quelles sont les conditions pour la conduite accompagnée ?',
+        question: 'Comment se déroule la conduite accompagnée (AAC) ?',
         answer:
-          "L'élève doit avoir au moins 15 ans, réussir le code et suivre la formation initiale en auto-école. L'accompagnateur doit être titulaire du permis B depuis au moins 5 ans sans interruption et obtenir l'accord de son assureur.",
+          'Formation initiale, rendez-vous préalable avec l’accompagnateur, phase accompagnée d’au moins un an et 3 000 km, puis rendez-vous pédagogiques réglementaires.',
       },
       {
-        question: 'Combien de kilomètres faut-il parcourir ?',
+        question: 'Qu’est-ce que la conduite supervisée ?',
         answer:
-          "En conduite accompagnée, il faut parcourir au moins 3 000 km sur une période d'au moins 1 an. En conduite supervisée (à partir de 18 ans), c'est au moins 1 000 km sur 3 mois minimum.",
-      },
-      {
-        question: 'Quels sont les avantages de la conduite accompagnée ?',
-        answer:
-          "Plus d'expérience de conduite avant l'examen, une période probatoire réduite à 2 ans, un capital de points qui augmente plus vite (3 points par an) et, souvent, une assurance plus avantageuse.",
+          'Elle est accessible dès 18 ans sous conditions, après la formation initiale. Vous conduisez avec un accompagnateur, sans durée ni kilométrage minimaux réglementaires.',
       },
     ],
   },
   {
     id: 'financement',
-    name: 'Financement',
+    name: 'Paiement et financement',
     questions: [
       {
         question: 'Peut-on payer en plusieurs fois ?',
-        answer: `Oui, nous proposons le paiement ${site.paymentPlan}. Nous trouvons ensemble la solution la plus adaptée à votre budget.`,
+        answer: `Oui, le paiement est possible ${site.paymentPlan}.`,
       },
       {
-        question: 'Le CPF est-il accepté ?',
-        answer: site.quality.qualiopiCertified
-          ? 'Oui, nos formations au permis B sont finançables par le CPF. Nous vous accompagnons dans les démarches sur moncompteformation.gouv.fr.'
-          : "Pas encore : le financement CPF nécessite la certification Qualiopi, que Formaroute est en train de préparer. Nous l'annoncerons dès son obtention.",
-      },
-      {
-        question: "Quelles aides pour les demandeurs d'emploi ?",
+        question: 'Quelles aides pour les demandeurs d’emploi ?',
         answer:
-          "France Travail (ex-Pôle emploi) peut aider à financer le permis lorsqu'il favorise le retour à l'emploi. Parlez-en à votre conseiller : nous vous fournissons le devis nécessaire.",
+          'France Travail peut aider à financer le permis lorsqu’il favorise le retour à l’emploi. Parlez-en à votre conseiller : nous vous fournissons le devis nécessaire.',
       },
       {
         question: 'Existe-t-il des aides pour les jeunes ?',
         answer:
-          'Oui : la Mission Locale (16-25 ans), certaines aides locales et le prêt « permis à 1 € par jour » (15-25 ans) peuvent aider à financer votre permis. Renseignez-vous auprès de nous sur les conditions.',
+          'La Mission Locale (16-25 ans), certaines aides locales et le prêt « permis à 1 € par jour » (15-25 ans) peuvent aider à financer le permis. Renseignez-vous auprès de nous sur les conditions.',
       },
     ],
   },
   {
     id: 'stage-points',
-    name: 'Stage de points',
+    name: 'Stage de récupération de points',
     questions: [
+      {
+        question: 'Comment réserver un stage chez Formaroute ?',
+        answer: `Le stage coûte ${site.stagePoints.price} € TTC. Contactez-nous au ${site.contact.phoneDisplay} ou via le formulaire de contact pour connaître les prochaines dates et réserver votre place. Notre centre est agréé sous le n° ${site.legal.agrementStagePoints}.`,
+      },
       {
         question: 'Combien de points peut-on récupérer ?',
         answer:

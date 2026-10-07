@@ -2,6 +2,12 @@
 
 _Audit réalisé le 7 octobre 2026. Ce document liste ce qui a été corrigé sur le site, ce qu'il reste à fournir par le gérant et ce que Qualiopi demande en dehors du site._
 
+> **Mise à jour du 7 octobre 2026 (retours de la direction intégrés).** L'identité SAS CONTRA, le SIRET, le NDA, les agréments, les dirigeants, le référent handicap, les horaires, les textes pédagogiques, les durées (leçons de 60 min), les tarifs et les règles du code sont maintenant en ligne.
+>
+> Toutes les mentions CPF et Qualiopi ont été retirées du site : **le site ne se présente pas comme « conforme Qualiopi »**. Il contribue à l'information du public, mais ne remplace pas les preuves de fonctionnement de l'organisme.
+>
+> La liste à jour des éléments manquants et le message pour le gérant se trouvent dans **[DEMANDES_GERANT.md](./DEMANDES_GERANT.md)**. Les sections 3 et 4 ci-dessous datent de l'audit initial : les points 3.1 et 3.2 (durée des leçons) sont résolus, la leçon durant désormais 60 minutes.
+
 ---
 
 ## 1. Résumé

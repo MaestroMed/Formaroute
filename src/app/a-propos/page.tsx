@@ -8,7 +8,7 @@ import { buildMetadata } from '@/lib/seo';
 export const metadata = buildMetadata({
   title: 'À propos : notre auto-école et nos valeurs',
   description:
-    'Formaroute, auto-école à taille humaine ouverte à Domont en avril 2026 : nos valeurs, notre pédagogie et nos enseignants diplômés.',
+    'Formaroute, auto-école à taille humaine ouverte à Domont en avril 2026 : nos valeurs et notre pédagogie.',
   path: '/a-propos',
 });
 
@@ -17,7 +17,7 @@ const values = [
     icon: Award,
     title: 'Excellence',
     description:
-      "Nous visons l'exigence dans chaque formation : évaluation de départ, progression suivie selon le référentiel officiel et examen blanc avant le permis.",
+      "Nous visons l'exigence dans chaque formation : évaluation de départ, objectifs à chaque séance et progression suivie dans le livret d'apprentissage.",
   },
   {
     icon: Users,
@@ -137,7 +137,7 @@ export default function AProposPage() {
                 Notre <span className="text-formaroute-blue-600">Équipe</span>
               </h2>
               <p className="mt-4 text-slate-600">
-                Des enseignants diplômés, titulaires de l&apos;autorisation d&apos;enseigner.
+                Des enseignants titulaires de l&apos;autorisation d&apos;enseigner.
               </p>
             </div>
             <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
