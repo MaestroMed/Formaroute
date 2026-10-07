@@ -8,7 +8,6 @@ export const villes: Ville[] = [
     population: 15500,
     priority: 'haute',
     transportInfo: 'Siège de Formaroute - Gare de Domont (Ligne H)',
-    neighborhoods: ['Centre-ville', 'Les Music-Halls', 'Les Music-Halls', 'La Mare du Moulin'],
   },
   {
     slug: 'ezanville',
@@ -17,7 +16,6 @@ export const villes: Ville[] = [
     population: 9800,
     priority: 'haute',
     transportInfo: 'Bus 95.01 - 5 min en voiture',
-    neighborhoods: ['Centre', 'Les Myosotis', 'Le Mesnil'],
   },
   {
     slug: 'moisselles',
@@ -26,7 +24,6 @@ export const villes: Ville[] = [
     population: 1600,
     priority: 'haute',
     transportInfo: 'Bus - 5 min en voiture',
-    neighborhoods: ['Centre-bourg'],
   },
   {
     slug: 'bouffemont',
@@ -35,7 +32,6 @@ export const villes: Ville[] = [
     population: 6200,
     priority: 'haute',
     transportInfo: 'Gare de Bouffémont-Moisselles (Ligne H) - 5 min',
-    neighborhoods: ['Centre', 'Les Fontenelles', 'La Fontaine du Moulin'],
   },
   {
     slug: 'saint-brice-sous-foret',
@@ -44,7 +40,6 @@ export const villes: Ville[] = [
     population: 15200,
     priority: 'haute',
     transportInfo: 'Bus 95.07 - 8 min en voiture',
-    neighborhoods: ['Centre', 'Les Champeaux', 'Le Parc de la Fontaine'],
   },
   {
     slug: 'attainville',
@@ -53,7 +48,6 @@ export const villes: Ville[] = [
     population: 2100,
     priority: 'moyenne',
     transportInfo: '10 min en voiture',
-    neighborhoods: ['Village'],
   },
   {
     slug: 'piscop',
@@ -62,7 +56,6 @@ export const villes: Ville[] = [
     population: 1100,
     priority: 'moyenne',
     transportInfo: '10 min en voiture',
-    neighborhoods: ['Village'],
   },
   {
     slug: 'montmorency',
@@ -71,7 +64,6 @@ export const villes: Ville[] = [
     population: 21000,
     priority: 'haute',
     transportInfo: 'Gare de Montmorency (Ligne H) - Tramway T5',
-    neighborhoods: ['Centre-ville', 'Champlâtreux', 'Les Champeaux', 'La Châtaigneraie'],
   },
   {
     slug: 'eaubonne',
@@ -79,8 +71,7 @@ export const villes: Ville[] = [
     distance: 7,
     population: 25000,
     priority: 'haute',
-    transportInfo: 'Gare d\'Eaubonne (Ligne H) - 12 min en voiture',
-    neighborhoods: ['Centre', 'Les Bocages', 'Les Géleries', 'Cernay'],
+    transportInfo: "Gare d'Eaubonne (Ligne H) - 12 min en voiture",
   },
   {
     slug: 'taverny',
@@ -89,7 +80,6 @@ export const villes: Ville[] = [
     population: 26500,
     priority: 'haute',
     transportInfo: 'Gare de Taverny (Ligne H) - 15 min en voiture',
-    neighborhoods: ['Centre', 'Vaucelles', 'Les Tréforêts', 'Le Bouquet'],
   },
   {
     slug: 'saint-leu-la-foret',
@@ -98,7 +88,6 @@ export const villes: Ville[] = [
     population: 15600,
     priority: 'moyenne',
     transportInfo: 'Gare de Saint-Leu-la-Forêt (Ligne H)',
-    neighborhoods: ['Centre', 'La Plaine', 'Les Diablots'],
   },
   {
     slug: 'villiers-le-bel',
@@ -107,7 +96,6 @@ export const villes: Ville[] = [
     population: 28000,
     priority: 'moyenne',
     transportInfo: 'Gare de Villiers-le-Bel (RER D)',
-    neighborhoods: ['Centre', 'Les Carreaux', 'Village'],
   },
   {
     slug: 'franconville',
@@ -116,7 +104,6 @@ export const villes: Ville[] = [
     population: 35000,
     priority: 'moyenne',
     transportInfo: 'Gares de Franconville (Ligne J/H) - 18 min',
-    neighborhoods: ['Centre', 'Plessis-Bouchard', 'La Mare aux Saules'],
   },
   {
     slug: 'sarcelles',
@@ -125,7 +112,6 @@ export const villes: Ville[] = [
     population: 58000,
     priority: 'moyenne',
     transportInfo: 'Gare de Sarcelles-Saint-Brice (RER D)',
-    neighborhoods: ['Centre', 'Lochères', 'Les Chardonnerettes', 'Chantepie'],
   },
   {
     slug: 'enghien-les-bains',
@@ -133,8 +119,7 @@ export const villes: Ville[] = [
     distance: 10,
     population: 11600,
     priority: 'moyenne',
-    transportInfo: 'Gare d\'Enghien-les-Bains (Ligne H)',
-    neighborhoods: ['Centre-ville', 'Ormesson', 'Cygne d\'Enghien'],
+    transportInfo: "Gare d'Enghien-les-Bains (Ligne H)",
   },
   {
     slug: 'goussainville',
@@ -143,25 +128,5 @@ export const villes: Ville[] = [
     population: 31000,
     priority: 'basse',
     transportInfo: 'Gare de Goussainville (RER D) - 20 min',
-    neighborhoods: ['Centre', 'Les Grandes Bornes', 'Le Village'],
   },
 ];
-
-export function getVilleBySlug(slug: string): Ville | undefined {
-  return villes.find((v) => v.slug === slug);
-}
-
-export function getVillesByPriority(priority: 'haute' | 'moyenne' | 'basse'): Ville[] {
-  return villes.filter((v) => v.priority === priority);
-}
-
-export function getAllVillesSlugs(): string[] {
-  return villes.map((v) => v.slug);
-}
-
-export function getVillesForSitemap(): { slug: string; priority: number }[] {
-  return villes.map((v) => ({
-    slug: v.slug,
-    priority: v.priority === 'haute' ? 0.9 : v.priority === 'moyenne' ? 0.7 : 0.5,
-  }));
-}

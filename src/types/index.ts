@@ -9,12 +9,32 @@ export interface Formation {
   price: number;
   priceFrom?: boolean;
   duration?: string;
-  hours?: number;
   features: string[];
   popular?: boolean;
   new?: boolean;
   comingSoon?: boolean;
+  /** Formation finançable par le CPF une fois l'organisme certifié Qualiopi. */
   eligibleCPF?: boolean;
+  /** Libellé de prix remplaçant le montant (ex. « Sur devis »). */
+  priceLabel?: string;
+  /** Nombre de leçons de conduite incluses (50 min chacune). */
+  lessons?: number;
+
+  // Informations obligatoires Qualiopi (indicateur 1) et certification (indicateur 3)
+  objectifs: string[];
+  prerequis: string[];
+  public: string;
+  programme: string[];
+  methodes: string[];
+  evaluation: string[];
+  /** Durée détaillée et rythme. */
+  dureeDetail: string;
+  certification?: {
+    nom: string;
+    equivalences?: string[];
+    passerelles?: string[];
+    debouches?: string[];
+  };
 }
 
 // Ville types for SEO pages
@@ -25,97 +45,6 @@ export interface Ville {
   population: number;
   priority: 'haute' | 'moyenne' | 'basse';
   transportInfo?: string;
-  neighborhoods?: string[];
-}
-
-// Testimonial types
-export interface Testimonial {
-  id: string;
-  name: string;
-  initials?: string;
-  formation: string;
-  text: string;
-  rating: number;
-  date?: string;
-  city?: string;
-  avatar?: string;
-}
-
-// Pricing types
-export interface PricingItem {
-  id: string;
-  name: string;
-  category: string;
-  price: number;
-  description?: string;
-  includes?: string[];
-}
-
-export interface PricingCategory {
-  id: string;
-  name: string;
-  items: PricingItem[];
-}
-
-// FAQ types
-export interface FAQItem {
-  question: string;
-  answer: string;
-  category?: string;
-}
-
-// Team member types
-export interface TeamMember {
-  id: string;
-  name: string;
-  role: string;
-  bio: string;
-  image?: string;
-  certifications?: string[];
-  experience?: number;
-}
-
-// Vehicle types
-export interface Vehicle {
-  id: string;
-  brand: string;
-  model: string;
-  type: 'manual' | 'automatic';
-  year: number;
-  color?: string;
-  image?: string;
-}
-
-// Contact form types
-export interface ContactFormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  subject: string;
-  formation?: string;
-  message: string;
-  consent: boolean;
-}
-
-// Blog types
-export interface BlogPost {
-  slug: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  featuredImage?: string;
-  author: string;
-  publishedAt: string;
-  category: string;
-  tags?: string[];
-  readingTime: number;
-}
-
-export interface BlogCategory {
-  slug: string;
-  name: string;
-  description?: string;
 }
 
 // Navigation types
@@ -125,29 +54,4 @@ export interface NavItem {
   children?: NavItem[];
   description?: string;
   icon?: string;
-}
-
-// Stats types
-export interface Stat {
-  value: number;
-  suffix?: string;
-  label: string;
-  icon?: string;
-}
-
-// API Response types
-export interface ApiResponse<T> {
-  success: boolean;
-  data?: T;
-  error?: string;
-  message?: string;
-}
-
-// Metadata types
-export interface PageMeta {
-  title: string;
-  description: string;
-  keywords?: string[];
-  ogImage?: string;
-  canonical?: string;
 }

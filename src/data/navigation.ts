@@ -44,7 +44,7 @@ export const mainNavigation: NavItem[] = [
       {
         label: 'Stage Points',
         href: '/formations/stage-recuperation-points',
-        description: 'Récupérez 4 points — dès mai 2026',
+        description: "Récupérez jusqu'à 4 points — bientôt",
         icon: 'RotateCcw',
       },
     ],
@@ -59,20 +59,20 @@ export const mainNavigation: NavItem[] = [
     children: [
       {
         label: 'CPF',
-        href: '/financement/cpf',
-        description: 'Utilisez votre CPF',
+        href: '/financement#cpf',
+        description: 'Compte Personnel de Formation',
         icon: 'Wallet',
       },
       {
-        label: 'Pôle Emploi',
-        href: '/financement/pole-emploi',
-        description: 'Aides pour demandeurs d\'emploi',
+        label: 'France Travail',
+        href: '/financement#france-travail',
+        description: "Aides pour demandeurs d'emploi",
         icon: 'Briefcase',
       },
       {
-        label: 'Mission Locale',
-        href: '/financement/mission-locale',
-        description: 'Aides pour les 16-25 ans',
+        label: 'Aides jeunes',
+        href: '/financement#jeunes',
+        description: 'Mission Locale, permis à 1 € par jour',
         icon: 'Users',
       },
     ],
@@ -96,8 +96,14 @@ export const mainNavigation: NavItem[] = [
       {
         label: 'Nos résultats',
         href: '/resultats',
-        description: 'Taux de réussite',
+        description: 'Indicateurs de résultats',
         icon: 'TrendingUp',
+      },
+      {
+        label: 'Démarche qualité',
+        href: '/qualite',
+        description: 'Nos engagements Qualiopi',
+        icon: 'ShieldCheck',
       },
     ],
   },
@@ -125,8 +131,11 @@ export const footerNavigation = {
     { label: 'Tarifs', href: '/tarifs' },
     { label: 'FAQ', href: '/faq' },
     { label: 'Blog', href: '/blog' },
-    { label: 'Témoignages', href: '/temoignages' },
+    { label: 'Financement', href: '/financement' },
     { label: 'Nos résultats', href: '/resultats' },
+    { label: 'Démarche qualité', href: '/qualite' },
+    { label: 'Accessibilité handicap', href: '/accessibilite-handicap' },
+    { label: 'Réclamations', href: '/reclamations' },
   ],
   legal: [
     { label: 'Mentions légales', href: '/mentions-legales' },
@@ -135,28 +144,7 @@ export const footerNavigation = {
     { label: 'Règlement intérieur', href: '/reglement-interieur' },
   ],
   villes: [
-    { label: 'Domont', href: '/auto-ecole-domont' },
-    { label: 'Montmorency', href: '/auto-ecole-montmorency' },
-    { label: 'Eaubonne', href: '/auto-ecole-eaubonne' },
-    { label: 'Taverny', href: '/auto-ecole-taverny' },
-    { label: 'Toutes les villes', href: '/zones-desservies' },
+    { label: 'Auto-école à Domont', href: '/auto-ecole-domont' },
+    { label: 'Zones desservies', href: '/auto-ecole-domont#zones-desservies' },
   ],
 };
-
-export const socialLinks = [
-  {
-    name: 'Facebook',
-    href: 'https://facebook.com/formaroute',
-    icon: 'Facebook',
-  },
-  {
-    name: 'Instagram',
-    href: 'https://instagram.com/formaroute',
-    icon: 'Instagram',
-  },
-  {
-    name: 'Google',
-    href: 'https://g.page/formaroute',
-    icon: 'MapPin',
-  },
-];
