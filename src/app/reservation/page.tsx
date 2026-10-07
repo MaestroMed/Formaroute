@@ -6,16 +6,15 @@ import { buildMetadata } from '@/lib/seo';
 export const metadata = buildMetadata({
   title: 'Réserver votre évaluation de départ',
   description:
-    "Réservez par téléphone votre évaluation de départ à l'auto-école Formaroute à Domont : 50 minutes au volant avec un enseignant diplômé, 56 € (60 € en boîte automatique).",
+    "Réservez votre évaluation de départ à l'auto-école Formaroute de Domont : 56 € en boîte manuelle, 60 € en automatique. Habituellement proposée sous un jour.",
   path: '/reservation',
 });
 
 const benefits = [
-  'Évaluation de départ au volant avec un enseignant (56 € manuelle / 60 € BVA)',
-  "Estimation écrite du nombre d'heures nécessaires, remise avant tout contrat",
+  'Évaluation de départ avec un enseignant autorisé (56 € manuelle / 60 € automatique)',
+  'Proposition d’un volume prévisionnel de formation',
   'Présentation de nos forfaits et tarifs',
-  'Réponse à toutes vos questions',
-  'Visite de nos locaux',
+  'Réponse à vos questions',
 ];
 
 export default function ReservationPage() {
@@ -33,8 +32,8 @@ export default function ReservationPage() {
               Réservez votre évaluation de départ
             </h1>
             <p className="mt-4 text-lg text-white/90">
-              Appelez-nous pour prendre rendez-vous pour votre évaluation de départ avec un moniteur
-              diplômé. Notre équipe vous accueillera dans nos locaux de Domont.
+              Appelez-nous pour prendre rendez-vous pour votre évaluation de départ avec un
+              enseignant autorisé. Elle est habituellement proposée sous un jour après la demande.
             </p>
           </div>
         </div>
@@ -70,8 +69,10 @@ export default function ReservationPage() {
                   <div className="flex items-start gap-3">
                     <Clock className="mt-0.5 h-4 w-4 text-formaroute-blue-600" />
                     <div>
-                      <p className="font-medium">Durée de l'évaluation</p>
-                      <p className="text-slate-600">50 minutes</p>
+                      <p className="font-medium">Délai</p>
+                      <p className="text-slate-600">
+                        Habituellement proposée sous un jour après la demande
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
@@ -83,6 +84,7 @@ export default function ReservationPage() {
                           {h.days} : {h.hours}
                         </p>
                       ))}
+                      <p className="mt-1 text-sm text-slate-500">{site.hours.lessonsNote}</p>
                     </div>
                   </div>
                 </div>
@@ -119,21 +121,17 @@ export default function ReservationPage() {
 
                 {/* Horaires détaillés */}
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-xl border border-slate-200 p-4">
-                    <div className="mb-2 flex items-center gap-2">
-                      <Clock className="h-5 w-5 text-formaroute-blue-600" />
-                      <p className="font-semibold text-slate-900">Lundi au Vendredi</p>
-                    </div>
-                    <p className="text-slate-600">10h00 – 12h00</p>
-                    <p className="text-slate-600">15h00 – 20h00</p>
-                  </div>
-                  <div className="rounded-xl border border-slate-200 p-4">
-                    <div className="mb-2 flex items-center gap-2">
-                      <Clock className="h-5 w-5 text-formaroute-blue-600" />
-                      <p className="font-semibold text-slate-900">Samedi</p>
-                    </div>
-                    <p className="text-slate-600">10h00 – 13h00</p>
-                  </div>
+                  {site.hours.display
+                    .filter((h) => h.hours !== 'Fermé')
+                    .map((h) => (
+                      <div key={h.days} className="rounded-xl border border-slate-200 p-4">
+                        <div className="mb-2 flex items-center gap-2">
+                          <Clock className="h-5 w-5 text-formaroute-blue-600" />
+                          <p className="font-semibold text-slate-900">{h.days}</p>
+                        </div>
+                        <p className="text-slate-600">{h.hours}</p>
+                      </div>
+                    ))}
                 </div>
               </div>
             </div>
@@ -151,11 +149,11 @@ export default function ReservationPage() {
             {[
               {
                 q: "Combien coûte l'évaluation de départ ?",
-                a: "L'évaluation de départ est facturée 56€ en boîte manuelle et 60€ en boîte automatique (BVA). Elle est obligatoire avant la signature du contrat et permet d'estimer le volume d'heures de conduite dont vous aurez besoin.",
+                a: "L'évaluation de départ est facturée 56 € en boîte manuelle et 60 € en boîte automatique. Elle a lieu avant l'inscription et permet de proposer un volume prévisionnel de formation, adapté ensuite à votre progression.",
               },
               {
-                q: "Combien de temps dure l'évaluation ?",
-                a: "L'évaluation dure 50 minutes. Elle comprend un court entretien et une mise en situation au volant. Vous repartez avec une estimation écrite du nombre d'heures nécessaires.",
+                q: 'Dans quel délai puis-je être évalué ?',
+                a: "L'évaluation est habituellement proposée sous un jour après la demande. La première leçon est habituellement proposée sous trois jours après l'évaluation et la finalisation de l'inscription, selon vos disponibilités et dans le respect des délais légaux applicables.",
               },
               {
                 q: 'Que dois-je apporter ?',

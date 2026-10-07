@@ -4,14 +4,15 @@ import {
   ArrowRight,
   MapPin,
   Clock,
-  Wifi,
-  Coffee,
+  Presentation,
   Accessibility,
   Phone,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
 import { MapEmbed } from '@/components/sections/MapEmbed';
+import Image from 'next/image';
+import { photos } from '@/data/photos';
 import { site } from '@/data/site';
 import { buildMetadata } from '@/lib/seo';
 
@@ -24,25 +25,20 @@ export const metadata = buildMetadata({
 
 const amenities = [
   {
-    icon: Wifi,
-    title: 'Wi-Fi gratuit',
-    description: 'Connexion haut débit pour réviser le code en ligne directement sur place.',
-  },
-  {
-    icon: Coffee,
-    title: 'Espace détente',
-    description: 'Coin café et eau à disposition pour patienter avant ou après votre cours.',
+    icon: Presentation,
+    title: 'Salle de formation',
+    description: 'Une salle équipée d’un vidéoprojecteur pour les cours de code et les formations.',
   },
   {
     icon: Accessibility,
     title: 'Accessibilité',
     description:
-      "Vous avez des besoins spécifiques ? Contactez notre référent handicap avant votre venue : nous organisons l'accueil adapté.",
+      'Une demande d’adaptation ? Contactez notre référent handicap avant votre venue : nous étudions vos besoins.',
   },
   {
     icon: Clock,
     title: 'Horaires',
-    description: `Accueil : ${site.hours.short}.`,
+    description: `Accueil : ${site.hours.short}. ${site.hours.lessonsNote}`,
   },
 ];
 
@@ -73,6 +69,29 @@ export default function LocauxPage() {
         </div>
       </section>
 
+      {/* Galerie */}
+      <section className="section bg-white pb-0">
+        <div className="container-custom">
+          <h2 className="heading-md text-center text-slate-900">Nos locaux en images</h2>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[photos.facade, ...photos.salles].map((p) => (
+              <figure
+                key={p.src}
+                className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-slate-100"
+              >
+                <Image
+                  src={p.src}
+                  alt={p.alt}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover"
+                />
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Description */}
       <section className="section bg-white">
         <div className="container-custom">
@@ -88,9 +107,9 @@ export default function LocauxPage() {
                   voiture.
                 </p>
                 <p>
-                  L'agence se compose d'un espace d'accueil convivial, d'une salle dédiée à la
-                  formation au code de la route et d'un bureau pour les rendez-vous individuels avec
-                  votre moniteur.
+                  L&apos;établissement accueille l&apos;auto-école, le centre de stages de
+                  récupération de points et le futur centre de formation des moniteurs, avec une
+                  salle de formation équipée d&apos;un vidéoprojecteur.
                 </p>
                 <p>
                   Que vous veniez pour votre évaluation de départ, une session de code ou pour

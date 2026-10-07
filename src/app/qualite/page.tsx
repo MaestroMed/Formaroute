@@ -1,19 +1,20 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { LegalPage, LegalSection } from '@/components/legal/LegalPage';
+import { DocumentLinks } from '@/components/legal/DocumentLinks';
 import { site } from '@/data/site';
 import { buildMetadata } from '@/lib/seo';
 
 export const metadata = buildMetadata({
-  title: 'Notre démarche qualité',
+  title: 'Nos engagements',
   description:
-    "Les engagements qualité de l'auto-école Formaroute : information transparente, évaluation de départ, suivi de progression, satisfaction des élèves et démarche Qualiopi.",
+    "Les engagements de l'auto-école FORMAROUTE à Domont : information claire, évaluation de départ, suivi de progression, réclamations et accessibilité.",
   path: '/qualite',
 });
 
-const documents = [
-  { label: 'Nos formations (objectifs, prérequis, programme, évaluation)', href: '/formations' },
-  { label: 'Tarifs', href: '/tarifs' },
+const links = [
+  { label: 'Nos formations : objectifs, programme, méthodes, durées', href: '/formations' },
+  { label: 'Tarifs TTC', href: '/tarifs' },
   { label: 'Indicateurs de résultats', href: '/resultats' },
   { label: 'Conditions générales de vente', href: '/cgv' },
   { label: 'Règlement intérieur', href: '/reglement-interieur' },
@@ -22,56 +23,40 @@ const documents = [
 ];
 
 export default function QualitePage() {
-  const certified = site.quality.qualiopiCertified;
-
   return (
     <LegalPage
-      title="Notre démarche qualité"
-      intro={
-        certified
-          ? `${site.name} est certifié Qualiopi au titre des actions de formation.`
-          : `${site.name} prépare sa certification Qualiopi, le référentiel national qualité des organismes de formation. Voici nos engagements.`
-      }
+      title="Nos engagements"
+      intro="Ce site contribue à l'information du public sur nos formations. Voici nos engagements et l'ensemble des informations utiles avant votre inscription."
     >
-      {certified && site.quality.qualiopiCertificate && (
-        <LegalSection title="Certification">
-          <p>{site.quality.qualiopiCertificate}</p>
-        </LegalSection>
-      )}
-
       <LegalSection title="Nos engagements">
         <ul className="list-inside list-disc space-y-1">
           <li>
-            Une information complète et à jour sur chaque formation : objectifs, prérequis, durée,
-            tarifs, méthodes et modalités d&apos;évaluation.
+            Une information claire sur chaque formation : objectifs, programme, méthodes, durées,
+            tarifs.
           </li>
           <li>
-            Une évaluation de départ systématique et une estimation écrite du volume de formation
-            avant tout contrat.
+            Une évaluation de départ avant l&apos;inscription, pour proposer un volume prévisionnel
+            de formation.
           </li>
           <li>
-            Une progression suivie dans le livret d&apos;apprentissage, avec des bilans réguliers et
-            un examen blanc avant l&apos;examen.
+            Une progression suivie dans le livret d&apos;apprentissage et lors des bilans
+            pédagogiques.
           </li>
           <li>
-            Des enseignants titulaires de l&apos;autorisation d&apos;enseigner, qui actualisent
-            leurs compétences.
+            Des leçons individuelles avec un enseignant autorisé, sur véhicule à double commande.
           </li>
-          <li>Des véhicules entretenus et équipés de doubles commandes.</li>
+          <li>Un recueil de l&apos;avis des élèves et un traitement suivi des réclamations.</li>
+          <li>L&apos;étude de toute demande d&apos;adaptation avec notre référent handicap.</li>
           <li>
-            Un recueil de la satisfaction des élèves en fin de formation et un traitement suivi des
-            réclamations.
+            Des résultats publiés uniquement lorsqu&apos;ils sont réels, datés et accompagnés de
+            leurs effectifs.
           </li>
-          <li>
-            Des formations ouvertes aux personnes en situation de handicap, avec un référent dédié.
-          </li>
-          <li>Des résultats publiés avec leur période et le nombre de candidats.</li>
         </ul>
       </LegalSection>
 
-      <LegalSection title="Documents et informations">
+      <LegalSection title="Informations et documents">
         <ul className="space-y-2">
-          {documents.map((doc) => (
+          {links.map((doc) => (
             <li key={doc.href}>
               <Link
                 href={doc.href}
@@ -85,10 +70,11 @@ export default function QualitePage() {
         </ul>
       </LegalSection>
 
+      <DocumentLinks title="Téléchargements" docs={Object.values(site.documents)} />
+
       <LegalSection title="Votre avis compte">
         <p>
-          À la fin de votre formation, nous vous remettons un questionnaire de satisfaction. Vous
-          pouvez aussi nous laisser un avis sur{' '}
+          Vous pouvez nous laisser un avis sur{' '}
           <a
             href={site.social.googleReview}
             target="_blank"
@@ -97,7 +83,7 @@ export default function QualitePage() {
           >
             Google
           </a>{' '}
-          ou nous écrire à tout moment.
+          ou nous écrire à tout moment à {site.contact.email}.
         </p>
       </LegalSection>
     </LegalPage>

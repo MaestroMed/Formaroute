@@ -124,7 +124,8 @@ const jsonLd = {
   priceRange: '€€',
   currenciesAccepted: 'EUR',
   areaServed: villes.map((v) => ({ '@type': 'City', name: v.name })),
-  sameAs: [site.social.facebook, site.social.instagram, site.social.googleBusiness],
+  legalName: site.legal.companyName,
+  sameAs: [site.social.googleBusiness, site.social.facebook, site.social.instagram].filter(Boolean),
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

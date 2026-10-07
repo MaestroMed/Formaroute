@@ -1,5 +1,5 @@
-import { LegalPage, LegalSection, Field } from '@/components/legal/LegalPage';
-import { site, todo } from '@/data/site';
+import { LegalPage, LegalSection } from '@/components/legal/LegalPage';
+import { site } from '@/data/site';
 import { buildMetadata } from '@/lib/seo';
 
 export const metadata = buildMetadata({
@@ -17,8 +17,8 @@ export default function PolitiqueConfidentialitePage() {
     >
       <LegalSection title="1. Responsable du traitement">
         <p>
-          <strong>{site.legal.companyName ?? site.name}</strong> — SIRET{' '}
-          <Field value={todo(site.legal.siret)} />
+          <strong>{site.legal.companyName}</strong> (enseigne {site.brand}) — SIRET{' '}
+          {site.legal.siret}
           <br />
           {site.address.full}
           <br />

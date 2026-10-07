@@ -6,15 +6,13 @@ import { site, hasResults } from '@/data/site';
  * Bloc « résultats & engagements » de la page d'accueil.
  *
  * Aucun chiffre n'est affiché tant que les indicateurs officiels ne sont pas
- * renseignés dans `src/data/site.ts` (obligation de sincérité, Qualiopi
- * indicateur 2).
+ * renseignés dans `src/data/site.ts` (chiffres réels, datés, avec effectifs).
  */
 const engagements = [
   {
     icon: ClipboardCheck,
     title: 'Évaluation de départ',
-    description:
-      "Systématique avant tout contrat, avec une estimation écrite du nombre d'heures nécessaires.",
+    description: "Avant l'inscription, pour proposer un volume prévisionnel de formation adapté.",
   },
   {
     icon: Receipt,
@@ -25,7 +23,7 @@ const engagements = [
     icon: LineChart,
     title: 'Suivi de progression',
     description:
-      "Livret d'apprentissage, bilans réguliers et examen blanc avant la présentation au permis.",
+      "Progression suivie dans le livret d'apprentissage et évaluée lors des bilans pédagogiques.",
   },
 ];
 

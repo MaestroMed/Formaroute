@@ -33,8 +33,11 @@ const contactInfo = [
   },
   {
     icon: Clock,
-    title: 'Horaires',
-    content: site.hours.display.map((h) => `${h.days} : ${h.hours}`).join('\n'),
+    title: 'Horaires d’accueil',
+    content: [
+      ...site.hours.display.map((h) => `${h.days} : ${h.hours}`),
+      site.hours.lessonsNote,
+    ].join('\n'),
   },
 ];
 

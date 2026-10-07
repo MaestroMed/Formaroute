@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { formations, formatFormationPrice } from '@/data/formations';
-import { site, lessonsToHours } from '@/data/site';
 import { buildMetadata } from '@/lib/seo';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -57,7 +56,7 @@ export default function FormationsPage() {
                     {isPopular && <span className="badge-primary">Populaire</span>}
                     {isNew && <span className="badge-secondary">Nouveau</span>}
                     {isComingSoon && (
-                      <span className="badge bg-slate-100 text-slate-600">Bientôt</span>
+                      <span className="badge bg-slate-100 text-slate-600">Prochainement</span>
                     )}
                   </div>
 
@@ -93,24 +92,16 @@ export default function FormationsPage() {
                       </p>
                       {formation.lessons && (
                         <p className="text-sm text-slate-500">
-                          {formation.lessons} leçons de 50 min (soit{' '}
-                          {lessonsToHours(formation.lessons)})
+                          {formation.lessons} heures de conduite (leçons de 60 min)
                         </p>
                       )}
                     </div>
-
-                    {/* CPF Badge */}
-                    {formation.eligibleCPF && site.quality.qualiopiCertified && (
-                      <div className="mb-4 rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700">
-                        Éligible CPF
-                      </div>
-                    )}
 
                     {/* CTA */}
                     {isComingSoon ? (
                       <Button asChild className="w-full" variant="secondary">
                         <Link href={`/formations/${formation.slug}`}>
-                          Bientôt disponible — en savoir plus
+                          Prochainement — en savoir plus
                         </Link>
                       </Button>
                     ) : (

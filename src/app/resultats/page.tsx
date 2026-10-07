@@ -20,7 +20,7 @@ const method = [
   },
   {
     icon: Users,
-    title: 'Enseignants diplômés',
+    title: 'Enseignants autorisés',
     description: "Des enseignants titulaires de l'autorisation d'enseigner la conduite.",
   },
   {
@@ -30,8 +30,8 @@ const method = [
   },
   {
     icon: ClipboardCheck,
-    title: "Préparation à l'examen",
-    description: 'Examen blanc avant chaque présentation, en conditions réelles.',
+    title: 'Bilans pédagogiques',
+    description: 'Une progression évaluée lors des leçons et des bilans pédagogiques.',
   },
 ];
 
@@ -57,8 +57,8 @@ export default function ResultatsPage() {
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="font-heading text-4xl font-bold md:text-5xl">Nos résultats</h1>
             <p className="mt-4 text-lg text-white/90">
-              Nous publions nos indicateurs avec leur période et le nombre de candidats concernés,
-              pour une information claire et vérifiable.
+              Nous publions nos indicateurs avec leur période, le nombre de candidats et la méthode
+              de calcul concernés, pour une information claire et vérifiable.
             </p>
           </div>
         </div>
@@ -96,7 +96,7 @@ export default function ResultatsPage() {
                       Candidats
                     </th>
                     <th scope="col" className="px-4 py-3 font-semibold text-slate-700">
-                      Période
+                      Période et méthode
                     </th>
                   </tr>
                 </thead>
@@ -112,7 +112,12 @@ export default function ResultatsPage() {
                       <td className="px-4 py-3 text-right text-slate-600">
                         {indicator.candidates ?? '—'}
                       </td>
-                      <td className="px-4 py-3 text-slate-600">{indicator.period ?? 'En cours'}</td>
+                      <td className="px-4 py-3 text-slate-600">
+                        {indicator.period ?? 'En cours'}
+                        {indicator.method && (
+                          <span className="block text-xs text-slate-500">{indicator.method}</span>
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

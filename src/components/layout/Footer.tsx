@@ -74,31 +74,40 @@ export function Footer() {
                         {h.days} : {h.hours}
                       </span>
                     ))}
+                  <span className="mt-1 block text-sm text-slate-400">
+                    {site.hours.lessonsNote}
+                  </span>
                 </span>
               </div>
             </div>
 
-            {/* Social Links */}
-            <div className="mt-6 flex gap-4">
-              <a
-                href={site.social.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-800 transition-colors hover:bg-formaroute-blue-600"
-                aria-label="Formaroute sur Facebook"
-              >
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a
-                href={site.social.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-800 transition-colors hover:bg-formaroute-red-600"
-                aria-label="Formaroute sur Instagram"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-            </div>
+            {/* Réseaux sociaux (affichés seulement s'ils sont confirmés) */}
+            {(site.social.facebook || site.social.instagram) && (
+              <div className="mt-6 flex gap-4">
+                {site.social.facebook && (
+                  <a
+                    href={site.social.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-800 transition-colors hover:bg-formaroute-blue-600"
+                    aria-label="Formaroute sur Facebook"
+                  >
+                    <Facebook className="h-5 w-5" />
+                  </a>
+                )}
+                {site.social.instagram && (
+                  <a
+                    href={site.social.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-800 transition-colors hover:bg-formaroute-red-600"
+                    aria-label="Formaroute sur Instagram"
+                  >
+                    <Instagram className="h-5 w-5" />
+                  </a>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Formations */}
@@ -149,7 +158,7 @@ export function Footer() {
       <div className="border-t border-slate-800">
         <div className="container-custom flex flex-col items-center justify-between gap-4 py-6 md:flex-row">
           <p className="text-sm text-slate-400">
-            © {currentYear} Formaroute. Tous droits réservés.
+            © {currentYear} {site.legal.companyName} — enseigne {site.brand}. Tous droits réservés.
           </p>
           <nav
             aria-label="Informations légales"

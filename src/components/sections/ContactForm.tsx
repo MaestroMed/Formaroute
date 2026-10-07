@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -31,6 +31,8 @@ const subjects = [
   { value: 'info', label: "Demande d'informations" },
   { value: 'inscription', label: 'Inscription' },
   { value: 'devis', label: 'Demande de devis' },
+  { value: 'stage', label: 'Stage de récupération de points' },
+  { value: 'ecsr', label: 'Formation moniteur TP ECSR' },
   { value: 'reclamation', label: 'Réclamation' },
   { value: 'autre', label: 'Autre' },
 ];
@@ -44,9 +46,16 @@ export function ContactForm() {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
+    setValue,
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
+
+  // Présélection du sujet depuis l'URL (ex. /contact?sujet=stage).
+  useEffect(() => {
+    const sujet = new URLSearchParams(window.location.search).get('sujet');
+    if (sujet && subjects.some((s) => s.value === sujet)) setValue('subject', sujet);
+  }, [setValue]);
 
   const onSubmit = async (data: ContactFormData) => {
     setSubmitError(null);

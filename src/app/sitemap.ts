@@ -37,7 +37,7 @@ const pages: Entry[] = [
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const formationPages: Entry[] = formations
-    .filter((f) => !f.comingSoon)
+    .filter((f) => f.id !== 'passerelle') // passerelle : pas encore proposée
     .map((f) => ({ path: `/formations/${f.slug}`, priority: 0.8, changeFrequency: 'monthly' }));
 
   const staticEntries = [...pages, ...formationPages].map((p) => ({
