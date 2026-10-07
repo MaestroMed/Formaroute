@@ -4,10 +4,12 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Send, Loader2, CheckCircle2 } from 'lucide-react';
+import Link from 'next/link';
+import { Send, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { formations } from '@/data/formations';
+import { site } from '@/data/site';
 
 const contactSchema = z.object({
   firstName: z.string().min(2, 'Le prénom doit contenir au moins 2 caractères'),
@@ -20,12 +22,13 @@ const contactSchema = z.object({
   consent: z.boolean().refine((val) => val === true, {
     message: 'Vous devez accepter la politique de confidentialité',
   }),
+  website: z.string().optional(),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
 
 const subjects = [
-  { value: 'info', label: 'Demande d\'informations' },
+  { value: 'info', label: "Demande d'informations" },
   { value: 'inscription', label: 'Inscription' },
   { value: 'devis', label: 'Demande de devis' },
   { value: 'reclamation', label: 'Réclamation' },
@@ -34,6 +37,7 @@ const subjects = [
 
 export function ContactForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const {
     register,
@@ -45,35 +49,47 @@ export function ContactForm() {
   });
 
   const onSubmit = async (data: ContactFormData) => {
+    setSubmitError(null);
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error('Erreur serveur');
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        throw new Error(body?.error || 'Erreur serveur');
+      }
       setIsSubmitted(true);
       reset();
     } catch (error) {
-      console.error('Error submitting form:', error);
+      setSubmitError(
+        error instanceof Error && error.message !== 'Erreur serveur'
+          ? error.message
+          : "Votre message n'a pas pu être envoyé."
+      );
     }
   };
 
+  const fieldProps = (name: keyof ContactFormData) => ({
+    'aria-invalid': errors[name] ? true : undefined,
+    'aria-describedby': errors[name] ? `${name}-error` : undefined,
+  });
+
   if (isSubmitted) {
     return (
-      <div className="flex flex-col items-center justify-center py-12 text-center">
-        <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+      <div role="status" className="flex flex-col items-center justify-center py-12 text-center">
+        <div
+          className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100"
+          aria-hidden="true"
+        >
           <CheckCircle2 className="h-8 w-8 text-green-600" />
         </div>
         <h3 className="text-xl font-semibold text-slate-900">Message envoyé !</h3>
         <p className="mt-2 text-slate-600">
           Nous avons bien reçu votre message et vous répondrons dans les plus brefs délais.
         </p>
-        <Button
-          onClick={() => setIsSubmitted(false)}
-          variant="outline"
-          className="mt-6"
-        >
+        <Button onClick={() => setIsSubmitted(false)} variant="outline" className="mt-6">
           Envoyer un autre message
         </Button>
       </div>
@@ -81,7 +97,13 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
+      {/* Champ piège anti-robots, invisible pour les visiteurs */}
+      <div className="hidden" aria-hidden="true">
+        <label htmlFor="website">Ne pas remplir ce champ</label>
+        <input {...register('website')} type="text" id="website" tabIndex={-1} autoComplete="off" />
+      </div>
+
       {/* Name Fields */}
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
@@ -90,6 +112,7 @@ export function ContactForm() {
           </label>
           <input
             {...register('firstName')}
+            {...fieldProps('firstName')}
             type="text"
             id="firstName"
             className={cn(
@@ -100,7 +123,9 @@ export function ContactForm() {
             placeholder="Jean"
           />
           {errors.firstName && (
-            <p className="mt-1 text-sm text-red-500">{errors.firstName.message}</p>
+            <p id="firstName-error" className="mt-1 text-sm text-red-600">
+              {errors.firstName.message}
+            </p>
           )}
         </div>
         <div>
@@ -109,6 +134,7 @@ export function ContactForm() {
           </label>
           <input
             {...register('lastName')}
+            {...fieldProps('lastName')}
             type="text"
             id="lastName"
             className={cn(
@@ -119,7 +145,9 @@ export function ContactForm() {
             placeholder="Dupont"
           />
           {errors.lastName && (
-            <p className="mt-1 text-sm text-red-500">{errors.lastName.message}</p>
+            <p id="lastName-error" className="mt-1 text-sm text-red-600">
+              {errors.lastName.message}
+            </p>
           )}
         </div>
       </div>
@@ -132,6 +160,7 @@ export function ContactForm() {
           </label>
           <input
             {...register('email')}
+            {...fieldProps('email')}
             type="email"
             id="email"
             className={cn(
@@ -142,7 +171,9 @@ export function ContactForm() {
             placeholder="jean.dupont@email.com"
           />
           {errors.email && (
-            <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
+            <p id="email-error" className="mt-1 text-sm text-red-600">
+              {errors.email.message}
+            </p>
           )}
         </div>
         <div>
@@ -151,6 +182,7 @@ export function ContactForm() {
           </label>
           <input
             {...register('phone')}
+            {...fieldProps('phone')}
             type="tel"
             id="phone"
             className={cn(
@@ -158,10 +190,12 @@ export function ContactForm() {
               'focus:border-formaroute-blue-500 focus:ring-4 focus:ring-formaroute-blue-500/10',
               errors.phone ? 'border-red-500' : 'border-slate-300'
             )}
-            placeholder="06 XX XX XX XX"
+            placeholder="06 12 34 56 78"
           />
           {errors.phone && (
-            <p className="mt-1 text-sm text-red-500">{errors.phone.message}</p>
+            <p id="phone-error" className="mt-1 text-sm text-red-600">
+              {errors.phone.message}
+            </p>
           )}
         </div>
       </div>
@@ -174,6 +208,7 @@ export function ContactForm() {
           </label>
           <select
             {...register('subject')}
+            {...fieldProps('subject')}
             id="subject"
             className={cn(
               'w-full rounded-xl border px-4 py-3 transition-all',
@@ -189,7 +224,9 @@ export function ContactForm() {
             ))}
           </select>
           {errors.subject && (
-            <p className="mt-1 text-sm text-red-500">{errors.subject.message}</p>
+            <p id="subject-error" className="mt-1 text-sm text-red-600">
+              {errors.subject.message}
+            </p>
           )}
         </div>
         <div>
@@ -220,6 +257,7 @@ export function ContactForm() {
         </label>
         <textarea
           {...register('message')}
+          {...fieldProps('message')}
           id="message"
           rows={5}
           className={cn(
@@ -230,7 +268,9 @@ export function ContactForm() {
           placeholder="Votre message..."
         />
         {errors.message && (
-          <p className="mt-1 text-sm text-red-500">{errors.message.message}</p>
+          <p id="message-error" className="mt-1 text-sm text-red-600">
+            {errors.message.message}
+          </p>
         )}
       </div>
 
@@ -239,22 +279,47 @@ export function ContactForm() {
         <label className="flex items-start gap-3">
           <input
             {...register('consent')}
+            {...fieldProps('consent')}
             type="checkbox"
             className="mt-1 h-4 w-4 rounded border-slate-300 text-formaroute-blue-600 focus:ring-formaroute-blue-500"
           />
           <span className="text-sm text-slate-600">
-            J'accepte que mes données soient utilisées pour traiter ma demande conformément à
-            la{' '}
-            <a href="/politique-confidentialite" className="text-formaroute-blue-600 hover:underline">
+            J'accepte que mes données soient utilisées pour traiter ma demande conformément à la{' '}
+            <Link
+              href="/politique-confidentialite"
+              className="text-formaroute-blue-600 hover:underline"
+            >
               politique de confidentialité
-            </a>
+            </Link>
             . *
           </span>
         </label>
         {errors.consent && (
-          <p className="mt-1 text-sm text-red-500">{errors.consent.message}</p>
+          <p id="consent-error" className="mt-1 text-sm text-red-600">
+            {errors.consent.message}
+          </p>
         )}
       </div>
+
+      {submitError && (
+        <div
+          role="alert"
+          className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800"
+        >
+          <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
+          <p>
+            {submitError} Vous pouvez aussi nous appeler au{' '}
+            <a href={site.contact.phoneHref} className="font-semibold underline">
+              {site.contact.phoneDisplay}
+            </a>{' '}
+            ou écrire à{' '}
+            <a href={`mailto:${site.contact.email}`} className="font-semibold underline">
+              {site.contact.email}
+            </a>
+            .
+          </p>
+        </div>
+      )}
 
       {/* Submit */}
       <Button type="submit" size="lg" disabled={isSubmitting} className="w-full sm:w-auto">
